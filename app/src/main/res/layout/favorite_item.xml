@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="170dp"
+    android:layout_marginBottom="8dp"
+    android:paddingRight="8dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_favorite"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="16dp"
+        app:cardCornerRadius="10dp">
+
+        <ImageView
+            android:id="@+id/img_movie_favorite"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@tools:sample/avatars" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/txt_movie_title_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/cardView_favorite"
+        android:text="@string/movie_title"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_release_date_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_movie_title_favorite"
+        android:layout_marginVertical="4dp"
+        android:layout_toEndOf="@+id/cardView_favorite"
+        android:singleLine="true"
+        android:text="@string/release_date"
+        android:textColor="@color/colorGray"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/txt_movie_description_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_release_date_favorite"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@+id/cardView_favorite"
+        android:maxLines="3"
+        android:text="@string/movie_description"
+        android:textColor="@color/colorGray"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/bnt_favorite"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/cardView_favorite"
+        android:text="@string/delete_favorite"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
