@@ -8,8 +8,14 @@
     <string name="movie_note">Nota</string>
     <string name="movie_genre">Gêneros</string>
     <string name="none_movie_saved">Nenhum filme Salvo</string>
+    <string name="movie_saved">Salvo com Sucesso</string>
+    <string name="failed_save">Falha ao salvar</string>
+    <string name="failed_delete">Falha ao deletar</string>
+    <string name="movie_delete">Removido</string>
+    <string name="error_conection">Sem conexão</string>
+    <string name="KEY_PREFERENCES">com.example.filmes</string>
+    <string name="search_name">Pesquisar pelo nome</string>
 
-    <!--    Keys-->
     <string name="KEY_MOVIE">key_movie</string>
-    <string name="error_conection">Erro de conexão com a rede</string>
+
 </resources>

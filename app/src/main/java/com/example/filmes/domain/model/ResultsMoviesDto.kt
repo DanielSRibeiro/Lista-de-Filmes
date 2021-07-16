@@ -8,8 +8,8 @@ data class ResultsMoviesDto(
     var movieList: ArrayList<MovieDto>,
 
     @SerializedName("total_pages")
-    var totalPages: Integer,
+    var totalPages: Int,
 
     @SerializedName("total_results")
-    var totalResults: Integer
+    var totalResults: Int
 )

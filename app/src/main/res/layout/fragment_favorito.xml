@@ -5,7 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".presentation.view.FavoritoFragment">
+    tools:context=".presentation.view.favorite.FavoritoFragment">
+
+    <EditText
+        android:id="@+id/edt_search_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/primaryColor"
+        android:elevation="10dp"
+        android:hint="@string/search_name"
+        android:inputType="textPersonName"
+        android:paddingLeft="16dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/colorGray" />
 
     <TextView
         android:id="@+id/txt_none_favorite"
@@ -23,7 +35,8 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh_favorite"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/edt_search_favorite">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_favorite"

@@ -1,81 +1,91 @@
 package com.example.filmes.presentation.view
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.filmes.R
-import com.example.filmes.data.api.RetrofitTask
+import com.example.filmes.utilis.BASE_IMAGEM
 import com.example.filmes.domain.model.MovieDto
-import com.example.filmes.presentation.viewModel.SharedPreferencesViewModel
-import com.example.filmes.utils.SharedPreferecesConfig
+import com.example.filmes.presentation.view.main.MainActivity
+import com.example.filmes.presentation.viewmodel.remote.CategoriesViewModel
+import com.example.filmes.presentation.viewmodel.local.DeleteViewModel
+import com.example.filmes.presentation.viewmodel.local.InsertViewModel
+import com.example.filmes.presentation.viewmodel.local.VerificarViewModel
 import kotlinx.android.synthetic.main.activity_detalhes.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 
 
 class DetalhesActivity : AppCompatActivity() {
 
-    var listFilmesSalvo = ArrayList<MovieDto>()
+    private val insertViewModel:InsertViewModel by viewModel()
+    private val verificarMovieViewModel:VerificarViewModel by viewModel()
+    private val deleteMovieViewModel:DeleteViewModel by viewModel()
+    private val categoriesViewModel: CategoriesViewModel by viewModel()
     lateinit var movie: MovieDto
-    lateinit var preferencesViewModel:SharedPreferencesViewModel
+    var paraDeleta = false
+    var realeseDate = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhes)
 
-        var preferencesConfig = SharedPreferecesConfig(sharedInstance())
-        preferencesViewModel = ViewModelProvider(
-            this,
-            SharedPreferencesViewModel.ViewModelFactory(preferencesConfig)
-        ).get(SharedPreferencesViewModel::class.java)
-
-
         initView()
-        initObserver()
-        floating_save_details.setOnClickListener {
-            preferencesViewModel.inserirListFavorito(movie, listFilmesSalvo)
-            preferencesViewModel.verificarFavorito(movie, listFilmesSalvo)
-        }
     }
 
     private fun initView() {
-        movie = intent.getParcelableExtra(R.string.KEY_MOVIE.toString())!!
+        setupActionBar()
+        setupMovie()
+        setupFavorito()
+        setupCategories()
+        floating_save_details.setOnClickListener {
+            verificarMovieViewModel.verificar(movie.id)
+            if(paraDeleta) deleteMovieViewModel.deleteMovie(movie.id)
+            else insertViewModel.insertMovie(movie, realeseDate)
+
+            verificarMovieViewModel.verificar(movie.id)
+        }
+    }
+
+    private fun setupActionBar() {
         setSupportActionBar(toolbar_details)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
 
-        Glide.with(this).load(RetrofitTask.BASE_IMAGEM + movie.backdropPath).into(img_movie_details)
+    private fun setupMovie() {
+        movie = intent.getParcelableExtra(R.string.KEY_MOVIE.toString())!!
+        verificarMovieViewModel.verificar(movie.id)
+        var dataString = intent.getStringExtra("data_string")
+        Glide.with(this).load(BASE_IMAGEM + movie.backdropPath+"").into(img_movie_details)
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy")
+        realeseDate = dateFormat.format(movie.dataLancamento)
+        txt_movie_note_details.text = "${movie.notaMedia}/10 \nAvaliação"
         txt_movie_title_details.text = movie.tituloFilme
         txt_movie_description_details.text = movie.sinopse
-        val formatoData = SimpleDateFormat("dd/MM/yyyy")
-        val dataLancamento = formatoData.format(movie.dataLancamento)
-        txt_movie_date_details.text = "Lançamento: $dataLancamento"
-        txt_movie_note_details.text = "${movie.notaMedia}/10 \nAvaliação"
 
-        preferencesViewModel.getListaSalva()
+        //estava com dificuldade de transformar a data em Date, porque o atributo estava vindo do SQLite em extenso
+        //em tão fiz dessa forma para conseguir
+        if (dataString == null) txt_movie_date_details.text = "Lançamento: $realeseDate"
+        else txt_movie_date_details.text = dataString
     }
 
-    private fun initObserver() {
-        preferencesViewModel.liveAllFilmesSalvos.observe(this, Observer { listSalvos ->
-            listFilmesSalvo = listSalvos
-            preferencesViewModel.verificarFavorito(movie, listFilmesSalvo)
-        })
+    private fun setupFavorito() {
+        verificarMovieViewModel.verificado.observe(this) {foiSalvo ->
+            var imagemInt = if(foiSalvo) R.drawable.favorito
+            else R.drawable.nao_favorito
 
-        preferencesViewModel.liveVerificarFavorito.observe(this, Observer { foiSalvo ->
-            var imagemInt = if(foiSalvo){
-                R.drawable.favorito
-            }else{
-                R.drawable.nao_favorito
-            }
-            floating_save_details.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), imagemInt));
-        })
+            this.paraDeleta = foiSalvo
+            floating_save_details.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), imagemInt))
+        }
     }
 
-    private fun sharedInstance() : SharedPreferences{
-        return getSharedPreferences("com.example.filmes", MODE_PRIVATE)
+    private fun setupCategories(){
+        categoriesViewModel.getCategories(movie)
+        categoriesViewModel.categories.observe(this) { genres ->
+            txt_movie_genre_details.text = genres
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

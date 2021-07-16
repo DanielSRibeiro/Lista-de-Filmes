@@ -4,20 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.view.MainActivity">
+    tools:context=".presentation.view.main.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_main"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/primaryColor"
-            android:elevation="10dp"
-            app:title="@string/app_name"
-            app:titleTextColor="@color/white" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
@@ -27,7 +18,7 @@
             app:tabIndicatorColor="@color/teal_700"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/teal_700"
-            app:tabTextColor="@color/colorGray" />
+            app:tabTextColor="@color/colorGray"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager2.widget.ViewPager2
