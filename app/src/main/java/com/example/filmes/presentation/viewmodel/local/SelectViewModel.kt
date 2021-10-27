@@ -16,7 +16,6 @@ class SelectViewModel(
 ) : ViewModel() {
 
     private val mListaSalva = MutableLiveData<List<MovieEntity>>()
-
     val listaSalva:LiveData<List<MovieEntity>>
         get() = mListaSalva
 

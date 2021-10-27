@@ -1,69 +1,33 @@
-# Desafio [Android]
-Seja bem-vindo! Este é o seu primeiro passo para fazer parte do time de desenvolvimento do maior banco de investimentos da América Latina.
+# Movies (Em Andamento)  :movie_camera:
 
-#### LEIA AS INSTRUÇÕES POR COMPLETO ANTES DE COMEÇAR
+Aplicativo que trás os filmes que estão atualmente populares, podendo pesquisar os filmes na barra de pesquisa e salvar eles no banco de dados local.
 
-O Desafio consiste no desenvolvimento de um app bem simples que consome a [API](https://developers.themoviedb.org/3/getting-started/introduction) do [TheMovieDB](https://www.themoviedb.org/?language=en).
+## Tecnologias :rocket:
 
-Você não precisa se preocupar tanto com o design. Esse não é o objetivo do desafio. Tenha em mente que seu código e app serão avaliados em todos os aspectos, então cada detalhe conta. Faça disso uma oportunidade pra mostrar todo o seu conhecimento.
+- [x] Kotlin
+- [x] MVVM e Clean Architecture
+- [x] Frameworks: Coroutines, Retrofit e Koin
+- [x] Jetpack: Data Binding, Lifecycler, LiveData, Navigation, Pagin, Room, ViewModel
+- [x] Testes unitários com mockk
 
-Atente-se aos seguintes pontos:
-* Prefere-se a utilização de ferramentas/libs nativas;
-* Prefere-se que código seja desenvolvido em Kotlin;
-* Prefere-se que a interface seja feita utilizando o Material Design;
+### Screenshot
 
-## Features
-### Obrigatórias:
-* TabLayout com dois itens: Filmes e Favoritos (sendo a principal a tab de Filmes);
-* A tela de Filmes deverá conter:
-	* Uma lista dos [filmes populares](https://developers.themoviedb.org/3/movies/get-popular-movies) da API;
-	* Cada elemento da lista deve conter o poster, o nome e o ano em que o filme foi produzido;
-	* Ao clicar em um item, deve ser apresentada a tela de detalhes (tela descrita abaixo);
-	* Search bar para pesquisar os filmes por nome;
-* A tela de favoritos deverá conter:
-	* A lista de favoritos persistidos no app entre sessões;
-	* Search bar para pesquisar os filmes por nome e ano;
-	* Ao clicar em um item, deve ser apresentada a tela de detalhes (tela descrita abaixo);
-* A tela de detalhes deve apresentar os seguintes dados do filme: *(não necessariamente nessa ordem)*
-	* Poster;
-	* Botão para favoritar/desfavoritar;
-	* Título;
-	* Sinopse;
-	* Nota do filme;
-	* E os gêneros por extenso.
-* É necessário fazer tratamento de erros e dos fluxos de exceção, como: busca vazia, loading e outros erros que possam ocorrer.
+- ## Tela inicial
 
-### **Serão observados** ##
+  <img src="imagens\Tela inical.png" width="300"/>
 
-* Padrão arquitetural (Sugestão: MVVM)
-* Modularização
-* Material Design
-* Framework para comunicação com API e chamadas assíncronas
-* Testes
-* Libraries do Jetpack
-* Guidelines desenvolvimento Android
-* Injeção de dependências
+- ## Pesquisar Filme
 
-### **Sugestões** ###
+  <img src="imagens\Search.png" width="300"/>
 
-* Retrofit | Volley 
-* Picasso | Universal Image Loader | Glide
-* Espresso | Robotium | Robolectric | Junit
-* RXJava | Coroutines
-* Live Data
-* Conceitos Clean Code
-* Jetpack
-* Utilizar GITFLOW
-* Desenvolver o App seguindo a Clean Architecture;
-* Desenvolver testes unitários e/ou funcionais;
-* Botão de favoritar/desfavoritar nos itens das listas;
-* Pull-to-refresh nas listas;
-* Paginação na tela principal;
-* Opções de filtro e ordenação nas listas;
-* Pipeline automatizado.
-ref: `https://developer.android.com/topic/libraries/architecture`
+- ## Tela de Detalhes
 
-## Processo de submissão
-Para submeter o seu desafio, faça um fork deste projeto, desenvolva o desafio **no seu fork** abrindo um pull request até a data limite estabelecida.
+  <img src="imagens\Tela de Detalhes.png" width="300"/>
 
-### Boa Sorte.
+- ## Favoritar Filme
+
+  <img src="imagens\Favoritar.png" width="300"/>
+
+- ## Tela dos Filmes Salvos
+
+<img src="imagens\Favoritos.png" width="300"/>
