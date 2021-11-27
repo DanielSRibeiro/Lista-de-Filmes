@@ -8,20 +8,14 @@ import com.example.filmes.presentation.view.favorite.FavoritoFragment
 import com.example.filmes.presentation.view.popular.PopularFragment
 
 class ViewPageAdapter(
+    var fragmentList: ArrayList<Fragment>,
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle
 ) : FragmentStateAdapter(fragmentManager, lifecycle) {
 
-    override fun getItemCount(): Int = 2
+    override fun getItemCount(): Int = fragmentList.size
 
     override fun createFragment(position: Int): Fragment {
-        return when(position){
-            0 -> {
-                 PopularFragment()
-            }
-            else ->{
-                FavoritoFragment()
-            }
-        }
+        return fragmentList[position]
     }
 }
