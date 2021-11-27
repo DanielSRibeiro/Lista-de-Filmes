@@ -30,4 +30,4 @@ Aplicativo que trás os filmes que estão atualmente populares, podendo pesquisa
 
 - ## Tela dos Filmes Salvos
 
-<img src="imagens\Favoritos.png" width="300"/>
+  <img src="imagens\Favoritos.png" width="300"/>
