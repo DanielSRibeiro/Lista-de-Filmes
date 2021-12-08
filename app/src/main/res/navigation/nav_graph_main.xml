@@ -9,5 +9,14 @@
         android:id="@+id/viewPageFragment"
         android:name="com.example.filmes.ViewPageFragment"
         android:label="fragment_view_page"
-        tools:layout="@layout/fragment_view_page" />
+        tools:layout="@layout/fragment_view_page" >
+        <action
+            android:id="@+id/action_viewPageFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.filmes.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
 </navigation>
