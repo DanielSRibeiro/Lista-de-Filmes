@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/daniel/Documents/Lista-de-Filmes/app/src/main/res/layout/activity_main.xml" value="0.10740740740740741" />
+        <entry key="..\:/Users/daniel/Documents/Lista-de-Filmes/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/daniel/Documents/Lista-de-Filmes/app/src/main/res/layout/fragment_favorito.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/daniel/Documents/Lista-de-Filmes/app/src/main/res/layout/fragment_view_page.xml" value="0.36614583333333334" />
       </map>
     </option>
   </component>
