@@ -27,7 +27,7 @@
                 android:layout_marginBottom="-30dp"
                 android:backgroundTint="@color/lightColor"
                 android:foregroundTint="@color/lightColor"
-                android:src="@drawable/nao_favorito"
+                android:src="@drawable/selector_saved_movie"
                 app:backgroundTint="?attr/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent" />
 

@@ -75,11 +75,8 @@ class DetailsFragment : Fragment() {
 
     private fun setupFavorito() {
         verificarMovieViewModel.verificado.observe(requireActivity()) {foiSalvo ->
-            var imagemInt = if(foiSalvo) R.drawable.favorito
-            else R.drawable.nao_favorito
-
             this.paraDeleta = foiSalvo
-            floating_save_details.setImageDrawable(ContextCompat.getDrawable(requireActivity().baseContext, imagemInt))
+            floating_save_details.isSelected = foiSalvo
         }
     }
 
