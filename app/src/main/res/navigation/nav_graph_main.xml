@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/viewPageFragment"
         android:name="com.example.filmes.presentation.view.viewpage.ViewPageFragment"
-        android:label="fragment_view_page"
-        tools:layout="@layout/fragment_view_page" >
+        android:label="Filmes"
+        tools:layout="@layout/fragment_view_page">
         <action
             android:id="@+id/action_viewPageFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.example.filmes.presentation.view.details.DetailsFragment"
-        android:label="fragment_details"
+        android:label="Detalhes"
         tools:layout="@layout/fragment_details">
         <argument
             android:name="movie"

@@ -29,6 +29,7 @@ class PopularFragment : Fragment() , OnItemClickPopularListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initView()
     }
 
@@ -75,11 +76,8 @@ class PopularFragment : Fragment() , OnItemClickPopularListener {
         Toast.makeText(activity, toast, Toast.LENGTH_LONG).show()
     }
 
-    override fun onClick(posicao: Int) {
-        val action = ViewPageFragmentDirections.actionViewPageFragmentToDetailsFragment(movieList[posicao], null)
+    override fun onClick(position: Int) {
+        val action = ViewPageFragmentDirections.actionViewPageFragmentToDetailsFragment(movieList[position], null)
         findNavController().navigate(action)
-//        var intent = Intent(activity, DetalhesActivity::class.java)
-//        intent.putExtra(R.string.KEY_MOVIE.toString(), movieList[posicao])
-//        startActivity(intent)
     }
 }
