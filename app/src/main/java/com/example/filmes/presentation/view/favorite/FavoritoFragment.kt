@@ -1,19 +1,19 @@
 package com.example.filmes.presentation.view.favorite
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmes.R
 import com.example.filmes.data.local.entity.MovieEntity
 import com.example.filmes.domain.model.MovieDto
-import com.example.filmes.presentation.view.DetalhesActivity
 import com.example.filmes.presentation.view.adapter.FavoritoAdapter
 import com.example.filmes.presentation.view.adapter.OnItemClickFavoritoListener
+import com.example.filmes.presentation.view.viewpage.ViewPageFragmentDirections
 import com.example.filmes.presentation.viewmodel.local.DeleteViewModel
 import com.example.filmes.presentation.viewmodel.local.SelectViewModel
 import com.example.filmes.utilis.JsonService
@@ -78,10 +78,8 @@ class FavoritoFragment : Fragment() , OnItemClickFavoritoListener {
             dataLancamento = Date()
         )
 
-        var intent = Intent(activity, DetalhesActivity::class.java)
-        intent.putExtra(R.string.KEY_MOVIE.toString(), movieDto)
-        intent.putExtra("data_string", entity.dataLancamento)
-        startActivity(intent)
+        val action = ViewPageFragmentDirections.actionViewPageFragmentToDetailsFragment(movieDto, entity.dataLancamento)
+        findNavController().navigate(action)
     }
 
     override fun onClickButton(movie: MovieEntity) {

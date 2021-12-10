@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Filmes"
         android:usesCleartextTraffic="true">
         <activity android:name=".presentation.view.DetalhesActivity"></activity>
-        <activity android:name=".presentation.view.main.MainActivity">
+        <activity android:name=".presentation.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

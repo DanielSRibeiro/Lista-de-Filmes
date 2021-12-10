@@ -7,7 +7,9 @@
         <entry key="..\:/Users/daniel/Documents/Lista-de-Filmes/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/daniel/Documents/Lista-de-Filmes/app/src/main/res/layout/fragment_details.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/daniel/Documents/Lista-de-Filmes/app/src/main/res/layout/fragment_favorito.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/daniel/Documents/Lista-de-Filmes/app/src/main/res/layout/fragment_popular.xml" value="0.30925925925925923" />
         <entry key="..\:/Users/daniel/Documents/Lista-de-Filmes/app/src/main/res/layout/fragment_view_page.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/daniel/Documents/Lista-de-Filmes/app/src/main/res/layout/popular_item.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

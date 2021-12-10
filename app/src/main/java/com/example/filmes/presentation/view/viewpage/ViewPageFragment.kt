@@ -1,15 +1,14 @@
-package com.example.filmes
+package com.example.filmes.presentation.view.viewpage
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.filmes.R
 import com.example.filmes.presentation.view.favorite.FavoritoFragment
-import com.example.filmes.presentation.view.main.ViewPageAdapter
 import com.example.filmes.presentation.view.popular.PopularFragment
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.fragment_view_page.*
 import kotlinx.android.synthetic.main.fragment_view_page.view.*
 
 class ViewPageFragment : Fragment() {

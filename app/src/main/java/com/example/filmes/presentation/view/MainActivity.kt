@@ -1,4 +1,4 @@
-package com.example.filmes.presentation.view.main
+package com.example.filmes.presentation.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
