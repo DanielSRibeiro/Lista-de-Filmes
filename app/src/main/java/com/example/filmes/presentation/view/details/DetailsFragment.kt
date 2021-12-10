@@ -27,6 +27,7 @@ class DetailsFragment : Fragment() {
     private val deleteMovieViewModel: DeleteViewModel by viewModel()
     private val categoriesViewModel: CategoriesViewModel by viewModel()
     lateinit var movie: MovieDto
+    var dataString:String? = null
     var paraDeleta = false
     var realeseDate = ""
 
@@ -58,7 +59,7 @@ class DetailsFragment : Fragment() {
 
     private fun setupMovie() {
         movie = args.movie
-        var dataString:String? = args.dataLancamento
+        dataString = args.dataLancamento
         verificarMovieViewModel.verificar(movie.id)
         Glide.with(this).load(BASE_IMAGEM + movie.backdropPath+"").into(img_movie_details)
         val dateFormat = SimpleDateFormat("dd/MM/yyyy")
@@ -67,14 +68,13 @@ class DetailsFragment : Fragment() {
         txt_movie_title_details.text = movie.tituloFilme
         txt_movie_description_details.text = movie.sinopse
 
-        //estava com dificuldade de transformar a data em Date, porque o atributo estava vindo do SQLite em extenso
-        //em tão fiz dessa forma para conseguir
+        //estava com dificuldade de transformar a data em Date, porque o atributo estava vindo do SQLite em extenso, em tão fiz dessa forma para conseguir
         if (dataString == null) txt_movie_date_details.text = "Lançamento: $realeseDate"
         else txt_movie_date_details.text = dataString
     }
 
     private fun setupFavorito() {
-        verificarMovieViewModel.verificado.observe(requireActivity()) {foiSalvo ->
+        verificarMovieViewModel.verificado.observe(requireActivity()) { foiSalvo ->
             this.paraDeleta = foiSalvo
             floating_save_details.isSelected = foiSalvo
         }
