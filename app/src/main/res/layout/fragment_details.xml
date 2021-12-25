@@ -114,6 +114,16 @@
             android:textColor="@color/colorGray"
             android:textSize="16sp"
             android:typeface="serif" />
+
+        <ImageView
+            android:id="@+id/back_navigation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="?attr/homeAsUpIndicator"
+            android:layout_margin="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            app:tint="@color/white" />
     </RelativeLayout>
 
 </androidx.core.widget.NestedScrollView>

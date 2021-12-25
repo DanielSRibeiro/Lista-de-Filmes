@@ -9,6 +9,7 @@ import com.example.filmes.R
 import com.example.filmes.presentation.view.favorite.FavoritoFragment
 import com.example.filmes.presentation.view.popular.PopularFragment
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.fragment_view_page.*
 import kotlinx.android.synthetic.main.fragment_view_page.view.*
 
 class ViewPageFragment : Fragment() {
@@ -17,20 +18,22 @@ class ViewPageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_view_page, container, false)
-
-        setupTabLayout(view)
-
-        return view
+        return inflater.inflate(R.layout.fragment_view_page, container, false)
     }
 
-    private fun setupTabLayout(view: View) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupTabLayout()
+    }
+
+    private fun setupTabLayout() {
         var fragmentList = arrayListOf(PopularFragment(), FavoritoFragment())
         var pageAdapter = ViewPageAdapter(fragmentList, requireActivity().supportFragmentManager, lifecycle)
-        view.movie_viewPage.adapter = pageAdapter
+        movie_viewPage.adapter = pageAdapter
 
-        view.tab_layout.tabSelectedIndicator
-        TabLayoutMediator(view.tab_layout, view.movie_viewPage){ tab, position ->
+        tab_layout.tabSelectedIndicator
+        TabLayoutMediator(tab_layout, movie_viewPage){ tab, position ->
             when(position){
                 0 -> {
                     tab.text = "Populares"
