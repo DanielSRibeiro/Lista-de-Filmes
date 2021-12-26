@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmes.R
 import com.example.filmes.data.local.entity.MovieEntity
 import com.example.filmes.domain.model.MovieDto
+import com.example.filmes.presentation.view.details.ViewModelLocal
 import com.example.filmes.presentation.view.viewpage.ViewPageFragmentDirections
 import com.example.filmes.presentation.viewmodel.local.DeleteViewModel
 import com.example.filmes.presentation.viewmodel.local.SelectViewModel
@@ -20,15 +21,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
-class FavoritoFragment : Fragment() , OnItemClickFavoritoListener {
+class FavoritoFragment : Fragment(R.layout.fragment_favorito) , OnItemClickFavoritoListener {
 
-    lateinit var listMovieSalvo:List<MovieEntity>
-    private val selectViewModel:SelectViewModel by viewModel()
-    private val deleteViewModel: DeleteViewModel by viewModel()
+    private val viewModelLocal: ViewModelLocal by viewModel()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_favorito, container, false)
-    }
+    private lateinit var listMovieSalvo:List<MovieEntity>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,17 +33,17 @@ class FavoritoFragment : Fragment() , OnItemClickFavoritoListener {
         getListaFilmes()
 
         refresh_favorite.setOnRefreshListener {
-            selectViewModel.getSeachMovie(null)
+            viewModelLocal.getSeachMovie(null)
             refresh_favorite.isRefreshing = false
         }
         edt_search_favorite.addTextChangedListener { nome ->
-            selectViewModel.getSeachMovie(nome.toString())
+            viewModelLocal.getSeachMovie(nome.toString())
         }
     }
 
     private fun getListaFilmes() {
-        selectViewModel.getSeachMovie(null)
-        selectViewModel.listaSalva.observe(requireActivity()){ listaEntity ->
+        viewModelLocal.getSeachMovie(null)
+        viewModelLocal.listaSalva.observe(requireActivity()){ listaEntity ->
             listMovieSalvo = listaEntity
             configAdapter(listMovieSalvo)
 
@@ -80,7 +77,7 @@ class FavoritoFragment : Fragment() , OnItemClickFavoritoListener {
     }
 
     override fun onClickButton(movie: MovieEntity) {
-        deleteViewModel.deleteMovie(movie.id.toInt())
-        selectViewModel.getSeachMovie(null)
+        viewModelLocal.deleteMovie(movie.id.toInt())
+        viewModelLocal.getSeachMovie(null)
     }
 }

@@ -1,10 +1,7 @@
 package com.example.filmes.presentation.view.popular
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -15,17 +12,14 @@ import com.example.filmes.presentation.view.adapter.OnItemClickPopularListener
 import com.example.filmes.presentation.view.adapter.PopularAdapter
 import com.example.filmes.presentation.view.viewpage.ViewPageFragmentDirections
 import com.example.filmes.presentation.viewmodel.remote.MovieViewModel
+import com.example.filmes.utilis.showToast
 import kotlinx.android.synthetic.main.fragment_popular.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PopularFragment : Fragment() , OnItemClickPopularListener {
+class PopularFragment : Fragment(R.layout.fragment_popular) , OnItemClickPopularListener {
 
     private val movieViewModel: MovieViewModel by viewModel()
     lateinit var movieList:ArrayList<MovieDto>
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_popular, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,10 +53,11 @@ class PopularFragment : Fragment() , OnItemClickPopularListener {
     private fun getErro() {
         movieViewModel.error.observe(requireActivity()) { erro ->
             //se for true o erro é de conexão
-            if(erro) mostrarToast("Erro de conexão")
-            else if(edt_search_popular.length() > 1){
-                mostrarToast("Filme não encontrado")
-            }
+            if(erro)
+                requireContext().showToast("Erro de conexão")
+            else if(edt_search_popular.length() > 1)
+                requireContext().showToast("Filme não encontrado")
+
         }
     }
 
@@ -70,10 +65,6 @@ class PopularFragment : Fragment() , OnItemClickPopularListener {
         var popularAdapter = PopularAdapter(this, listMovies)
         recyclerView_popular.layoutManager = LinearLayoutManager(activity)
         recyclerView_popular.adapter = popularAdapter
-    }
-
-    private fun mostrarToast(toast: String) {
-        Toast.makeText(activity, toast, Toast.LENGTH_LONG).show()
     }
 
     override fun onClick(position: Int) {

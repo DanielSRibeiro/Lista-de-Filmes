@@ -12,7 +12,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CategoriesViewModel(private var categoriesUseCase: CategoriesUseCase):ViewModel() {
+class CategoriesViewModel(
+    private var categoriesUseCase: CategoriesUseCase
+):ViewModel() {
 
     private val mCategories = MutableLiveData<String>()
     var nomeCategorias = ""
@@ -30,9 +32,7 @@ class CategoriesViewModel(private var categoriesUseCase: CategoriesUseCase):View
                 var genresList = resultsCategories.generosFilme
                 verificarCategorias(genresList, movie)
                 mCategories.value = nomeCategorias
-
             }
-
         }
     }
 

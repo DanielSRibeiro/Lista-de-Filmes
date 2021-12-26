@@ -11,14 +11,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MovieViewModel(private var getMovie: MovieUseCase) : ViewModel() {
+class MovieViewModel(
+    private var getMovie: MovieUseCase
+) : ViewModel() {
 
     private val mMovieList = MutableLiveData<ArrayList<MovieDto>>()
-    private val mError = MutableLiveData<Boolean>()
-
     val movieList: LiveData<ArrayList<MovieDto>>
         get() = mMovieList
 
+    private val mError = MutableLiveData<Boolean>()
     val error: LiveData<Boolean>
         get() = mError
 
@@ -27,9 +28,11 @@ class MovieViewModel(private var getMovie: MovieUseCase) : ViewModel() {
             var resultsMovies = withContext(Dispatchers.Default) {
                     getMovie.invoke(name)
                 }
+
             if(!resultsMovies.movieList.isNullOrEmpty())
                 mMovieList.value = resultsMovies.movieList
-            else mError.value = name == null
+            else
+                mError.value = name == null
         }
     }
 

@@ -5,7 +5,9 @@ import com.example.filmes.utilis.TAG_CATEGORIES
 import com.example.filmes.data.remote.repository.CategoriesRepository
 import com.example.filmes.domain.model.ResultsCategoriesDto
 
-class GetCategories(private var categoriesRepository: CategoriesRepository) :CategoriesUseCase{
+class GetCategories(
+    private var categoriesRepository: CategoriesRepository
+):CategoriesUseCase {
 
     override suspend operator fun invoke():ResultsCategoriesDto = try{
         categoriesRepository.getAllCategorias()
