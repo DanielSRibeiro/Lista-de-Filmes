@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import com.example.filmes.domain.model.MovieDto
 import com.example.filmes.domain.model.ResultsMoviesDto
 import com.example.filmes.domain.usecase.remote.GetMovie
+import com.example.filmes.presentation.fragment.viewpage.fragment.popular.MovieViewModel
 import io.mockk.coEvery
 import io.mockk.coVerifyOrder
 import io.mockk.mockk

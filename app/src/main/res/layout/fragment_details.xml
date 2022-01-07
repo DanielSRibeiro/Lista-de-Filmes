@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:fillViewport="true"
-    tools:context=".presentation.view.details.DetailsFragment">
+    tools:context=".presentation.fragment.details.DetailsFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

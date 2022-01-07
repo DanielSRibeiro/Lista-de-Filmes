@@ -1,10 +1,9 @@
-package com.example.filmes.presentation.viewmodel.remote
+package com.example.filmes.presentation.fragment.viewpage.fragment.popular
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.filmes.domain.model.MovieDto
-import com.example.filmes.domain.usecase.remote.GetMovie
 import com.example.filmes.domain.usecase.remote.MovieUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

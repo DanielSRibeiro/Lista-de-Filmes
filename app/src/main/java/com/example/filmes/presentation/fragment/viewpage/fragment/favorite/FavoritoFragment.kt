@@ -1,9 +1,7 @@
-package com.example.filmes.presentation.view.favorite
+package com.example.filmes.presentation.fragment.viewpage.fragment.favorite
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -11,10 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmes.R
 import com.example.filmes.data.local.entity.MovieEntity
 import com.example.filmes.domain.model.MovieDto
-import com.example.filmes.presentation.view.details.ViewModelLocal
-import com.example.filmes.presentation.view.viewpage.ViewPageFragmentDirections
-import com.example.filmes.presentation.viewmodel.local.DeleteViewModel
-import com.example.filmes.presentation.viewmodel.local.SelectViewModel
+import com.example.filmes.presentation.fragment.ViewModelLocal
+import com.example.filmes.presentation.fragment.viewpage.ViewPageFragmentDirections
 import com.example.filmes.utilis.JsonService
 import kotlinx.android.synthetic.main.fragment_favorito.*
 import org.koin.androidx.viewmodel.ext.android.viewModel

@@ -1,4 +1,4 @@
-package com.example.filmes.presentation.view.details
+package com.example.filmes.presentation.fragment
 
 import android.util.Log
 import androidx.lifecycle.LiveData

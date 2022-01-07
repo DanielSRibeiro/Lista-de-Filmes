@@ -1,4 +1,4 @@
-package com.example.filmes.presentation.view.popular
+package com.example.filmes.presentation.fragment.viewpage.fragment.popular
 
 import android.os.Bundle
 import android.view.View
@@ -10,8 +10,7 @@ import com.example.filmes.R
 import com.example.filmes.domain.model.MovieDto
 import com.example.filmes.presentation.view.adapter.OnItemClickPopularListener
 import com.example.filmes.presentation.view.adapter.PopularAdapter
-import com.example.filmes.presentation.view.viewpage.ViewPageFragmentDirections
-import com.example.filmes.presentation.viewmodel.remote.MovieViewModel
+import com.example.filmes.presentation.fragment.viewpage.ViewPageFragmentDirections
 import com.example.filmes.utilis.showToast
 import kotlinx.android.synthetic.main.fragment_popular.*
 import org.koin.androidx.viewmodel.ext.android.viewModel

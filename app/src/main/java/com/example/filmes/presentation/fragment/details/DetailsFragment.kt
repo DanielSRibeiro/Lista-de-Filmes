@@ -1,4 +1,4 @@
-package com.example.filmes.presentation.view.details
+package com.example.filmes.presentation.fragment.details
 
 import android.os.Bundle
 import android.view.View
@@ -8,7 +8,8 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.filmes.R
 import com.example.filmes.domain.model.MovieDto
-import com.example.filmes.presentation.view.MainActivity
+import com.example.filmes.presentation.MainActivity
+import com.example.filmes.presentation.fragment.ViewModelLocal
 import com.example.filmes.utilis.BASE_IMAGEM
 import kotlinx.android.synthetic.main.fragment_details.*
 import org.koin.androidx.viewmodel.ext.android.viewModel

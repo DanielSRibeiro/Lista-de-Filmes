@@ -10,14 +10,12 @@ import com.example.filmes.domain.usecase.remote.CategoriesUseCase
 import com.example.filmes.domain.usecase.remote.GetCategories
 import com.example.filmes.domain.usecase.remote.GetMovie
 import com.example.filmes.domain.usecase.remote.MovieUseCase
-import com.example.filmes.presentation.viewmodel.remote.CategoriesViewModel
-import com.example.filmes.presentation.viewmodel.remote.MovieViewModel
+import com.example.filmes.presentation.fragment.viewpage.fragment.popular.MovieViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val movieModule = module {
     viewModel { MovieViewModel( getMovie = get()) }
-    viewModel { CategoriesViewModel(categoriesUseCase = get()) }
 
     single { RetrofitTask().getRetrofitTask() as ApiService }
 
