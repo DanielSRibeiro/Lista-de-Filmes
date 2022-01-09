@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.filmes.R
 import com.example.filmes.domain.model.MovieDto
 import com.example.filmes.presentation.MainActivity
-import com.example.filmes.presentation.fragment.ViewModelLocal
+import com.example.filmes.presentation.fragment.LocalViewModel
 import com.example.filmes.utilis.BASE_IMAGEM
 import kotlinx.android.synthetic.main.fragment_details.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat
 class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private val args: DetailsFragmentArgs by navArgs()
-    private val viewModelLocal: ViewModelLocal by viewModel()
+    private val localViewModel: LocalViewModel by viewModel()
 
     private lateinit var movie: MovieDto
     private var dataString:String? = null
@@ -39,9 +39,9 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
         floating_save_details.setOnClickListener {
             if(paraDeleta)
-                viewModelLocal.deleteMovie(movie.id)
+                localViewModel.input.deleteMovie(movie.id)
             else
-                viewModelLocal.insertMovie(movie, realeseDate)
+                localViewModel.input.insertMovie(movie, realeseDate)
         }
 
         back_navigation.setOnClickListener {
@@ -54,7 +54,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         movie = args.movie
         dataString = args.dataLancamento
 
-        viewModelLocal.verificar(movie.id)
+        localViewModel.input.verificar(movie.id)
 
         Glide.with(this)
             .load("${BASE_IMAGEM + movie.backdropPath}")
@@ -74,17 +74,16 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     }
 
     private fun setupFavorito() {
-        viewModelLocal.verificado.observe(requireActivity()) { foiSalvo ->
+        localViewModel.output.verificado.observe(requireActivity()) { foiSalvo ->
             this.paraDeleta = foiSalvo
             floating_save_details.isSelected = foiSalvo
         }
     }
 
     private fun setupCategories(){
-        viewModelLocal.getCategories(movie)
-        viewModelLocal.categories.observe(requireActivity()) { genres ->
+        localViewModel.input.getCategories(movie)
+        localViewModel.output.categories.observe(requireActivity()) { genres ->
             txt_movie_genre_details.text = genres
         }
     }
-
 }

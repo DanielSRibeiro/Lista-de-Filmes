@@ -10,19 +10,33 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+interface InputMovieViewModel{
+    fun getAllMovies(name:String?)
+}
+
+interface OutputMovieViewModel{
+    val movieList: LiveData<ArrayList<MovieDto>>
+    val error: LiveData<Boolean>
+}
+
+interface ContractMovieViewModel : InputMovieViewModel, OutputMovieViewModel
+
 class MovieViewModel(
     private var getMovie: MovieUseCase
-) : ViewModel() {
+) : ViewModel(), ContractMovieViewModel {
+
+    val input: InputMovieViewModel = this
+    val output: OutputMovieViewModel = this
 
     private val mMovieList = MutableLiveData<ArrayList<MovieDto>>()
-    val movieList: LiveData<ArrayList<MovieDto>>
+    override val movieList: LiveData<ArrayList<MovieDto>>
         get() = mMovieList
 
     private val mError = MutableLiveData<Boolean>()
-    val error: LiveData<Boolean>
+    override val error: LiveData<Boolean>
         get() = mError
 
-    fun getAllMovies(name:String?){
+    override fun getAllMovies(name:String?){
         CoroutineScope(Dispatchers.Main).launch {
             var resultsMovies = withContext(Dispatchers.Default) {
                     getMovie.invoke(name)

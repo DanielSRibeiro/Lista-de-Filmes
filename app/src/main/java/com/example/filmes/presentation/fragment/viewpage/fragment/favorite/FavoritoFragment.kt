@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmes.R
 import com.example.filmes.data.local.entity.MovieEntity
 import com.example.filmes.domain.model.MovieDto
-import com.example.filmes.presentation.fragment.ViewModelLocal
+import com.example.filmes.presentation.fragment.LocalViewModel
 import com.example.filmes.presentation.fragment.viewpage.ViewPageFragmentDirections
 import com.example.filmes.utilis.JsonService
 import kotlinx.android.synthetic.main.fragment_favorito.*
@@ -19,7 +20,7 @@ import java.util.*
 
 class FavoritoFragment : Fragment(R.layout.fragment_favorito) , OnItemClickFavoritoListener {
 
-    private val viewModelLocal: ViewModelLocal by viewModel()
+    private val localViewModel: LocalViewModel by viewModel()
 
     private lateinit var listMovieSalvo:List<MovieEntity>
 
@@ -29,17 +30,17 @@ class FavoritoFragment : Fragment(R.layout.fragment_favorito) , OnItemClickFavor
         getListaFilmes()
 
         refresh_favorite.setOnRefreshListener {
-            viewModelLocal.getSeachMovie(null)
+            localViewModel.input.getSeachMovie(null)
             refresh_favorite.isRefreshing = false
         }
         edt_search_favorite.addTextChangedListener { nome ->
-            viewModelLocal.getSeachMovie(nome.toString())
+            localViewModel.input.getSeachMovie(nome.toString())
         }
     }
 
     private fun getListaFilmes() {
-        viewModelLocal.getSeachMovie(null)
-        viewModelLocal.listaSalva.observe(requireActivity()){ listaEntity ->
+        localViewModel.input.getSeachMovie(null)
+        localViewModel.output.listaSalva.observe(requireActivity()){ listaEntity ->
             listMovieSalvo = listaEntity
             configAdapter(listMovieSalvo)
 
@@ -73,7 +74,7 @@ class FavoritoFragment : Fragment(R.layout.fragment_favorito) , OnItemClickFavor
     }
 
     override fun onClickButton(movie: MovieEntity) {
-        viewModelLocal.deleteMovie(movie.id.toInt())
-        viewModelLocal.getSeachMovie(null)
+        localViewModel.input.deleteMovie(movie.id.toInt())
+        localViewModel.input.getSeachMovie(null)
     }
 }

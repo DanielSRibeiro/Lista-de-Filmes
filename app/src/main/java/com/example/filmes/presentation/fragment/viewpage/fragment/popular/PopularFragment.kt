@@ -31,18 +31,18 @@ class PopularFragment : Fragment(R.layout.fragment_popular) , OnItemClickPopular
         getPopularMovies()
         getErro()
         refresh_popular.setOnRefreshListener {
-            movieViewModel.getAllMovies(null)
+            movieViewModel.input.getAllMovies(null)
             edt_search_popular.clearFocus()
             refresh_popular.isRefreshing = false
         }
         edt_search_popular.addTextChangedListener { movieName ->
-            movieViewModel.getAllMovies(movieName.toString())
+            movieViewModel.input.getAllMovies(movieName.toString())
         }
     }
 
     fun getPopularMovies(){
-        movieViewModel.getAllMovies(null)
-        movieViewModel.movieList.observe(requireActivity()) { listaFilmes ->
+        movieViewModel.input.getAllMovies(null)
+        movieViewModel.output.movieList.observe(requireActivity()) { listaFilmes ->
             movieList = listaFilmes
             updateAdapter(movieList)
             progressBar_popular.visibility = View.GONE
@@ -50,7 +50,7 @@ class PopularFragment : Fragment(R.layout.fragment_popular) , OnItemClickPopular
     }
 
     private fun getErro() {
-        movieViewModel.error.observe(requireActivity()) { erro ->
+        movieViewModel.output.error.observe(requireActivity()) { erro ->
             //se for true o erro é de conexão
             if(erro)
                 requireContext().showToast("Erro de conexão")

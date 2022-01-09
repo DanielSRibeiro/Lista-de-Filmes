@@ -16,74 +16,93 @@ import com.example.filmes.domain.usecase.remote.CategoriesUseCase
 import com.example.filmes.utilis.TAG_INSERT
 import com.example.filmes.utilis.TAG_SELECT
 import com.example.filmes.utilis.TAG_VERIFY
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ViewModelLocal(
+interface InputLocalViewModel {
+    fun verificar(id: Int)
+    fun insertMovie(movie: MovieDto, data: String)
+    fun deleteMovie(id: Int)
+    fun getCategories(movie: MovieDto)
+    fun getSeachMovie(nome: String?)
+}
+
+interface OutputLocalViewModel{
+    val categories: LiveData<String>
+    val verificado: LiveData<Boolean>
+    val listaSalva: LiveData<List<MovieEntity>>
+}
+
+interface ContractLocalViewModel : InputLocalViewModel, OutputLocalViewModel
+
+class LocalViewModel(
     private val insertMovieUseCase: InsertMovieUseCase,
     private val verificarMovieUseCase: VerificarMovieUseCase,
     private val deleteMovieUseCase: DeleteMovieCaseUse,
     private var categoriesUseCase: CategoriesUseCase,
     private val selectMovieUseCase: SelectMovieUseCase
-) : ViewModel() {
+) : ViewModel(), ContractLocalViewModel {
 
+    val input: InputLocalViewModel = this
+    val output: OutputLocalViewModel = this
     var nomeCategorias = ""
 
     private val mCategories = MutableLiveData<String>()
-    val categories:LiveData<String>
+    override val categories: LiveData<String>
         get() = mCategories
 
     private var mVerificado = MutableLiveData<Boolean>()
-    val verificado: LiveData<Boolean>
+    override val verificado: LiveData<Boolean>
         get() = mVerificado
 
     private val mListaSalva = MutableLiveData<List<MovieEntity>>()
-    val listaSalva:LiveData<List<MovieEntity>>
+    override val listaSalva: LiveData<List<MovieEntity>>
         get() = mListaSalva
 
 
-    fun verificar(id:Int) = CoroutineScope(Dispatchers.Main).launch {
-        val valor = withContext(Dispatchers.Default){
-            try{
-                verificarMovieUseCase.invoke(id)
-            }catch (ex:Exception){
-                Log.d(TAG_VERIFY, "addContato: $ex")
-                false
+    override fun verificar(id: Int) {
+        viewModelScope.launch {
+            val valor = withContext(Dispatchers.Default) {
+                try {
+                    verificarMovieUseCase.invoke(id)
+                } catch (ex: Exception) {
+                    Log.d(TAG_VERIFY, "addContato: $ex")
+                    false
+                }
             }
+            mVerificado.value = valor
         }
-        mVerificado.value = valor
     }
 
-    fun insertMovie(movie: MovieDto, data:String){
+    override fun insertMovie(movie: MovieDto, data: String) {
         viewModelScope.launch {
-            try{
+            try {
                 insertMovieUseCase.invoke(movie, data)
                 verificar(movie.id)
-            }catch (ex:Exception){
+            } catch (ex: Exception) {
                 Log.d(TAG_INSERT, "insertMovie: $ex")
             }
         }
     }
 
-    fun deleteMovie(id: Int){
+    override fun deleteMovie(id: Int) {
         viewModelScope.launch {
-            try{
+            try {
                 deleteMovieUseCase.invoke(id)
                 verificar(id)
-            }catch (ex:Exception){
+            } catch (ex: Exception) {
                 Log.d(TAG_INSERT, "insertMovie: $ex")
             }
         }
     }
 
-    fun getCategories(movie:MovieDto){
-        viewModelScope.launch{
-            var resultsCategories = withContext(Dispatchers.Default){
+    override fun getCategories(movie: MovieDto) {
+        viewModelScope.launch {
+            var resultsCategories = withContext(Dispatchers.Default) {
                 categoriesUseCase.invoke()
             }
-            if(!resultsCategories.generosFilme.isNullOrEmpty()){
+            if (!resultsCategories.generosFilme.isNullOrEmpty()) {
                 nomeCategorias = ""
                 var genresList = resultsCategories.generosFilme
                 verificarCategorias(genresList, movie)
@@ -94,23 +113,12 @@ class ViewModelLocal(
         }
     }
 
-    private fun verificarCategorias(genresList:ArrayList<CategoriesDto>, movie: MovieDto) {
-        //verifica os gêneros e acrecenta na variavel nomeCategorias
-        genresList.forEach { idGenero ->
-            movie.generosIds.forEach { idDoFilme ->
-                if(idGenero.id == idDoFilme){
-                    nomeCategorias += idGenero.nome+", "
-                }
-            }
-        }
-    }
-
-    fun getSeachMovie(nome:String?){
+    override fun getSeachMovie(nome: String?) {
         viewModelScope.launch {
-            val lista = withContext(Dispatchers.Default){
+            val lista = withContext(Dispatchers.Default) {
                 try {
                     selectMovieUseCase.invoke(nome)
-                }catch (ex:Exception){
+                } catch (ex: Exception) {
                     Log.d(TAG_SELECT, "getSeachMovie: $ex")
                     listOf()
                 }
@@ -118,4 +126,15 @@ class ViewModelLocal(
             mListaSalva.value = lista
         }
     }
+
+    private fun verificarCategorias(genresList: ArrayList<CategoriesDto>, movie: MovieDto) {
+        genresList.forEach { idGenero ->
+            movie.generosIds.forEach { idDoFilme ->
+                if (idGenero.id == idDoFilme) {
+                    nomeCategorias += idGenero.nome + ", "
+                }
+            }
+        }
+    }
+
 }
