@@ -8,8 +8,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmes.R
 import com.example.filmes.domain.model.MovieDto
-import com.example.filmes.presentation.view.adapter.OnItemClickPopularListener
-import com.example.filmes.presentation.view.adapter.PopularAdapter
 import com.example.filmes.presentation.fragment.viewpage.ViewPageFragmentDirections
 import com.example.filmes.utilis.showToast
 import kotlinx.android.synthetic.main.fragment_popular.*

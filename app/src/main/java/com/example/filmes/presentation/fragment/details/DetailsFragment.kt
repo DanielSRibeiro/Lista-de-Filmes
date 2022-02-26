@@ -7,15 +7,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.filmes.R
+import com.example.filmes.databinding.FragmentDetailsBinding
 import com.example.filmes.domain.model.MovieDto
 import com.example.filmes.presentation.MainActivity
 import com.example.filmes.presentation.fragment.LocalViewModel
 import com.example.filmes.utilis.BASE_IMAGEM
-import kotlinx.android.synthetic.main.fragment_details.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
+
+    private lateinit var binding: FragmentDetailsBinding
 
     private val args: DetailsFragmentArgs by navArgs()
     private val localViewModel: LocalViewModel by viewModel()
@@ -25,65 +27,73 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     private var paraDeleta = false
     private var realeseDate = ""
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (activity as MainActivity).supportActionBar?.hide()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding = FragmentDetailsBinding.bind(view)
         initView()
     }
 
     private fun initView() {
-        (activity as MainActivity).supportActionBar?.hide()
-        setupMovie()
-        setupFavorito()
-        setupCategories()
+        binding.apply {
+            setupMovie()
+            setupFavorito()
+            setupCategories()
 
-        floating_save_details.setOnClickListener {
-            if(paraDeleta)
-                localViewModel.input.deleteMovie(movie.id)
-            else
-                localViewModel.input.insertMovie(movie, realeseDate)
-        }
+            floatingSaveDetails.setOnClickListener {
+                if(paraDeleta)
+                    localViewModel.input.deleteMovie(movie.id)
+                else
+                    localViewModel.input.insertMovie(movie, realeseDate)
+            }
 
-        back_navigation.setOnClickListener {
-            (activity as MainActivity).supportActionBar?.show()
-            findNavController().popBackStack()
+            backNavigation.setOnClickListener {
+                (activity as MainActivity).supportActionBar?.show()
+                findNavController().popBackStack()
+            }
         }
     }
 
     private fun setupMovie() {
-        movie = args.movie
-        dataString = args.dataLancamento
+        binding.apply {
+            movie = args.movie
+            dataString = args.dataLancamento
 
-        localViewModel.input.verificar(movie.id)
+            localViewModel.input.verificar(movie.id)
 
-        Glide.with(this)
-            .load("${BASE_IMAGEM + movie.backdropPath}")
-            .into(img_movie_details)
+            Glide.with(binding.root)
+                .load("${BASE_IMAGEM + movie.backdropPath}")
+                .into(imgMovieDetails)
 
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy")
-        realeseDate = dateFormat.format(movie.dataLancamento)
+            val dateFormat = SimpleDateFormat("dd/MM/yyyy")
+            realeseDate = dateFormat.format(movie.dataLancamento)
 
-        txt_movie_note_details.text = "${movie.notaMedia}/10 \nAvaliação"
-        txt_movie_title_details.text = movie.tituloFilme
-        txt_movie_description_details.text = movie.sinopse
-        txt_movie_date_details.text =
-            if (dataString == null)
-                "Lançamento: $realeseDate"
-            else
-                dataString
+            txtMovieNoteDetails.text = "${movie.notaMedia}/10 \nAvaliação"
+            txtMovieTitleDetails.text = movie.tituloFilme
+            txtMovieDescriptionDetails.text = movie.sinopse
+            txtMovieDateDetails.text =
+                if (dataString == null)
+                    "Lançamento: $realeseDate"
+                else
+                    dataString
+        }
     }
 
     private fun setupFavorito() {
         localViewModel.output.verificado.observe(requireActivity()) { foiSalvo ->
             this.paraDeleta = foiSalvo
-            floating_save_details.isSelected = foiSalvo
+            binding.floatingSaveDetails.isSelected = foiSalvo
         }
     }
 
     private fun setupCategories(){
         localViewModel.input.getCategories(movie)
         localViewModel.output.categories.observe(requireActivity()) { genres ->
-            txt_movie_genre_details.text = genres
+            binding.txtMovieGenreDetails.text = genres
         }
     }
 }

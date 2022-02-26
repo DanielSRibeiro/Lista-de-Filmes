@@ -1,4 +1,4 @@
-package com.example.filmes.presentation.view.adapter
+package com.example.filmes.presentation.fragment.viewpage.fragment.popular
 
 import android.view.LayoutInflater
 import android.view.View
@@ -40,7 +40,7 @@ class PopularAdapter(
 
     override fun getItemCount(): Int = movieList.size
 
-    class viewHolder(itemView: View, listener:OnItemClickPopularListener) : RecyclerView.ViewHolder(itemView){
+    class viewHolder(itemView: View, listener: OnItemClickPopularListener) : RecyclerView.ViewHolder(itemView){
         init {
             itemView.setOnClickListener { listener.onClick(adapterPosition) }
         }

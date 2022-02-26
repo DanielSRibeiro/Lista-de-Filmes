@@ -8,22 +8,27 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.example.filmes.R
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.filmes.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
 
     lateinit var navController: NavController
     lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        setSupportActionBar(myToolbar)
-        navController = findNavController(R.id.navHostFragment)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        myToolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.apply {
+            setSupportActionBar(myToolbar)
+            navController = findNavController(R.id.navHostFragment)
+            appBarConfiguration = AppBarConfiguration(navController.graph)
+            myToolbar.setupWithNavController(navController, appBarConfiguration)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
