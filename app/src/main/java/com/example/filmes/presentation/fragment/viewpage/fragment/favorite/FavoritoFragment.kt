@@ -1,8 +1,11 @@
 package com.example.filmes.presentation.fragment.viewpage.fragment.favorite
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
-import androidx.core.widget.addTextChangedListener
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +26,12 @@ class FavoritoFragment : Fragment(R.layout.fragment_favorito) , OnItemClickFavor
     private val localViewModel: LocalViewModel by viewModel()
 
     private lateinit var listMovieSalvo:List<MovieEntity>
+    private lateinit var searchView: SearchView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,10 +44,29 @@ class FavoritoFragment : Fragment(R.layout.fragment_favorito) , OnItemClickFavor
                 localViewModel.input.getSeachMovie(null)
                 refreshFavorite.isRefreshing = false
             }
-            edtSearchFavorite.addTextChangedListener { nome ->
-                localViewModel.input.getSeachMovie(nome.toString())
-            }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_search, menu)
+
+        var search = menu?.findItem(R.id.action_bar_search)
+        searchView = search?.actionView as SearchView
+        searchView.queryHint = "Pesquisar Filmes"
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean = false
+
+            override fun onQueryTextChange(movieName: String?): Boolean {
+                if (!movieName.isNullOrBlank())
+                    localViewModel.input.getSeachMovie(movieName.toString())
+                else
+                    localViewModel.input.getSeachMovie(null)
+                    binding.txtNoneFavorite.text = "Filme não encontrado"
+                return true
+            }
+        })
     }
 
     private fun getListaFilmes() {

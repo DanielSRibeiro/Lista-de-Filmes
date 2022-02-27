@@ -1,7 +1,12 @@
 package com.example.filmes.presentation.fragment.viewpage.fragment.popular
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import android.widget.SearchView
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -13,17 +18,43 @@ import com.example.filmes.presentation.fragment.viewpage.ViewPageFragmentDirecti
 import com.example.filmes.utilis.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PopularFragment : Fragment(R.layout.fragment_popular) , OnItemClickPopularListener {
+class PopularFragment : Fragment(R.layout.fragment_popular), OnItemClickPopularListener {
 
     private val movieViewModel: MovieViewModel by viewModel()
-    lateinit var movieList:ArrayList<MovieDto>
+    lateinit var movieList: ArrayList<MovieDto>
 
     private lateinit var binding: FragmentPopularBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPopularBinding.bind(view)
         initView()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_search, menu)
+
+        val search = menu?.findItem(R.id.action_bar_search)
+        val searchView = search?.actionView as SearchView
+        searchView.queryHint = "Pesquisar Filmes"
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean = false
+
+            override fun onQueryTextChange(movieName: String?): Boolean {
+                if (!movieName.isNullOrBlank())
+                    movieViewModel.input.getAllMovies(movieName.toString())
+                else
+                    movieViewModel.input.getAllMovies(null)
+                return true
+            }
+        })
     }
 
     private fun initView() {
@@ -33,16 +64,12 @@ class PopularFragment : Fragment(R.layout.fragment_popular) , OnItemClickPopular
             getErro()
             refreshPopular.setOnRefreshListener {
                 movieViewModel.input.getAllMovies(null)
-                edtSearchPopular.clearFocus()
                 refreshPopular.isRefreshing = false
-            }
-            edtSearchPopular.addTextChangedListener { movieName ->
-                movieViewModel.input.getAllMovies(movieName.toString())
             }
         }
     }
 
-    fun getPopularMovies(){
+    fun getPopularMovies() {
         movieViewModel.input.getAllMovies(null)
         movieViewModel.output.movieList.observe(requireActivity()) { listaFilmes ->
             movieList = listaFilmes
@@ -53,16 +80,11 @@ class PopularFragment : Fragment(R.layout.fragment_popular) , OnItemClickPopular
 
     private fun getErro() {
         movieViewModel.output.error.observe(requireActivity()) { erro ->
-            //se for true o erro é de conexão
-            if(erro)
-                requireContext().showToast("Erro de conexão")
-            else if(binding.edtSearchPopular.length() > 1)
-                requireContext().showToast("Filme não encontrado")
-
+            showToast("Erro de conexão")
         }
     }
 
-    fun updateAdapter(listMovies: ArrayList<MovieDto>){
+    fun updateAdapter(listMovies: ArrayList<MovieDto>) {
         var popularAdapter = PopularAdapter(this, listMovies)
         binding.recyclerViewPopular.apply {
             layoutManager = LinearLayoutManager(activity)
@@ -71,7 +93,10 @@ class PopularFragment : Fragment(R.layout.fragment_popular) , OnItemClickPopular
     }
 
     override fun onClick(position: Int) {
-        val action = ViewPageFragmentDirections.actionViewPageFragmentToDetailsFragment(movieList[position], null)
+        val action = ViewPageFragmentDirections.actionViewPageFragmentToDetailsFragment(
+            movieList[position],
+            null
+        )
         findNavController().navigate(action)
     }
 }

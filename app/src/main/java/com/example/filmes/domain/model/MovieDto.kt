@@ -24,7 +24,7 @@ data class MovieDto(
     val dataLancamento: Date,
 
     @SerializedName("genre_ids")
-    val generosIds: IntArray,
+    var generosIds: IntArray,
 
     @SerializedName("adult")
     var adult: Boolean,

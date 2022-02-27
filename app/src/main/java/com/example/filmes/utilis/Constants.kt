@@ -1,7 +1,7 @@
 package com.example.filmes.utilis
 
-import android.content.Context
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 
 val BASE_IMAGEM = "https://image.tmdb.org/t/p/original/"
 val BASE_URL = "https://api.themoviedb.org/3/"
@@ -14,6 +14,6 @@ val TAG_INSERT = "all-categories"
 val TAG_SELECT = "select_movie"
 val TAG_VERIFY = "verify_movie"
 
-fun Context.showToast(toast : String){
-    Toast.makeText(this, toast, Toast.LENGTH_LONG).show()
+fun Fragment.showToast(toast : String){
+    Toast.makeText(requireContext(), toast, Toast.LENGTH_LONG).show()
 }
