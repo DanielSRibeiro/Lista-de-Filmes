@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_main"
     app:startDestination="@id/viewPageFragment">
-    ViewPageFragmentDirections
     <fragment
         android:id="@+id/viewPageFragment"
         android:name="com.example.filmes.presentation.fragment.viewpage.ViewPageFragment"
