@@ -7,10 +7,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmes.R
+import com.example.filmes.databinding.FragmentPopularBinding
 import com.example.filmes.domain.model.MovieDto
 import com.example.filmes.presentation.fragment.viewpage.ViewPageFragmentDirections
 import com.example.filmes.utilis.showToast
-import kotlinx.android.synthetic.main.fragment_popular.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PopularFragment : Fragment(R.layout.fragment_popular) , OnItemClickPopularListener {
@@ -18,23 +18,27 @@ class PopularFragment : Fragment(R.layout.fragment_popular) , OnItemClickPopular
     private val movieViewModel: MovieViewModel by viewModel()
     lateinit var movieList:ArrayList<MovieDto>
 
+    private lateinit var binding: FragmentPopularBinding
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding = FragmentPopularBinding.bind(view)
         initView()
     }
 
     private fun initView() {
-        progressBar_popular.visibility = View.VISIBLE
-        getPopularMovies()
-        getErro()
-        refresh_popular.setOnRefreshListener {
-            movieViewModel.input.getAllMovies(null)
-            edt_search_popular.clearFocus()
-            refresh_popular.isRefreshing = false
-        }
-        edt_search_popular.addTextChangedListener { movieName ->
-            movieViewModel.input.getAllMovies(movieName.toString())
+        binding.apply {
+            progressBarPopular.visibility = View.VISIBLE
+            getPopularMovies()
+            getErro()
+            refreshPopular.setOnRefreshListener {
+                movieViewModel.input.getAllMovies(null)
+                edtSearchPopular.clearFocus()
+                refreshPopular.isRefreshing = false
+            }
+            edtSearchPopular.addTextChangedListener { movieName ->
+                movieViewModel.input.getAllMovies(movieName.toString())
+            }
         }
     }
 
@@ -43,7 +47,7 @@ class PopularFragment : Fragment(R.layout.fragment_popular) , OnItemClickPopular
         movieViewModel.output.movieList.observe(requireActivity()) { listaFilmes ->
             movieList = listaFilmes
             updateAdapter(movieList)
-            progressBar_popular.visibility = View.GONE
+            binding.progressBarPopular.visibility = View.GONE
         }
     }
 
@@ -52,7 +56,7 @@ class PopularFragment : Fragment(R.layout.fragment_popular) , OnItemClickPopular
             //se for true o erro é de conexão
             if(erro)
                 requireContext().showToast("Erro de conexão")
-            else if(edt_search_popular.length() > 1)
+            else if(binding.edtSearchPopular.length() > 1)
                 requireContext().showToast("Filme não encontrado")
 
         }
@@ -60,8 +64,10 @@ class PopularFragment : Fragment(R.layout.fragment_popular) , OnItemClickPopular
 
     fun updateAdapter(listMovies: ArrayList<MovieDto>){
         var popularAdapter = PopularAdapter(this, listMovies)
-        recyclerView_popular.layoutManager = LinearLayoutManager(activity)
-        recyclerView_popular.adapter = popularAdapter
+        binding.recyclerViewPopular.apply {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = popularAdapter
+        }
     }
 
     override fun onClick(position: Int) {

@@ -3,7 +3,6 @@ package com.example.filmes.domain.model
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import java.lang.reflect.Array
 import java.util.*
 
 @Parcelize
