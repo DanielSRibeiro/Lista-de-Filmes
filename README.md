@@ -14,20 +14,20 @@ Aplicativo que trás os filmes que estão atualmente populares, podendo pesquisa
 
 - ## Tela inicial
 
-  <img src="imagens\Tela inical.png" width="300"/>
+  <img src="imagens\Tela inical.jpeg" width="300"/>
 
 - ## Pesquisar Filme
 
-  <img src="imagens\Search.png" width="300"/>
+  <img src="imagens\Search.jpeg" width="300"/>
 
 - ## Tela de Detalhes
 
-  <img src="imagens\Tela de Detalhes.png" width="300"/>
+  <img src="imagens\Tela de Detalhes.jpeg" width="300"/>
 
 - ## Favoritar Filme
 
-  <img src="imagens\Favoritar.png" width="300"/>
+  <img src="imagens\Favoritar.jpeg" width="300"/>
 
 - ## Tela dos Filmes Salvos
 
-  <img src="imagens\Favoritos.png" width="300"/>
+  <img src="imagens\Favoritos.jpeg" width="300"/>
