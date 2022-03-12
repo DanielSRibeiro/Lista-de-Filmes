@@ -2,6 +2,7 @@ package com.example.filmes.presentation.fragment.details
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -52,6 +53,11 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             }
 
             backNavigation.setOnClickListener {
+                (activity as MainActivity).supportActionBar?.show()
+                findNavController().popBackStack()
+            }
+
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
                 (activity as MainActivity).supportActionBar?.show()
                 findNavController().popBackStack()
             }

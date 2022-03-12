@@ -31,5 +31,4 @@
         app:layout_constraintTop_toBottomOf="@+id/myToolbar"
         app:layout_constraintVertical_bias="0.409"
         app:navGraph="@navigation/nav_graph_main" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
