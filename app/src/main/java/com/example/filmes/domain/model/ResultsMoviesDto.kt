@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class ResultsMoviesDto(
 
+    @SerializedName("page")
+    var page: Int,
+
     @SerializedName("results")
     var movieList: ArrayList<MovieDto>,
 

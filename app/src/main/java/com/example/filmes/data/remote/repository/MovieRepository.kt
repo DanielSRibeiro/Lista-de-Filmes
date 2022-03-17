@@ -32,7 +32,7 @@ class MovieImpl(val apiService: ApiService) : MovieRepository {
         }else{
             Log.d(TAG_MOVIE, "Error: ${response.errorBody()} ")
             Log.d(TAG_MOVIE, "Code: ${response.code()} ")
-            ResultsMoviesDto(arrayListOf(), 0, 0)
+            ResultsMoviesDto(0,arrayListOf(), 0, 0)
         }
     }
 }

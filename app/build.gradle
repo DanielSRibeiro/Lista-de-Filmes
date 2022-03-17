@@ -86,4 +86,8 @@ dependencies {
     //mockk
     testImplementation "io.mockk:mockk:1.9.3"
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
+
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
+
 }

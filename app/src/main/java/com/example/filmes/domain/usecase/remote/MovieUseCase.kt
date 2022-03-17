@@ -12,7 +12,7 @@ class GetMovie(val movieRepository: MovieRepository) :MovieUseCase{
         else movieRepository.getSearchMovies(name)
     }catch (ex:Exception){
         Log.d(TAG_MOVIE, "movieUseCase: $ex")
-        ResultsMoviesDto(arrayListOf(), 0, 0)
+        ResultsMoviesDto(0, arrayListOf(), 0, 0)
     }
 }
 
