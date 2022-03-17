@@ -3,17 +3,15 @@ package com.example.filmes.presentation.fragment.viewpage.fragment.popular
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
-import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmes.R
 import com.example.filmes.databinding.FragmentPopularBinding
 import com.example.filmes.domain.model.MovieDto
+import com.example.filmes.presentation.fragment.state.GetMoviesState
 import com.example.filmes.presentation.fragment.viewpage.ViewPageFragmentDirections
 import com.example.filmes.utilis.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -60,8 +58,8 @@ class PopularFragment : Fragment(R.layout.fragment_popular), OnItemClickPopularL
     private fun initView() {
         binding.apply {
             progressBarPopular.visibility = View.VISIBLE
-            getPopularMovies()
-            getErro()
+            initMovieObserve()
+            movieViewModel.input.getAllMovies(null)
             refreshPopular.setOnRefreshListener {
                 movieViewModel.input.getAllMovies(null)
                 refreshPopular.isRefreshing = false
@@ -69,18 +67,18 @@ class PopularFragment : Fragment(R.layout.fragment_popular), OnItemClickPopularL
         }
     }
 
-    fun getPopularMovies() {
-        movieViewModel.input.getAllMovies(null)
-        movieViewModel.output.movieList.observe(requireActivity()) { listaFilmes ->
-            movieList = listaFilmes
-            updateAdapter(movieList)
+    fun initMovieObserve() {
+        movieViewModel.output.getMoviesState.observe(requireActivity()) {
+            when(it){
+                is GetMoviesState.Success -> {
+                    movieList = it.resultsMovies.movieList
+                    updateAdapter(movieList)
+                }
+                is GetMoviesState.ErrorRequestNotFound -> showToast(it.message)
+                is GetMoviesState.ErrorNetwork -> showToast(it.message)
+                is GetMoviesState.ErrorNotSearch -> showToast(it.message)
+            }
             binding.progressBarPopular.visibility = View.GONE
-        }
-    }
-
-    private fun getErro() {
-        movieViewModel.output.error.observe(requireActivity()) { erro ->
-            showToast("Erro de conexão")
         }
     }
 

@@ -11,33 +11,34 @@ import retrofit2.Response
 
 class MovieImpl(val apiService: ApiService) : MovieRepository {
 
-    override suspend fun getAllPopulars(): ResultsMoviesDto {
-        return withContext(Dispatchers.Default){
-                var response = apiService.getAllPopularMovies()
+    override suspend fun getAllPopulars(): ResultsMoviesDto? {
+        return withContext(Dispatchers.Default) {
+            var response = apiService.getAllPopularMovies()
             verificarResponse(response)
         }
 
     }
 
-    override suspend fun getSearchMovies(name:String): ResultsMoviesDto {
-        return withContext(Dispatchers.Default){
-                var response = apiService.getSearchName( name = name)
-                verificarResponse(response)
+    override suspend fun getSearchMovies(name: String): ResultsMoviesDto? {
+        return withContext(Dispatchers.Default) {
+            var response = apiService.getSearchName(name = name)
+            verificarResponse(response)
         }
     }
 
-    fun verificarResponse(response : Response<ResultsMoviesDto>) : ResultsMoviesDto{
-        return if(response.isSuccessful){
-                response.body()!!
-        }else{
+    fun verificarResponse(response: Response<ResultsMoviesDto>): ResultsMoviesDto? {
+        return if (response.isSuccessful) {
+            response.body()!!
+        } else {
             Log.d(TAG_MOVIE, "Error: ${response.errorBody()} ")
+            Log.d(TAG_MOVIE, "Message: ${response.message()} ")
             Log.d(TAG_MOVIE, "Code: ${response.code()} ")
-            ResultsMoviesDto(0,arrayListOf(), 0, 0)
+            null
         }
     }
 }
 
 interface MovieRepository {
-    suspend fun getAllPopulars() : ResultsMoviesDto
-    suspend fun getSearchMovies(name:String) : ResultsMoviesDto
+    suspend fun getAllPopulars(): ResultsMoviesDto?
+    suspend fun getSearchMovies(name: String): ResultsMoviesDto?
 }

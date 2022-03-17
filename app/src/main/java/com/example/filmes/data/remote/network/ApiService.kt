@@ -4,6 +4,7 @@ import com.example.filmes.utilis.LANGUAGE
 import com.example.filmes.utilis.USER_KEY
 import com.example.filmes.domain.model.ResultsCategoriesDto
 import com.example.filmes.domain.model.ResultsMoviesDto
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
