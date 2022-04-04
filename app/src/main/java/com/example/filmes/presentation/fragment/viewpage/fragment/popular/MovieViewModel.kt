@@ -33,22 +33,9 @@ interface ContractMovieViewModel : InputMovieViewModel, OutputMovieViewModel
 class MovieViewModel(
     private var context: Context,
     private var getMovie: MovieUseCase
-) : ViewModel(), ContractMovieViewModel {
+) : ViewModel(){
 
-    val input: InputMovieViewModel = this
-    val output: OutputMovieViewModel = this
-
-    private var _getMoviesState = MutableLiveData<GetMoviesState>()
-    override val getMoviesState: LiveData<GetMoviesState>
-        get() = _getMoviesState
-
-    override fun getAllMovies(name: String?) {
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                var connectivityManager = ContextCompat.getSystemService(
-                    context,
-                    ConnectivityManager::class.java
-                ) as ConnectivityManager
+    private val query = MutableLiveData<String>("")
 
                 if (NetworkChecker(connectivityManager).hasInternet()) {
                     val resultsMovies: ResultsMoviesDto? = withContext(Dispatchers.Default) {

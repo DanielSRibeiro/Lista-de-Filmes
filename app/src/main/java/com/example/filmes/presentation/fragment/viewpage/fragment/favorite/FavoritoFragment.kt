@@ -97,7 +97,7 @@ class FavoritoFragment : Fragment(R.layout.fragment_favorito) , OnItemClickFavor
             adult = entity.adult, backdropPath = entity.backdropPath, originalLanguage = entity.originalLanguage,
             originalTitle = entity.originalTitle, popularity = entity.popularity, video = entity.video ,
             voteCount = entity.voteCount, generosIds = generos,
-            dataLancamento = Date()
+            dataLancamento = Date().toString()
         )
 
         val action = ViewPageFragmentDirections.actionViewPageFragmentToDetailsFragment(movieDto, entity.dataLancamento)

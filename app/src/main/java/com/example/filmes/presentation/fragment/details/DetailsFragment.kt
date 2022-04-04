@@ -75,17 +75,17 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                 .load("${BASE_IMAGEM + movie.backdropPath}")
                 .into(imgMovieDetails)
 
-            val dateFormat = SimpleDateFormat("dd/MM/yyyy")
-            realeseDate = dateFormat.format(movie.dataLancamento)
+//            val dateFormat = SimpleDateFormat("dd/MM/yyyy")
+//            realeseDate = dateFormat.format(movie.dataLancamento)
 
             txtMovieNoteDetails.text = "${movie.notaMedia}/10 \nAvaliação"
             txtMovieTitleDetails.text = movie.tituloFilme
             txtMovieDescriptionDetails.text = movie.sinopse
-            txtMovieDateDetails.text =
-                if (dataString == null)
-                    "Lançamento: $realeseDate"
-                else
-                    dataString
+//            txtMovieDateDetails.text =
+//                if (dataString == null)
+//                    "Lançamento: $realeseDate"
+//                else
+//                    dataString
         }
     }
 

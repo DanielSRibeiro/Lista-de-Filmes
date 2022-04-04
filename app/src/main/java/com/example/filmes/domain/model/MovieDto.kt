@@ -21,7 +21,7 @@ data class MovieDto(
     val notaMedia: Double,
 
     @SerializedName("release_date")
-    val dataLancamento: Date,
+    val dataLancamento: String,
 
     @SerializedName("genre_ids")
     var generosIds: IntArray,

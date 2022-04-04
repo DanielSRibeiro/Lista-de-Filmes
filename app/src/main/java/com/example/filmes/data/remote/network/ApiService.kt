@@ -14,12 +14,14 @@ interface ApiService {
     @GET("movie/popular")
     suspend fun getAllPopularMovies(
         @Query("api_key") keyApi:String = USER_KEY,
+        @Query("page") page:Int,
         @Query("language") language:String = LANGUAGE
     ) : Response<ResultsMoviesDto>
 
     @GET("search/movie")
     suspend fun getSearchName(
         @Query("api_key") keyApi:String = USER_KEY,
+        @Query("page") page:Int,
         @Query("language") language:String = LANGUAGE,
         @Query("query") name:String
     ) : Response<ResultsMoviesDto>

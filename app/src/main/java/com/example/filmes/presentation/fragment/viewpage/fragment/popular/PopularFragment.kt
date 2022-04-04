@@ -8,6 +8,7 @@ import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.filmes.presentation.fragment.viewpage.fragment.paging.MoviePagingAdapter
 import com.example.filmes.R
 import com.example.filmes.databinding.FragmentPopularBinding
 import com.example.filmes.domain.model.MovieDto
@@ -19,9 +20,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class PopularFragment : Fragment(R.layout.fragment_popular), OnItemClickPopularListener {
 
     private val movieViewModel: MovieViewModel by viewModel()
-    lateinit var movieList: ArrayList<MovieDto>
 
     private lateinit var binding: FragmentPopularBinding
+
+    private val myAdapter = MoviePagingAdapter(this@PopularFragment)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,21 +40,28 @@ class PopularFragment : Fragment(R.layout.fragment_popular), OnItemClickPopularL
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_search, menu)
 
-        val search = menu?.findItem(R.id.action_bar_search)
+        val search = menu.findItem(R.id.action_bar_search)
         val searchView = search?.actionView as SearchView
         searchView.queryHint = "Pesquisar Filmes"
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(p0: String?): Boolean = false
+            override fun onQueryTextSubmit(query: String?): Boolean = false
 
-            override fun onQueryTextChange(movieName: String?): Boolean {
-                if (!movieName.isNullOrBlank())
-                    movieViewModel.input.getAllMovies(movieName.toString())
-                else
-                    movieViewModel.input.getAllMovies(null)
+            override fun onQueryTextChange(query: String?): Boolean {
+                query?.let {
+                    movieViewModel.setQuery(it)
+                }
                 return true
             }
         })
+    }
+
+    override fun onClick(movie: MovieDto) {
+        val action = ViewPageFragmentDirections.actionViewPageFragmentToDetailsFragment(
+            movie,
+            null
+        )
+        findNavController().navigate(action)
     }
 
     private fun initView() {
@@ -61,40 +70,21 @@ class PopularFragment : Fragment(R.layout.fragment_popular), OnItemClickPopularL
             initMovieObserve()
             movieViewModel.input.getAllMovies(null)
             refreshPopular.setOnRefreshListener {
-                movieViewModel.input.getAllMovies(null)
+                movieViewModel.setBlank()
                 refreshPopular.isRefreshing = false
             }
-        }
-    }
 
-    fun initMovieObserve() {
-        movieViewModel.output.getMoviesState.observe(requireActivity()) {
-            when(it){
-                is GetMoviesState.Success -> {
-                    movieList = it.resultsMovies.movieList
-                    updateAdapter(movieList)
-                }
-                is GetMoviesState.ErrorRequestNotFound -> showToast(it.message)
-                is GetMoviesState.ErrorNetwork -> showToast(it.message)
-                is GetMoviesState.ErrorNotSearch -> showToast(it.message)
+            movieViewModel.list.observe(viewLifecycleOwner) {
+                myAdapter.submitData(lifecycle, it)
+                binding.progressBarPopular.visibility = View.GONE
             }
-            binding.progressBarPopular.visibility = View.GONE
         }
     }
 
-    fun updateAdapter(listMovies: ArrayList<MovieDto>) {
-        var popularAdapter = PopularAdapter(this, listMovies)
+    private fun setupAdapter() {
         binding.recyclerViewPopular.apply {
+            adapter = myAdapter
             layoutManager = LinearLayoutManager(activity)
-            adapter = popularAdapter
         }
-    }
-
-    override fun onClick(position: Int) {
-        val action = ViewPageFragmentDirections.actionViewPageFragmentToDetailsFragment(
-            movieList[position],
-            null
-        )
-        findNavController().navigate(action)
     }
 }
