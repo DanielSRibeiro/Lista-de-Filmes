@@ -62,7 +62,7 @@ class PopularFragment : Fragment(R.layout.fragment_popular), OnItemClickPopularL
     override fun onClick(movie: MovieDto) {
         var output: LocalDate? = null
         var realeseMovie = ""
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !movie.dataLancamento.isNullOrBlank()) {
             var simpleFormat2 = DateTimeFormatter.ISO_DATE
             output = LocalDate.parse(movie!!.dataLancamento, simpleFormat2)
             realeseMovie = "${output.dayOfMonth}/${output.monthValue}/${output.year}"

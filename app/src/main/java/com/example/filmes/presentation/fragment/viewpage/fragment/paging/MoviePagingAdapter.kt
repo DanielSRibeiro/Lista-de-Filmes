@@ -50,9 +50,9 @@ class MoviePagingAdapter(
                     .load(imageUrl)
                     .into(imgMoviePopular)
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !movie.dataLancamento.isNullOrBlank()) {
                     var simpleFormat2 = DateTimeFormatter.ISO_DATE
-                    var output = LocalDate.parse(movie!!.dataLancamento, simpleFormat2)
+                    var output = LocalDate.parse(movie.dataLancamento, simpleFormat2)
                     txtReleaseDatePopular.text = "Lançamento ${output.dayOfMonth}/${output.monthValue}/${output.year}"
                 }
                 txtMovieTitlePopular.text = movie.tituloFilme
