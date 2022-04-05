@@ -1,5 +1,6 @@
 package com.example.filmes.presentation.fragment.details
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
@@ -15,6 +16,8 @@ import com.example.filmes.presentation.fragment.LocalViewModel
 import com.example.filmes.utilis.BASE_IMAGEM
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
 
@@ -49,7 +52,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                 if(paraDeleta)
                     localViewModel.input.deleteMovie(movie.id)
                 else
-                    localViewModel.input.insertMovie(movie, realeseDate)
+                    localViewModel.input.insertMovie(movie, dataString.toString())
             }
 
             backNavigation.setOnClickListener {
@@ -75,17 +78,14 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                 .load("${BASE_IMAGEM + movie.backdropPath}")
                 .into(imgMovieDetails)
 
-//            val dateFormat = SimpleDateFormat("dd/MM/yyyy")
-//            realeseDate = dateFormat.format(movie.dataLancamento)
-
             txtMovieNoteDetails.text = "${movie.notaMedia}/10 \nAvaliação"
             txtMovieTitleDetails.text = movie.tituloFilme
             txtMovieDescriptionDetails.text = movie.sinopse
-//            txtMovieDateDetails.text =
-//                if (dataString == null)
-//                    "Lançamento: $realeseDate"
-//                else
-//                    dataString
+            txtMovieDateDetails.text =
+                if (dataString == null)
+                    realeseDate
+                else
+                    "Lançamento: $dataString"
         }
     }
 

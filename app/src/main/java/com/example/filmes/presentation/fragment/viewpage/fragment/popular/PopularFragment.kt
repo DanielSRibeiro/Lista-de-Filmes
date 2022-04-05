@@ -1,5 +1,6 @@
 package com.example.filmes.presentation.fragment.viewpage.fragment.popular
 
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -16,6 +17,8 @@ import com.example.filmes.presentation.fragment.state.GetMoviesState
 import com.example.filmes.presentation.fragment.viewpage.ViewPageFragmentDirections
 import com.example.filmes.utilis.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class PopularFragment : Fragment(R.layout.fragment_popular), OnItemClickPopularListener {
 
@@ -57,9 +60,17 @@ class PopularFragment : Fragment(R.layout.fragment_popular), OnItemClickPopularL
     }
 
     override fun onClick(movie: MovieDto) {
+        var output: LocalDate? = null
+        var realeseMovie = ""
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            var simpleFormat2 = DateTimeFormatter.ISO_DATE
+            output = LocalDate.parse(movie!!.dataLancamento, simpleFormat2)
+            realeseMovie = "${output.dayOfMonth}/${output.monthValue}/${output.year}"
+        }
+
         val action = ViewPageFragmentDirections.actionViewPageFragmentToDetailsFragment(
             movie,
-            null
+            realeseMovie
         )
         findNavController().navigate(action)
     }

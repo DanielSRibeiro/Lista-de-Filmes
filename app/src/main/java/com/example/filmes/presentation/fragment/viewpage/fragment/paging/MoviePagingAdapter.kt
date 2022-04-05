@@ -1,5 +1,6 @@
 package com.example.filmes.presentation.fragment.viewpage.fragment.paging
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -9,7 +10,8 @@ import com.bumptech.glide.Glide
 import com.example.filmes.databinding.PopularItemBinding
 import com.example.filmes.domain.model.MovieDto
 import com.example.filmes.utilis.BASE_IMAGEM
-import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class MoviePagingAdapter(
     var listener: OnItemClickPopularListener
@@ -48,10 +50,11 @@ class MoviePagingAdapter(
                     .load(imageUrl)
                     .into(imgMoviePopular)
 
-                val formatDate = SimpleDateFormat("dd/MM/yyyy")
-//                val realeseDate = formatDate.format(movie!!.dataLancamento).toString()
-
-//                txtReleaseDatePopular.text = "Lançamento $realeseDate"
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    var simpleFormat2 = DateTimeFormatter.ISO_DATE
+                    var output = LocalDate.parse(movie!!.dataLancamento, simpleFormat2)
+                    txtReleaseDatePopular.text = "Lançamento ${output.dayOfMonth}/${output.monthValue}/${output.year}"
+                }
                 txtMovieTitlePopular.text = movie.tituloFilme
                 txtMovieDescriptionPopular.text = movie.sinopse
             }

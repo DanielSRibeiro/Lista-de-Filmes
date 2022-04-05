@@ -16,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:padding="16dp"
+            android:paddingTop="16dp"
+            android:paddingHorizontal="16dp"
             tools:listitem="@layout/popular_item" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
