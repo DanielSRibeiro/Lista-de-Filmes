@@ -1,4 +1,4 @@
-package com.example.filmes.data.remote.network
+package com.example.filmes.data.remote
 
 import com.example.filmes.utilis.LANGUAGE
 import com.example.filmes.utilis.USER_KEY

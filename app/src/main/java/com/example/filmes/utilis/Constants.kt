@@ -1,6 +1,6 @@
 package com.example.filmes.utilis
 
-const val  BASE_IMAGEM = "https://image.tmdb.org/t/p/original/"
+const val BASE_IMAGEM = "https://image.tmdb.org/t/p/original/"
 const val BASE_URL = "https://api.themoviedb.org/3/"
 const val USER_KEY = "ae69ec81dd60f4108a88423265126573"
 const val LANGUAGE = "pt-br"

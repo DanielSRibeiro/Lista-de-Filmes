@@ -15,12 +15,7 @@ class MainApp  : Application(){
         startKoin {
             androidLogger(Level.INFO)
             androidContext(this@MainApp)
-            modules(
-                listOf(
-                    movieModule,
-                    daoModule,
-                )
-            )
+            modules(DependencyModule.moduleApp)
         }
     }
 }

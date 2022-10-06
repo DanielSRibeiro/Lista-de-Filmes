@@ -2,9 +2,8 @@ package com.example.filmes.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.filmes.data.remote.network.ApiService
+import com.example.filmes.data.remote.ApiService
 import com.example.filmes.domain.model.MovieDto
-import com.example.filmes.domain.usecase.remote.MovieUseCase
 
 class MoviePagingSource(
     val movieApiService: ApiService,
