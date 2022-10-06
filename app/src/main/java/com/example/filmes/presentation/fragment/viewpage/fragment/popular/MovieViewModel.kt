@@ -1,59 +1,24 @@
 package com.example.filmes.presentation.fragment.viewpage.fragment.popular
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.util.Log
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.filmes.R
+import androidx.lifecycle.viewModelScope
 import com.example.filmes.domain.model.ResultsMoviesDto
 import com.example.filmes.domain.usecase.remote.MovieUseCase
-import com.example.filmes.presentation.fragment.state.GetMoviesState
-import com.example.filmes.presentation.fragment.state.GetMoviesState.*
-import com.example.filmes.utilis.NetworkChecker
-import com.example.filmes.utilis.TAG_MOVIE
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.lang.Exception
-
-interface InputMovieViewModel {
-    fun getAllMovies(name: String?)
-}
-
-interface OutputMovieViewModel {
-    val getMoviesState: LiveData<GetMoviesState>
-}
-
-interface ContractMovieViewModel : InputMovieViewModel, OutputMovieViewModel
 
 class MovieViewModel(
-    private var context: Context,
     private var getMovie: MovieUseCase
-) : ViewModel(){
+) : ViewModel() {
 
-    private val query = MutableLiveData<String>("")
+    var _list = MutableLiveData<ResultsMoviesDto?>()
+    val list : LiveData<ResultsMoviesDto?> = _list
 
-                if (NetworkChecker(connectivityManager).hasInternet()) {
-                    val resultsMovies: ResultsMoviesDto? = withContext(Dispatchers.Default) {
-                        getMovie.invoke(name)
-                    }
-
-                    if (resultsMovies?.movieList.isNullOrEmpty())
-                        _getMoviesState.value = ErrorNotSearch("Não encontramos nenhum filme com esse nome")
-                    else
-                        _getMoviesState.value = Success(resultsMovies!!)
-                } else {
-                    _getMoviesState.value =
-                        ErrorNetwork(context.getString(R.string.error_conection))
-                }
-            } catch (e: Exception) {
-                _getMoviesState.value = ErrorNetwork(context.getString(R.string.error_conection))
-                Log.d(TAG_MOVIE, "movieUseCase: $e")
-            }
+    fun getAllMovies(name: String?) {
+        viewModelScope.launch {
+            val response = getMovie(name)
+            _list.value = response
         }
     }
 

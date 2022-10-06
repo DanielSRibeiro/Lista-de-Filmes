@@ -9,24 +9,20 @@ import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.filmes.presentation.fragment.viewpage.fragment.paging.MoviePagingAdapter
 import com.example.filmes.R
 import com.example.filmes.databinding.FragmentPopularBinding
-import com.example.filmes.domain.model.MovieDto
-import com.example.filmes.presentation.fragment.state.GetMoviesState
 import com.example.filmes.presentation.fragment.viewpage.ViewPageFragmentDirections
-import com.example.filmes.utilis.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class PopularFragment : Fragment(R.layout.fragment_popular), OnItemClickPopularListener {
+class PopularFragment : Fragment(R.layout.fragment_popular) {
 
     private val movieViewModel: MovieViewModel by viewModel()
 
     private lateinit var binding: FragmentPopularBinding
 
-    private val myAdapter = MoviePagingAdapter(this@PopularFragment)
+    lateinit var myAdapter: PopularAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +32,7 @@ class PopularFragment : Fragment(R.layout.fragment_popular), OnItemClickPopularL
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPopularBinding.bind(view)
+        setupAdapter()
         initView()
     }
 
@@ -52,41 +49,30 @@ class PopularFragment : Fragment(R.layout.fragment_popular), OnItemClickPopularL
 
             override fun onQueryTextChange(query: String?): Boolean {
                 query?.let {
-                    movieViewModel.setQuery(it)
+//                    movieViewModel.setQuery(it)
                 }
                 return true
             }
         })
     }
 
-    override fun onClick(movie: MovieDto) {
-        var output: LocalDate? = null
-        var realeseMovie = ""
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !movie.dataLancamento.isNullOrBlank()) {
-            var simpleFormat2 = DateTimeFormatter.ISO_DATE
-            output = LocalDate.parse(movie!!.dataLancamento, simpleFormat2)
-            realeseMovie = "${output.dayOfMonth}/${output.monthValue}/${output.year}"
-        }
-
-        val action = ViewPageFragmentDirections.actionViewPageFragmentToDetailsFragment(
-            movie,
-            realeseMovie
-        )
-        findNavController().navigate(action)
-    }
-
     private fun initView() {
         binding.apply {
             progressBarPopular.visibility = View.VISIBLE
+            movieViewModel.getAllMovies(null)
             initMovieObserve()
-            movieViewModel.input.getAllMovies(null)
             refreshPopular.setOnRefreshListener {
-                movieViewModel.setBlank()
+                movieViewModel.getAllMovies(null)
                 refreshPopular.isRefreshing = false
             }
 
-            movieViewModel.list.observe(viewLifecycleOwner) {
-                myAdapter.submitData(lifecycle, it)
+        }
+    }
+
+    private fun initMovieObserve() {
+        movieViewModel.list.observe(viewLifecycleOwner) {
+            it?.let { result ->
+                myAdapter.submitList(result.movieList)
                 binding.progressBarPopular.visibility = View.GONE
             }
         }
@@ -94,6 +80,22 @@ class PopularFragment : Fragment(R.layout.fragment_popular), OnItemClickPopularL
 
     private fun setupAdapter() {
         binding.recyclerViewPopular.apply {
+            myAdapter = PopularAdapter{ movie ->
+                var output: LocalDate? = null
+                var realeseMovie = ""
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !movie.dataLancamento.isNullOrBlank()) {
+                    var simpleFormat2 = DateTimeFormatter.ISO_DATE
+                    output = LocalDate.parse(movie!!.dataLancamento, simpleFormat2)
+                    realeseMovie = "${output.dayOfMonth}/${output.monthValue}/${output.year}"
+                }
+
+                val action = ViewPageFragmentDirections.actionViewPageFragmentToDetailsFragment(
+                    movie,
+                    realeseMovie
+                )
+                findNavController().navigate(action)
+            }
+
             adapter = myAdapter
             layoutManager = LinearLayoutManager(activity)
         }
