@@ -1,18 +1,15 @@
-package com.example.filmes.presentation.fragment.viewpage.fragment.popular
+package com.example.filmes.presentation.fragment.popular_and_favorite.screens.popular
 
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.filmes.R
 import com.example.filmes.databinding.FragmentPopularBinding
-import com.example.filmes.presentation.fragment.viewpage.ViewPageFragmentDirections
-import com.example.filmes.presentation.fragment.viewpage.fragment.popular.adapter.PopularAdapter
+import com.example.filmes.presentation.fragment.popular_and_favorite.PopularAndFavoriteFragmentDirections
+import com.example.filmes.presentation.fragment.popular_and_favorite.screens.popular.adapter.PopularAdapter
 import com.example.filmes.utilis.IOnAction
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.LocalDate
@@ -75,12 +72,12 @@ class PopularFragment : Fragment(), IOnAction {
                 var output: LocalDate? = null
                 var realeseMovie = ""
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !movie.dataLancamento.isNullOrBlank()) {
-                    var simpleFormat2 = DateTimeFormatter.ISO_DATE
+                    val simpleFormat2 = DateTimeFormatter.ISO_DATE
                     output = LocalDate.parse(movie!!.dataLancamento, simpleFormat2)
                     realeseMovie = "${output.dayOfMonth}/${output.monthValue}/${output.year}"
                 }
 
-                val action = ViewPageFragmentDirections.actionViewPageFragmentToDetailsFragment(
+                val action = PopularAndFavoriteFragmentDirections.actionViewPageFragmentToDetailsFragment(
                     movie,
                     realeseMovie
                 )
@@ -88,7 +85,6 @@ class PopularFragment : Fragment(), IOnAction {
             }
 
             adapter = myAdapter
-            layoutManager = LinearLayoutManager(activity)
         }
     }
 

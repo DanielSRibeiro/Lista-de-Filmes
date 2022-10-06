@@ -1,19 +1,19 @@
-package com.example.filmes.presentation.fragment.viewpage
+package com.example.filmes.presentation.fragment.popular_and_favorite
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.SearchView
 import com.example.filmes.R
-import com.example.filmes.databinding.FragmentViewPageBinding
-import com.example.filmes.presentation.fragment.viewpage.fragment.favorite.FavoritoFragment
-import com.example.filmes.presentation.fragment.viewpage.fragment.popular.PopularFragment
+import com.example.filmes.databinding.FragmentPopularAndFavoriteBinding
+import com.example.filmes.presentation.fragment.popular_and_favorite.screens.favorite.FavoritoFragment
+import com.example.filmes.presentation.fragment.popular_and_favorite.screens.popular.PopularFragment
 import com.example.filmes.utilis.IOnAction
 import com.google.android.material.tabs.TabLayoutMediator
 
-class ViewPageFragment : Fragment() {
+class PopularAndFavoriteFragment : Fragment() {
 
-    private var _binding: FragmentViewPageBinding? = null
+    private var _binding: FragmentPopularAndFavoriteBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +26,7 @@ class ViewPageFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentViewPageBinding.inflate(inflater, container, false)
+        _binding = FragmentPopularAndFavoriteBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -50,12 +50,17 @@ class ViewPageFragment : Fragment() {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                val fragment = childFragmentManager.findFragmentByTag("f${binding.movieViewPage.currentItem}")
-                (fragment as? IOnAction)?.executeAction(query)
+                query?.let {
+                    val fragment = childFragmentManager.findFragmentByTag("f${binding.movieViewPage.currentItem}")
+                    (fragment as? IOnAction)?.executeAction(query)
+                }
                 return true
             }
 
-            override fun onQueryTextChange(query: String?): Boolean = false
+            override fun onQueryTextChange(query: String?): Boolean {
+
+                return true
+            }
         })
     }
 
@@ -65,7 +70,7 @@ class ViewPageFragment : Fragment() {
                 PopularFragment(),
                 FavoritoFragment()
             )
-            val pageAdapter = ViewPageAdapter(fragmentList, childFragmentManager, lifecycle)
+            val pageAdapter = SectionsPagerAdapter(fragmentList, childFragmentManager, lifecycle)
             movieViewPage.adapter = pageAdapter
 
             tabLayout.tabSelectedIndicator

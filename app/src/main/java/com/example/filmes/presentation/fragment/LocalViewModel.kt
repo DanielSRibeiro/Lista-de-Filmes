@@ -20,48 +20,26 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-interface InputLocalViewModel {
-    fun verificar(id: Int)
-    fun insertMovie(movie: MovieDto, data: String)
-    fun deleteMovie(id: Int)
-    fun getCategories(movie: MovieDto)
-    fun getSeachMovie(nome: String?)
-}
-
-interface OutputLocalViewModel{
-    val categories: LiveData<String>
-    val verificado: LiveData<Boolean>
-    val listaSalva: LiveData<List<MovieEntity>>
-}
-
-interface ContractLocalViewModel : InputLocalViewModel, OutputLocalViewModel
-
 class LocalViewModel(
     private val insertMovieUseCase: InsertMovieUseCase,
     private val verificarMovieUseCase: VerificarMovieUseCase,
     private val deleteMovieUseCase: DeleteMovieCaseUse,
     private var categoriesUseCase: CategoriesUseCase,
     private val selectMovieUseCase: SelectMovieUseCase
-) : ViewModel(), ContractLocalViewModel {
-
-    val input: InputLocalViewModel = this
-    val output: OutputLocalViewModel = this
+) : ViewModel() {
     var nomeCategorias = ""
 
     private val mCategories = MutableLiveData<String>()
-    override val categories: LiveData<String>
-        get() = mCategories
+    val categories: LiveData<String> = mCategories
 
     private var mVerificado = MutableLiveData<Boolean>()
-    override val verificado: LiveData<Boolean>
-        get() = mVerificado
+    val verificado: LiveData<Boolean> = mVerificado
 
     private val mListaSalva = MutableLiveData<List<MovieEntity>>()
-    override val listaSalva: LiveData<List<MovieEntity>>
-        get() = mListaSalva
+    val listaSalva: LiveData<List<MovieEntity>> = mListaSalva
 
 
-    override fun verificar(id: Int) {
+    fun verificar(id: Int) {
         viewModelScope.launch {
             val valor = withContext(Dispatchers.Default) {
                 try {
@@ -75,7 +53,7 @@ class LocalViewModel(
         }
     }
 
-    override fun insertMovie(movie: MovieDto, data: String) {
+    fun insertMovie(movie: MovieDto, data: String) {
         viewModelScope.launch {
             try {
                 insertMovieUseCase.invoke(movie, data)
@@ -86,7 +64,7 @@ class LocalViewModel(
         }
     }
 
-    override fun deleteMovie(id: Int) {
+    fun deleteMovie(id: Int) {
         viewModelScope.launch {
             try {
                 deleteMovieUseCase.invoke(id)
@@ -97,14 +75,14 @@ class LocalViewModel(
         }
     }
 
-    override fun getCategories(movie: MovieDto) {
+    fun getCategories(movie: MovieDto) {
         viewModelScope.launch {
-            var resultsCategories = withContext(Dispatchers.Default) {
+            val resultsCategories = withContext(Dispatchers.Default) {
                 categoriesUseCase.invoke()
             }
-            if (!resultsCategories.generosFilme.isNullOrEmpty()) {
+            if (resultsCategories.generosFilme.isNotEmpty()) {
                 nomeCategorias = ""
-                var genresList = resultsCategories.generosFilme
+                val genresList = resultsCategories.generosFilme
                 verificarCategorias(genresList, movie)
                 mCategories.value = nomeCategorias
 
@@ -113,7 +91,7 @@ class LocalViewModel(
         }
     }
 
-    override fun getSeachMovie(nome: String?) {
+    fun getSeachMovie(nome: String?) {
         viewModelScope.launch {
             val lista = withContext(Dispatchers.Default) {
                 try {

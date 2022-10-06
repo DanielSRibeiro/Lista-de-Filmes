@@ -1,4 +1,4 @@
-package com.example.filmes.presentation.fragment.viewpage.fragment.popular
+package com.example.filmes.presentation.fragment.popular_and_favorite.screens.popular
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

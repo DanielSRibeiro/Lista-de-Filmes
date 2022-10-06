@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
@@ -24,10 +26,13 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.myToolbar)
-        navController = findNavController(R.id.navHostFragment)
+        setSupportActionBar(binding.toolbarMain)
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+
+        navController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(navController.graph)
-        binding.myToolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.toolbarMain.setupWithNavController(navController, appBarConfiguration)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {

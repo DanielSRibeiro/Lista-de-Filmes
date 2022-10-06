@@ -1,11 +1,11 @@
-package com.example.filmes.presentation.fragment.viewpage
+package com.example.filmes.presentation.fragment.popular_and_favorite
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class ViewPageAdapter(
+class SectionsPagerAdapter(
     private val fragmentList: List<Fragment>,
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle

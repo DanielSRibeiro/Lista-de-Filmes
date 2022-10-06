@@ -56,9 +56,9 @@ class DetailsFragment : Fragment() {
 
             floatingSaveDetails.setOnClickListener {
                 if(paraDeleta)
-                    localViewModel.input.deleteMovie(movie.id)
+                    localViewModel.deleteMovie(movie.id)
                 else
-                    localViewModel.input.insertMovie(movie, dataString.toString())
+                    localViewModel.insertMovie(movie, dataString.toString())
             }
 
             backNavigation.setOnClickListener {
@@ -78,7 +78,7 @@ class DetailsFragment : Fragment() {
             movie = args.movie
             dataString = args.dataLancamento
 
-            localViewModel.input.verificar(movie.id)
+            localViewModel.verificar(movie.id)
 
             Glide.with(binding.root)
                 .load("${BASE_IMAGEM + movie.backdropPath}")
@@ -96,15 +96,15 @@ class DetailsFragment : Fragment() {
     }
 
     private fun setupFavorito() {
-        localViewModel.output.verificado.observe(requireActivity()) { foiSalvo ->
+        localViewModel.verificado.observe(requireActivity()) { foiSalvo ->
             this.paraDeleta = foiSalvo
             binding.floatingSaveDetails.isSelected = foiSalvo
         }
     }
 
     private fun setupCategories(){
-        localViewModel.input.getCategories(movie)
-        localViewModel.output.categories.observe(requireActivity()) { genres ->
+        localViewModel.getCategories(movie)
+        localViewModel.categories.observe(requireActivity()) { genres ->
             binding.txtMovieGenreDetails.text = genres
         }
     }

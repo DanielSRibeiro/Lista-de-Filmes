@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".presentation.fragment.viewpage.fragment.popular.PopularFragment">
+    tools:context=".presentation.fragment.popular_and_favorite.screens.popular.PopularFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh_popular"
@@ -16,8 +17,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:paddingTop="16dp"
             android:paddingHorizontal="16dp"
+            android:paddingTop="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/popular_item" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

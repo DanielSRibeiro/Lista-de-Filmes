@@ -7,7 +7,7 @@
     tools:context=".presentation.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/myToolbar"
+        android:id="@+id/toolbar_main"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/primaryColor"
@@ -16,9 +16,10 @@
         android:outlineAmbientShadowColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UnusedAttribute" />
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/navHostFragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
@@ -28,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myToolbar"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_main"
         app:layout_constraintVertical_bias="0.409"
         app:navGraph="@navigation/nav_graph_main" />
 </androidx.constraintlayout.widget.ConstraintLayout>

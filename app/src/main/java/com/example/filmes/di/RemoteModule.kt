@@ -10,7 +10,7 @@ import com.example.filmes.domain.usecase.remote.CategoriesUseCase
 import com.example.filmes.domain.usecase.remote.GetCategories
 import com.example.filmes.domain.usecase.remote.GetMovie
 import com.example.filmes.domain.usecase.remote.MovieUseCase
-import com.example.filmes.presentation.fragment.viewpage.fragment.popular.MovieViewModel
+import com.example.filmes.presentation.fragment.popular_and_favorite.screens.popular.MovieViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

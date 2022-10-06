@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_main"
-    app:startDestination="@id/viewPageFragment">
+    app:startDestination="@id/popularAndFavoriteFragment">
     <fragment
-        android:id="@+id/viewPageFragment"
-        android:name="com.example.filmes.presentation.fragment.viewpage.ViewPageFragment"
+        android:id="@+id/popularAndFavoriteFragment"
+        android:name="com.example.filmes.presentation.fragment.popular_and_favorite.PopularAndFavoriteFragment"
         android:label="Filmes"
-        tools:layout="@layout/fragment_view_page">
+        tools:layout="@layout/fragment_popular_and_favorite">
         <action
             android:id="@+id/action_viewPageFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />

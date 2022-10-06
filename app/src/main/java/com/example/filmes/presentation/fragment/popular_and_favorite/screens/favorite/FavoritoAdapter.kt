@@ -1,4 +1,4 @@
-package com.example.filmes.presentation.fragment.viewpage.fragment.favorite
+package com.example.filmes.presentation.fragment.popular_and_favorite.screens.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
