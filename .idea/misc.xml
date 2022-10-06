@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/layout/fragment_details.xml" value="0.37083333333333335" />
         <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/layout/fragment_favorito.xml" value="0.37083333333333335" />
         <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/layout/fragment_popular.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/layout/popular_item.xml" value="0.37083333333333335" />

@@ -3,6 +3,7 @@ package com.example.filmes.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -27,6 +28,17 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.navHostFragment)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         binding.myToolbar.setupWithNavController(navController, appBarConfiguration)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.detailsFragment -> {
+                    supportActionBar?.hide()
+                }
+                else -> {
+                    supportActionBar?.show()
+                }
+            }
+        }
     }
 
     override fun onDestroy() {

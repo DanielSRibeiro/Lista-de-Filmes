@@ -8,6 +8,7 @@ import com.example.filmes.R
 import com.example.filmes.databinding.FragmentViewPageBinding
 import com.example.filmes.presentation.fragment.viewpage.fragment.favorite.FavoritoFragment
 import com.example.filmes.presentation.fragment.viewpage.fragment.popular.PopularFragment
+import com.example.filmes.utilis.IOnAction
 import com.google.android.material.tabs.TabLayoutMediator
 
 class ViewPageFragment : Fragment() {
@@ -49,9 +50,8 @@ class ViewPageFragment : Fragment() {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let {
-//                    movieViewModel.setQuery(it)
-                }
+                val fragment = childFragmentManager.findFragmentByTag("f${binding.movieViewPage.currentItem}")
+                (fragment as? IOnAction)?.executeAction(query)
                 return true
             }
 
@@ -61,13 +61,16 @@ class ViewPageFragment : Fragment() {
 
     private fun setupTabLayout() {
         binding.apply {
-            val fragmentList = arrayListOf(PopularFragment(), FavoritoFragment())
+            val fragmentList = listOf(
+                PopularFragment(),
+                FavoritoFragment()
+            )
             val pageAdapter = ViewPageAdapter(fragmentList, childFragmentManager, lifecycle)
             movieViewPage.adapter = pageAdapter
 
             tabLayout.tabSelectedIndicator
-            TabLayoutMediator(tabLayout, movieViewPage){ tab, position ->
-                when(position){
+            TabLayoutMediator(tabLayout, movieViewPage) { tab, position ->
+                when (position) {
                     0 -> tab.text = "Populares"
                     1 -> tab.text = "Favoritos"
                 }

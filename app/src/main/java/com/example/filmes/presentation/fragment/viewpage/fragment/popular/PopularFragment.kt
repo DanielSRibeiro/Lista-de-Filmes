@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,11 +13,12 @@ import com.example.filmes.R
 import com.example.filmes.databinding.FragmentPopularBinding
 import com.example.filmes.presentation.fragment.viewpage.ViewPageFragmentDirections
 import com.example.filmes.presentation.fragment.viewpage.fragment.popular.adapter.PopularAdapter
+import com.example.filmes.utilis.IOnAction
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class PopularFragment : Fragment() {
+class PopularFragment : Fragment(), IOnAction {
 
     private val movieViewModel: MovieViewModel by viewModel()
 
@@ -44,6 +46,7 @@ class PopularFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
     private fun initView() {
         binding.apply {
             progressBarPopular.visibility = View.VISIBLE
@@ -68,7 +71,7 @@ class PopularFragment : Fragment() {
 
     private fun setupAdapter() {
         binding.recyclerViewPopular.apply {
-            myAdapter = PopularAdapter{ movie ->
+            myAdapter = PopularAdapter { movie ->
                 var output: LocalDate? = null
                 var realeseMovie = ""
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !movie.dataLancamento.isNullOrBlank()) {
@@ -87,5 +90,9 @@ class PopularFragment : Fragment() {
             adapter = myAdapter
             layoutManager = LinearLayoutManager(activity)
         }
+    }
+
+    override fun executeAction(string: String?) {
+//        movieViewModel.setQuery(it)
     }
 }

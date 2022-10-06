@@ -1,6 +1,5 @@
 package com.example.filmes.presentation.fragment.details
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,17 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.example.filmes.R
 import com.example.filmes.databinding.FragmentDetailsBinding
-import com.example.filmes.databinding.FragmentViewPageBinding
 import com.example.filmes.domain.model.MovieDto
 import com.example.filmes.presentation.MainActivity
 import com.example.filmes.presentation.fragment.LocalViewModel
 import com.example.filmes.utilis.BASE_IMAGEM
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class DetailsFragment : Fragment() {
 
@@ -34,11 +28,6 @@ class DetailsFragment : Fragment() {
     private var dataString:String? = null
     private var paraDeleta = false
     private var realeseDate = ""
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        (activity as MainActivity).supportActionBar?.hide()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

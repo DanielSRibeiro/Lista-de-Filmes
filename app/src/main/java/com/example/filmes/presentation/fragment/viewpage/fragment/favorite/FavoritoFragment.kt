@@ -3,6 +3,7 @@ package com.example.filmes.presentation.fragment.viewpage.fragment.favorite
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.filmes.data.local.entity.MovieEntity
@@ -10,12 +11,13 @@ import com.example.filmes.databinding.FragmentFavoritoBinding
 import com.example.filmes.domain.model.MovieDto
 import com.example.filmes.presentation.fragment.LocalViewModel
 import com.example.filmes.presentation.fragment.viewpage.ViewPageFragmentDirections
+import com.example.filmes.utilis.IOnAction
 import com.example.filmes.utilis.JsonService
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
-class FavoritoFragment : Fragment() {
+class FavoritoFragment : Fragment(), IOnAction{
 
     private var _binding: FragmentFavoritoBinding? = null
     private val binding get() = _binding!!
@@ -53,28 +55,6 @@ class FavoritoFragment : Fragment() {
             }
         }
     }
-//
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        super.onCreateOptionsMenu(menu, inflater)
-//        inflater.inflate(R.menu.menu_search, menu)
-//
-//        var search = menu?.findItem(R.id.action_bar_search)
-//        searchView = search?.actionView as SearchView
-//        searchView.queryHint = "Pesquisar Filmes"
-//
-//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-//            override fun onQueryTextSubmit(p0: String?): Boolean = false
-//
-//            override fun onQueryTextChange(movieName: String?): Boolean {
-//                if (!movieName.isNullOrBlank())
-//                    localViewModel.input.getSeachMovie(movieName.toString())
-//                else
-//                    localViewModel.input.getSeachMovie(null)
-//                    binding.txtNoneFavorite.text = "Filme não encontrado"
-//                return true
-//            }
-//        })
-//    }
 
     private fun getListaFilmes() {
         localViewModel.input.getSeachMovie(null)
@@ -116,5 +96,13 @@ class FavoritoFragment : Fragment() {
     private fun onClickButton(movie: MovieEntity) {
         localViewModel.input.deleteMovie(movie.id.toInt())
         localViewModel.input.getSeachMovie(null)
+    }
+
+    override fun executeAction(name: String?) {
+        if (name.isNullOrBlank())
+            localViewModel.input.getSeachMovie(name)
+        else
+            localViewModel.input.getSeachMovie(null)
+        binding.txtNoneFavorite.text = "Filme não encontrado"
     }
 }
