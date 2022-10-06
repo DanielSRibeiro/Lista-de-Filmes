@@ -16,7 +16,6 @@ val daoModule = module {
             insertMovieUseCase = get(),
             verificarMovieUseCase = get(),
             deleteMovieUseCase = get(),
-            categoriesUseCase = get(),
             selectMovieUseCase = get()
         )
     }

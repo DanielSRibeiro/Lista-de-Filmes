@@ -23,6 +23,7 @@ class DetailsFragment : Fragment() {
 
     private val args: DetailsFragmentArgs by navArgs()
     private val localViewModel: LocalViewModel by viewModel()
+    private val detailsViewModel: DetailsViewModel by viewModel()
 
     private lateinit var movie: MovieDto
     private var dataString:String? = null
@@ -103,8 +104,8 @@ class DetailsFragment : Fragment() {
     }
 
     private fun setupCategories(){
-        localViewModel.getCategories(movie)
-        localViewModel.categories.observe(requireActivity()) { genres ->
+        detailsViewModel.getCategories(movie)
+        detailsViewModel.categories.observe(requireActivity()) { genres ->
             binding.txtMovieGenreDetails.text = genres
         }
     }

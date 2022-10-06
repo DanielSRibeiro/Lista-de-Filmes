@@ -24,13 +24,8 @@ class LocalViewModel(
     private val insertMovieUseCase: InsertMovieUseCase,
     private val verificarMovieUseCase: VerificarMovieUseCase,
     private val deleteMovieUseCase: DeleteMovieCaseUse,
-    private var categoriesUseCase: CategoriesUseCase,
     private val selectMovieUseCase: SelectMovieUseCase
 ) : ViewModel() {
-    var nomeCategorias = ""
-
-    private val mCategories = MutableLiveData<String>()
-    val categories: LiveData<String> = mCategories
 
     private var mVerificado = MutableLiveData<Boolean>()
     val verificado: LiveData<Boolean> = mVerificado
@@ -75,21 +70,6 @@ class LocalViewModel(
         }
     }
 
-    fun getCategories(movie: MovieDto) {
-        viewModelScope.launch {
-            val resultsCategories = withContext(Dispatchers.Default) {
-                categoriesUseCase.invoke()
-            }
-            if (resultsCategories.generosFilme.isNotEmpty()) {
-                nomeCategorias = ""
-                val genresList = resultsCategories.generosFilme
-                verificarCategorias(genresList, movie)
-                mCategories.value = nomeCategorias
-
-            }
-
-        }
-    }
 
     fun getSeachMovie(nome: String?) {
         viewModelScope.launch {
@@ -104,15 +84,4 @@ class LocalViewModel(
             mListaSalva.value = lista
         }
     }
-
-    private fun verificarCategorias(genresList: ArrayList<CategoriesDto>, movie: MovieDto) {
-        genresList.forEach { idGenero ->
-            movie.generosIds.forEach { idDoFilme ->
-                if (idGenero.id == idDoFilme) {
-                    nomeCategorias += idGenero.nome + ", "
-                }
-            }
-        }
-    }
-
 }
