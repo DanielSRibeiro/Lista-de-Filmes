@@ -8,7 +8,7 @@ Aplicativo que trás os filmes que estão atualmente populares, podendo pesquisa
 - [x] MVVM e Clean Architecture
 - [x] Frameworks: Coroutines, Retrofit e Koin
 - [x] Jetpack: View Binding, Lifecycler, LiveData, Navigation, Pagin, Room, ViewModel
-- [x] Testes unitários com mockk
+- [x] Testes unitários com Mockito
 
 ### Screenshot
 
