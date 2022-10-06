@@ -1,4 +1,4 @@
-package com.example.filmes.presentation.fragment.viewpage.fragment.popular
+package com.example.filmes.presentation.fragment.viewpage.fragment.popular.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil

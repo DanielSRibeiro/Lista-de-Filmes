@@ -2,60 +2,48 @@ package com.example.filmes.presentation.fragment.viewpage.fragment.popular
 
 import android.os.Build
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.SearchView
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmes.R
 import com.example.filmes.databinding.FragmentPopularBinding
 import com.example.filmes.presentation.fragment.viewpage.ViewPageFragmentDirections
+import com.example.filmes.presentation.fragment.viewpage.fragment.popular.adapter.PopularAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class PopularFragment : Fragment(R.layout.fragment_popular) {
+class PopularFragment : Fragment() {
 
     private val movieViewModel: MovieViewModel by viewModel()
 
-    private lateinit var binding: FragmentPopularBinding
+    private var _binding: FragmentPopularBinding? = null
+    private val binding get() = _binding!!
 
     lateinit var myAdapter: PopularAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentPopularBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentPopularBinding.bind(view)
         setupAdapter()
         initView()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_search, menu)
-
-        val search = menu.findItem(R.id.action_bar_search)
-        val searchView = search?.actionView as SearchView
-        searchView.queryHint = "Pesquisar Filmes"
-
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean = false
-
-            override fun onQueryTextChange(query: String?): Boolean {
-                query?.let {
-//                    movieViewModel.setQuery(it)
-                }
-                return true
-            }
-        })
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
-
     private fun initView() {
         binding.apply {
             progressBarPopular.visibility = View.VISIBLE

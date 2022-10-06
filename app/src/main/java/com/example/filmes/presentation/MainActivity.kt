@@ -12,22 +12,26 @@ import com.example.filmes.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private var _binding: ActivityMainBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.apply {
-            setSupportActionBar(myToolbar)
-            navController = findNavController(R.id.navHostFragment)
-            appBarConfiguration = AppBarConfiguration(navController.graph)
-            myToolbar.setupWithNavController(navController, appBarConfiguration)
-        }
+        setSupportActionBar(binding.myToolbar)
+        navController = findNavController(R.id.navHostFragment)
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        binding.myToolbar.setupWithNavController(navController, appBarConfiguration)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     override fun onSupportNavigateUp(): Boolean {

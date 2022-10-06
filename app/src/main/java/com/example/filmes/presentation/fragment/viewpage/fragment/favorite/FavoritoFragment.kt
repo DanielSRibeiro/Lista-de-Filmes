@@ -1,15 +1,10 @@
 package com.example.filmes.presentation.fragment.viewpage.fragment.favorite
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.filmes.R
 import com.example.filmes.data.local.entity.MovieEntity
 import com.example.filmes.databinding.FragmentFavoritoBinding
 import com.example.filmes.domain.model.MovieDto
@@ -20,22 +15,34 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
-class FavoritoFragment : Fragment(R.layout.fragment_favorito) , OnItemClickFavoritoListener {
+class FavoritoFragment : Fragment() {
 
-    private lateinit var binding: FragmentFavoritoBinding
+    private var _binding: FragmentFavoritoBinding? = null
+    private val binding get() = _binding!!
+
     private val localViewModel: LocalViewModel by viewModel()
 
     private lateinit var listMovieSalvo:List<MovieEntity>
     private lateinit var searchView: SearchView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+    lateinit var favoritoAdapter: FavoritoAdapter
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentFavoritoBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentFavoritoBinding.bind(view)
 
         getListaFilmes()
 
@@ -46,34 +53,34 @@ class FavoritoFragment : Fragment(R.layout.fragment_favorito) , OnItemClickFavor
             }
         }
     }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_search, menu)
-
-        var search = menu?.findItem(R.id.action_bar_search)
-        searchView = search?.actionView as SearchView
-        searchView.queryHint = "Pesquisar Filmes"
-
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(p0: String?): Boolean = false
-
-            override fun onQueryTextChange(movieName: String?): Boolean {
-                if (!movieName.isNullOrBlank())
-                    localViewModel.input.getSeachMovie(movieName.toString())
-                else
-                    localViewModel.input.getSeachMovie(null)
-                    binding.txtNoneFavorite.text = "Filme não encontrado"
-                return true
-            }
-        })
-    }
+//
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        super.onCreateOptionsMenu(menu, inflater)
+//        inflater.inflate(R.menu.menu_search, menu)
+//
+//        var search = menu?.findItem(R.id.action_bar_search)
+//        searchView = search?.actionView as SearchView
+//        searchView.queryHint = "Pesquisar Filmes"
+//
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+//            override fun onQueryTextSubmit(p0: String?): Boolean = false
+//
+//            override fun onQueryTextChange(movieName: String?): Boolean {
+//                if (!movieName.isNullOrBlank())
+//                    localViewModel.input.getSeachMovie(movieName.toString())
+//                else
+//                    localViewModel.input.getSeachMovie(null)
+//                    binding.txtNoneFavorite.text = "Filme não encontrado"
+//                return true
+//            }
+//        })
+//    }
 
     private fun getListaFilmes() {
         localViewModel.input.getSeachMovie(null)
         localViewModel.output.listaSalva.observe(requireActivity()){ listaEntity ->
             listMovieSalvo = listaEntity
-            configAdapter(listMovieSalvo)
+            setupAdapter(listMovieSalvo)
 
             binding.txtNoneFavorite.visibility =
                 if(listaEntity.isNotEmpty()) View.GONE
@@ -81,14 +88,16 @@ class FavoritoFragment : Fragment(R.layout.fragment_favorito) , OnItemClickFavor
         }
     }
 
-    private fun configAdapter(listMovieSalvo : List<MovieEntity>) {
+    private fun setupAdapter(listMovieSalvo : List<MovieEntity>) {
         binding.recyclerViewFavorite.apply {
-            layoutManager = LinearLayoutManager(activity)
-            adapter = FavoritoAdapter(this@FavoritoFragment, listMovieSalvo)
+            favoritoAdapter = FavoritoAdapter(listMovieSalvo)
+            favoritoAdapter.setOnClick { onClick(it) }
+            favoritoAdapter.setOnClickButton { onClickButton(it) }
+            adapter = favoritoAdapter
         }
     }
 
-    override fun onClick(position: Int) {
+    private fun onClick(position: Int) {
         val entity = listMovieSalvo[position]
         val generos = JsonService.fromIntArray(entity.generosIds)
         val movieDto = MovieDto(
@@ -104,7 +113,7 @@ class FavoritoFragment : Fragment(R.layout.fragment_favorito) , OnItemClickFavor
         findNavController().navigate(action)
     }
 
-    override fun onClickButton(movie: MovieEntity) {
+    private fun onClickButton(movie: MovieEntity) {
         localViewModel.input.deleteMovie(movie.id.toInt())
         localViewModel.input.getSeachMovie(null)
     }
