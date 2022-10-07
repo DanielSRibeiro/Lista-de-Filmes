@@ -4,10 +4,10 @@ import com.example.movies.data.database.repository.MovieLocalRepository
 import com.example.movies.domain.model.Movie
 
 interface SelectMovieUseCase {
-    operator fun invoke(title:String): List<Movie>
+    suspend operator fun invoke(title:String): List<Movie>
 }
 class SearchMovieLocal(
     private val movieLocalRepository: MovieLocalRepository
 ) : SelectMovieUseCase {
-    override operator fun invoke(title: String): List<Movie> =  movieLocalRepository.getSearchName(title)
+    override suspend operator fun invoke(title: String): List<Movie> =  movieLocalRepository.getSearchName(title)
 }

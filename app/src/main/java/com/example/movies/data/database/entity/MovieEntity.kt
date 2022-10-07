@@ -11,14 +11,14 @@ import java.util.*
 data class MovieEntity(
     @PrimaryKey(autoGenerate = false) val id: Long,
     @ColumnInfo val genreIds: String,
-    @ColumnInfo val posterPath: String,
-    @ColumnInfo val posterUrl: String,
+    @ColumnInfo val posterPath: String?,
+    @ColumnInfo val posterUrl: String?,
     @ColumnInfo val title: String,
     @ColumnInfo val overview: String,
     @ColumnInfo val notaMedia: Double,
     @ColumnInfo val releaseData: Date,
-    @ColumnInfo val backdropPath: String,
-    @ColumnInfo val backdropUrl: String,
+    @ColumnInfo val backdropPath: String?,
+    @ColumnInfo val backdropUrl: String?,
 )
 
 fun MovieEntity.movieEntityToMovie() : Movie {

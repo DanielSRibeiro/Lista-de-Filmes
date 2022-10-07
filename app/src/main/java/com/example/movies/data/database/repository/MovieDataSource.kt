@@ -12,11 +12,11 @@ interface MovieLocalRepository {
 
     suspend fun deleteMovie(id: Long)
 
-    suspend fun checkMovieState(id: Long): Boolean
+    fun checkMovieState(id: Long): Boolean
 
-    fun getAllMovie(): List<Movie>
+    suspend fun getAllMovie(): List<Movie>
 
-    fun getSearchName(titulo: String): List<Movie>
+    suspend fun getSearchName(titulo: String): List<Movie>
 }
 
 class MovieDataSource(
@@ -46,17 +46,19 @@ class MovieDataSource(
         movieDao.deleteMovie(id)
     }
 
-    override suspend fun checkMovieState(id: Long): Boolean {
+    override fun checkMovieState(id: Long): Boolean {
         return movieDao.checkMovieState(id)
     }
 
-    override fun getAllMovie(): List<Movie> {
+    override suspend fun getAllMovie(): List<Movie> {
         val entity = movieDao.getAllMovie()
         return entity.map { it.movieEntityToMovie() }
     }
 
-    override fun getSearchName(title: String): List<Movie> {
-        val entity =  movieDao.getSearchName(title)
-        return entity.map { it.movieEntityToMovie() }
+    override suspend fun getSearchName(title: String): List<Movie> {
+        val entity = movieDao.getSearchName(title)
+        return entity?.let {
+            it.map { it.movieEntityToMovie() }
+        } ?: listOf()
     }
 }

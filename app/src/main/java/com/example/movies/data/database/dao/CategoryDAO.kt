@@ -14,5 +14,4 @@ interface CategoryDAO {
 
     @Query("SELECT * FROM categoryentity")
     suspend fun getAll(): List<CategoryEntity>
-
 }

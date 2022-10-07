@@ -18,8 +18,8 @@ interface MovieDAO {
     fun checkMovieState(id: Long):Boolean
 
     @Query("SELECT * FROM movie")
-    fun getAllMovie(): List<MovieEntity>
+    suspend fun getAllMovie(): List<MovieEntity>
 
     @Query("SELECT * FROM movie WHERE title LIKE '%' || :title || '%'")
-    fun getSearchName(title: String): List<MovieEntity>
+    suspend fun getSearchName(title: String): List<MovieEntity>?
 }

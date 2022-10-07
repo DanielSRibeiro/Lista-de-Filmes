@@ -63,7 +63,11 @@ class PopularAndFavoriteFragment : Fragment() {
             }
 
             override fun onQueryTextChange(query: String?): Boolean {
-
+                if(query.isNullOrEmpty()){
+                    val fragment =
+                        childFragmentManager.findFragmentByTag("f${binding.movieViewPage.currentItem}")
+                    (fragment as? IOnAction)?.executeAction()
+                }
                 return true
             }
         })

@@ -13,6 +13,7 @@ import com.example.movies.domain.usecase.local.CheckMovieStateUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.math.log
 
 class DetailsViewModel(
     private val getCategory: GetCategoryUseCase,
@@ -41,18 +42,11 @@ class DetailsViewModel(
         }
     }
 
-    fun checkState(movie: Movie){
+    fun checkState(movie: Movie) {
         viewModelScope.launch {
-            val resource = withContext(Dispatchers.Default) {
-                try {
-                    checkMovieState.invoke(movie.id)
-                } catch (ex: Exception) {
-                    Log.d("TAG", "addContato: $ex")
-                    false
-                }
-            }
+            val resource = withContext(Dispatchers.Default) { checkMovieState.invoke(movie.id) }
 
-            if(resource)
+            if (resource)
                 deleteMovie(movie.id)
             else
                 insertMovie(movie)
@@ -77,24 +71,15 @@ class DetailsViewModel(
 
     private fun insertMovie(movie: Movie) {
         viewModelScope.launch {
-            try {
-                insertMovie.invoke(movie)
-            } catch (ex: Exception) {
-                Log.d("TAG", "insertMovie: $ex")
-            }
-
+            val result = insertMovie.invoke(movie)
+            Log.d("TAG", "insertMovie: $result")
             _checkState.value = true
         }
     }
 
     private fun deleteMovie(id: Int) {
         viewModelScope.launch {
-            try {
-                deleteMovie.invoke(id)
-            } catch (ex: Exception) {
-                Log.d("TAG", "insertMovie: $ex")
-            }
-
+             deleteMovie.invoke(id)
             _checkState.value = false
         }
     }

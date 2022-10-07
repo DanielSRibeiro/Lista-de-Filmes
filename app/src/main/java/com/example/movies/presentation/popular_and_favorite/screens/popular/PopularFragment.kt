@@ -42,8 +42,12 @@ class PopularFragment : Fragment(), IOnAction {
         popularViewModel.getAllMovies()
     }
 
-    override fun executeAction(query: String?) {
-//        popularViewModel.seachMovie(query)
+    override fun executeAction(query: String) {
+        popularViewModel.seachMovie(query)
+    }
+
+    override fun executeAction() {
+
     }
 
     private fun setListeners() {

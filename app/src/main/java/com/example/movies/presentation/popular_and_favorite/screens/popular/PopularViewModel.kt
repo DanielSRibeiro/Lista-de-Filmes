@@ -32,13 +32,10 @@ class PopularViewModel(
 
     fun seachMovie(query: String) {
         viewModelScope.launch {
-            try {
-                val resource = searchMovies.invoke(query)
-                if (resource is Resource.Success) {
-                    _list.value = resource.data
-                }
-            } catch (ex: Exception) {
-                Log.d("TAG", "getSeachMovie: $ex")
+            val resource = searchMovies.invoke(query)
+            if (resource is Resource.Success) {
+                _list.value = resource.data
+            } else {
                 _list.value = null
             }
         }

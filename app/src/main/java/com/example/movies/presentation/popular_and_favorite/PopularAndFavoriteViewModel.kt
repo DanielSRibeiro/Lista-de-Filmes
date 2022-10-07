@@ -29,12 +29,8 @@ class PopularAndFavoriteViewModel(
     private fun insertCategories(categories: List<Category>) {
         viewModelScope.launch {
             categories.forEach {
-                try {
-                    val id = saveCategory.invoke(it)
-                    Log.d("TAG", "insertMovie: $id")
-                } catch (ex: Exception) {
-                    Log.d("TAG", "insertMovie: $ex")
-                }
+                val id = saveCategory.invoke(it)
+                Log.d("TAG", "insertMovie: $id")
             }
         }
     }

@@ -42,13 +42,14 @@ class FavoriteFragment : Fragment(), IOnAction {
         favoriteViewModel.getAllMovie()
     }
 
-    override fun executeAction(name: String?) {
-//        if (name.isNullOrBlank())
-//            favoriteViewModel.getSeachMovie(name)
-//        else
-//            favoriteViewModel.getAllMovie()
-//
-//        binding.txtNoneFavorite.text = getString(R.string.label_movie_not_found)
+    override fun executeAction(name: String) {
+        favoriteViewModel.seachMovie(name)
+        binding.txtNoneFavorite.text = getString(R.string.label_movie_not_found)
+    }
+
+    override fun executeAction() {
+        favoriteViewModel.getAllMovie()
+        binding.txtNoneFavorite.text = getString(R.string.none_movie_saved)
     }
 
     private fun setListeners() {
@@ -61,8 +62,10 @@ class FavoriteFragment : Fragment(), IOnAction {
     private fun setObservers() {
         favoriteViewModel.savedList.observe(requireActivity()) {
             binding.txtNoneFavorite.visibility = View.VISIBLE
+            binding.recyclerViewFavorite.visibility = View.GONE
             it?.let { movieList ->
                 binding.txtNoneFavorite.visibility = View.GONE
+                binding.recyclerViewFavorite.visibility = View.VISIBLE
                 favoriteAdapter.setOnClick { movie -> onClick(movie) }
                 favoriteAdapter.setOnClickButton { movie -> onClickButton(movie) }
                 favoriteAdapter.update(movieList)

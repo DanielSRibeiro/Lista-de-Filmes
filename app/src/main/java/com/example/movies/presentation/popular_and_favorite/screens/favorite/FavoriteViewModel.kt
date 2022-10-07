@@ -24,29 +24,18 @@ class FavoriteViewModel(
 
     fun getAllMovie() {
         viewModelScope.launch {
-            val resource = withContext(Dispatchers.Default) {
-                try {
-                    getAllMovies.invoke()
-                } catch (ex: Exception) {
-                    Log.d("TAG", "getSeachMovie: $ex")
-                    listOf()
-                }
-            }
+            val resource = getAllMovies.invoke()
             _savedList.value = resource
         }
     }
 
     fun seachMovie(title: String) {
         viewModelScope.launch {
-            val resource = withContext(Dispatchers.Default) {
-                try {
-                    searchMovie.invoke(title)
-                } catch (ex: Exception) {
-                    Log.d("TAG", "getSeachMovie: $ex")
-                    listOf()
-                }
-            }
-            _savedList.value = resource
+            val resource = searchMovie.invoke(title)
+            if(resource.isEmpty())
+                _savedList.value = null
+            else
+                _savedList.value = resource
         }
     }
 

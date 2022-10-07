@@ -17,7 +17,7 @@ data class MovieResponseDto(
     @SerializedName("vote_average") val note: Double,
     @SerializedName("release_date") val releaseData: Date,
     @SerializedName("adult") var adult: Boolean,
-    @SerializedName("backdrop_path") val backdropPath: String,
+    @SerializedName("backdrop_path") val backdropPath: String?,
     @SerializedName("original_language") val originalLanguage: String,
     @SerializedName("original_title") val originalTitle: String,
     @SerializedName("popularity") val popularity: Double,
