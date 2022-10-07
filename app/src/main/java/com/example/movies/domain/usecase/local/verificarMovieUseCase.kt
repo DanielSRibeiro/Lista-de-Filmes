@@ -5,7 +5,6 @@ import com.example.movies.data.database.repository.MovieLocalRepository
 interface VerificarMovieUseCase {
     suspend operator fun invoke(id:Int) :Boolean
 }
-
 class VerificarMovieImpl(
     private val movieLocalRepository: MovieLocalRepository
 ) : VerificarMovieUseCase{

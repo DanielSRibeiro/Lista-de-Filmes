@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.example.movies.BuildConfig
 import com.example.movies.databinding.ItemFavoriteBinding
 import com.example.movies.domain.model.Movie
+import com.example.movies.util.Utils
 
 class FavoriteAdapter(
     var movieList: List<Movie>
@@ -34,13 +35,12 @@ class FavoriteAdapter(
         val movie = movieList[position]
 
         with(binding){
-            val imageUrl = BuildConfig.BASE_IMAGEM + movie.posterPath
             Glide.with(root)
-                .load(imageUrl)
+                .load(movie.posterUrl)
                 .into(imgMovieFavorite)
 
             txtMovieTitleFavorite.text = movie.title
-            txtReleaseDateFavorite.text = "Lançamento ${movie.releaseData}"
+            txtReleaseDateFavorite.text = "Lançamento ${Utils.showDate(movie.releaseData)}"
             txtMovieDescriptionFavorite.text = movie.overview
 
             bntFavorite.setOnClickListener { onClickButton(movie) }

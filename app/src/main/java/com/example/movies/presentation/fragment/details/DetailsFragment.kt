@@ -15,6 +15,7 @@ import com.example.movies.data.network.model.MovieResponseDto
 import com.example.movies.domain.model.Movie
 import com.example.movies.presentation.MainActivity
 import com.example.movies.presentation.fragment.LocalViewModel
+import com.example.movies.util.Utils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailsFragment : Fragment() {
@@ -80,13 +81,13 @@ class DetailsFragment : Fragment() {
             localViewModel.verificar(movie.id)
 
             Glide.with(binding.root)
-                .load(BuildConfig.BASE_IMAGEM + movie.backdropPath)
+                .load(movie.backdropUrl)
                 .into(imgMovieDetails)
 
             txtMovieNoteDetails.text = "${movie.note}/10 \nAvaliação"
             txtMovieTitleDetails.text = movie.title
             txtMovieDescriptionDetails.text = movie.overview
-            txtMovieDateDetails.text = movie.releaseData.toString()
+            txtMovieDateDetails.text = "Lançamento ${Utils.showDate(movie.releaseData)}"
         }
     }
 

@@ -1,6 +1,5 @@
 package com.example.movies.presentation.fragment.popular_and_favorite.screens.popular
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +9,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.movies.databinding.FragmentPopularBinding
 import com.example.movies.presentation.fragment.popular_and_favorite.PopularAndFavoriteFragmentDirections
 import com.example.movies.presentation.fragment.popular_and_favorite.screens.popular.adapter.PopularAdapter
-import com.example.movies.utilis.IOnAction
+import com.example.movies.util.IOnAction
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class PopularFragment : Fragment(), IOnAction {
 

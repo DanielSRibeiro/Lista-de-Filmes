@@ -8,7 +8,7 @@ import com.example.movies.R
 import com.example.movies.databinding.FragmentPopularAndFavoriteBinding
 import com.example.movies.presentation.fragment.popular_and_favorite.screens.favorite.FavoriteFragment
 import com.example.movies.presentation.fragment.popular_and_favorite.screens.popular.PopularFragment
-import com.example.movies.utilis.IOnAction
+import com.example.movies.util.IOnAction
 import com.google.android.material.tabs.TabLayoutMediator
 
 class PopularAndFavoriteFragment : Fragment() {

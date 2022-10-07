@@ -25,6 +25,5 @@ class CategoriesImpl(
                 Resource.Fail
             }
         }
-
     }
 }

@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.movies.data.database.entity.MovieEntity
 import com.example.movies.databinding.FragmentFavoriteBinding
 import com.example.movies.domain.model.Movie
 import com.example.movies.presentation.fragment.LocalViewModel
 import com.example.movies.presentation.fragment.popular_and_favorite.PopularAndFavoriteFragmentDirections
-import com.example.movies.utilis.IOnAction
-import com.example.movies.utilis.JsonService
+import com.example.movies.util.IOnAction
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
 
 
 class FavoriteFragment : Fragment(), IOnAction {

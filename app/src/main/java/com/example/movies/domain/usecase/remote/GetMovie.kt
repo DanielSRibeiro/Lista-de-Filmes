@@ -8,7 +8,6 @@ import com.example.movies.domain.model.Resource
 interface MovieUseCase{
     suspend operator fun invoke(name:String?): Resource<List<Movie>>
 }
-
 class GetMovie(
     val repository: MovieRepository
 ) :MovieUseCase {

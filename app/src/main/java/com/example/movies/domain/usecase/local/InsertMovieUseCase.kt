@@ -8,7 +8,6 @@ import java.util.*
 interface InsertMovieUseCase{
     suspend operator fun invoke(movie: Movie) : Long
 }
-
 class InsertMovieImpl(
     private val movieLocalRepository: MovieLocalRepository
 ) : InsertMovieUseCase{

@@ -1,6 +1,7 @@
 package com.example.movies.data.network.model
 
 import android.os.Parcelable
+import com.example.movies.BuildConfig
 import com.example.movies.domain.model.Movie
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
@@ -34,5 +35,7 @@ fun MovieResponseDto.movieResponseDtoToMovie() : Movie {
         releaseData = this.releaseData,
         genreIds = this.genreIds,
         backdropPath = this.backdropPath,
+        posterUrl = BuildConfig.BASE_IMAGEM+this.posterPath,
+        backdropUrl = BuildConfig.BASE_IMAGEM+this.backdropPath
     )
 }

@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.example.movies.BuildConfig
 import com.example.movies.databinding.ItemPopularBinding
 import com.example.movies.domain.model.Movie
+import com.example.movies.util.Utils
 
 class PopularViewHolder(
     popularItemBinding: ItemPopularBinding,
@@ -20,11 +21,11 @@ class PopularViewHolder(
 
     fun bind(movie: Movie) {
         Glide.with(itemView)
-            .load(BuildConfig.BASE_IMAGEM + movie.posterPath)
+            .load(movie.posterUrl)
             .into(imgMoviePopular)
 
         txtMovieTitlePopular.text = movie.title
-        txtReleaseDatePopular.text = movie.releaseData.toString()
+        txtReleaseDatePopular.text = "Lançamento ${Utils.showDate(movie.releaseData)}"
         txtMovieDescriptionPopular.text = movie.overview
 
         itemView.setOnClickListener {
