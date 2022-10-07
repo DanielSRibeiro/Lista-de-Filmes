@@ -6,7 +6,7 @@ import com.example.movies.domain.model.Movie
 interface InsertMovieUseCase{
     suspend operator fun invoke(movie: Movie) : Long
 }
-class saveMovieImpl(
+class InsertMovieImpl(
     private val movieLocalRepository: MovieLocalRepository
 ) : InsertMovieUseCase{
     override suspend operator fun invoke(movie: Movie) = movieLocalRepository.insertMovie(movie)

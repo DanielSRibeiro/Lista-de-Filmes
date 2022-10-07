@@ -6,7 +6,7 @@ interface CheckMovieStateUseCase {
     suspend operator fun invoke(id:Int) :Boolean
 }
 class CheckMovieStateImpl(
-    private val movieLocalRepository: MovieLocalRepository
+    private val repository: MovieLocalRepository
 ) : CheckMovieStateUseCase{
-    override suspend operator fun invoke(id:Int): Boolean = movieLocalRepository.verificarFilme(id.toLong())
+    override suspend operator fun invoke(id:Int): Boolean = repository.checkMovieState(id.toLong())
 }

@@ -21,12 +21,10 @@ class PopularViewModel(
 
     fun getAllMovies() {
         viewModelScope.launch {
-            try {
-                val resource = getAllMovies.invoke()
-                if (resource is Resource.Success) {
-                    _list.value = resource.data
-                }
-            } catch (ex: Exception) {
+            val resource = getAllMovies.invoke()
+            if (resource is Resource.Success) {
+                _list.value = resource.data
+            } else {
                 _list.value = null
             }
         }

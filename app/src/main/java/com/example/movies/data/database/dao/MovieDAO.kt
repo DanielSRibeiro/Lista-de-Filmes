@@ -15,7 +15,7 @@ interface MovieDAO {
     suspend fun deleteMovie(id: Long)
 
     @Query("SELECT * FROM movie WHERE id=:id")
-    fun verificarFilme(id: Long):Boolean
+    fun checkMovieState(id: Long):Boolean
 
     @Query("SELECT * FROM movie")
     fun getAllMovie(): List<MovieEntity>

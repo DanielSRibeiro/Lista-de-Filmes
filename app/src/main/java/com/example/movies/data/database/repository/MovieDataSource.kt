@@ -12,7 +12,7 @@ interface MovieLocalRepository {
 
     suspend fun deleteMovie(id: Long)
 
-    suspend fun verificarFilme(id: Long): Boolean
+    suspend fun checkMovieState(id: Long): Boolean
 
     fun getAllMovie(): List<Movie>
 
@@ -46,8 +46,8 @@ class MovieDataSource(
         movieDao.deleteMovie(id)
     }
 
-    override suspend fun verificarFilme(id: Long): Boolean {
-        return movieDao.verificarFilme(id)
+    override suspend fun checkMovieState(id: Long): Boolean {
+        return movieDao.checkMovieState(id)
     }
 
     override fun getAllMovie(): List<Movie> {

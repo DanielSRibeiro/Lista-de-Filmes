@@ -20,6 +20,8 @@ class PopularAndFavoriteViewModel(
 
             if (resource is Resource.Success) {
                 insertCategories(resource.data)
+            } else {
+                Log.d("TAG", "Error")
             }
         }
     }

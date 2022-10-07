@@ -13,8 +13,12 @@ import com.example.movies.data.network.MovieApi
 import com.example.movies.data.network.interceptor.AuthorizationInterceptor
 import com.example.movies.data.network.repository.CategoriesImpl
 import com.example.movies.data.network.repository.CategoriesRepository
-import com.example.movies.data.network.repository.MovieImpl
+import com.example.movies.data.network.repository.MovieRepositoryImpl
 import com.example.movies.data.network.repository.MovieRepository
+import com.example.movies.data.network.datasource.CategoryRemoteDataSource
+import com.example.movies.data.network.datasource.CategoryRemoteDataSourceImpl
+import com.example.movies.data.network.datasource.MovieRemoteDataSource
+import com.example.movies.data.network.datasource.MovieRemoteDataSourceImpl
 import com.example.movies.domain.usecase.local.*
 import com.example.movies.domain.usecase.remote.*
 import com.example.movies.presentation.popular_and_favorite.screens.favorite.FavoriteViewModel
@@ -77,24 +81,27 @@ object DependencyModule {
         fun provideApiService() = provideRetrofit().create(MovieApi::class.java)
 
         single<MovieApi> { provideApiService() }
-        single<MovieRepository> { MovieImpl(get()) }
+        single<MovieRepository> { MovieRepositoryImpl(get()) }
         single<SearchMoviesUseCase> { SearchMovies(get() as MovieRepository) }
         single<CategoriesRepository> { CategoriesImpl(get()) }
-        single<GetAllCategoriesUseCase> { GetAllGetAllCategories(get()) }
+        single<GetAllCategoriesUseCase> { GetAllCategories(get()) }
         single<CheckMovieStateUseCase> { CheckMovieStateImpl(get()) }
         single<SelectMovieUseCase> { SearchMovieLocal(get()) }
-        single<InsertMovieUseCase> { saveMovieImpl(get()) }
+        single<InsertMovieUseCase> { InsertMovieImpl(get()) }
         single<DeleteMovieCaseUse> { DeleteMovieImpl(get()) }
         single<AppDatabase> { dataBase(androidContext()) }
         single<MovieDAO> { provideMovieDAO(get()) }
         single<MovieLocalRepository> { MovieDataSource(get()) }
-
 
         single<CategoryDAO> { provideCategoryDAO(get()) }
         single<CategoryLocalRepository> { CategoryDataSource(get()) }
         single<SaveCategoryUseCase> { SaveCategory(get()) }
 
         single<GetAllMoviesUseCase> { GetAllMovies(get()) }
+
+        single<MovieRemoteDataSource> { MovieRemoteDataSourceImpl(get()) }
+
+        single<CategoryRemoteDataSource> { CategoryRemoteDataSourceImpl(get()) }
 
         single<GetCategoryUseCase> { GetCategory(get()) }
 
