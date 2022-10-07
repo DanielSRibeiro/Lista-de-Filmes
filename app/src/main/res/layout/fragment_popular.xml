@@ -20,7 +20,7 @@
             android:paddingHorizontal="16dp"
             android:paddingTop="16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/popular_item" />
+            tools:listitem="@layout/item_popular" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

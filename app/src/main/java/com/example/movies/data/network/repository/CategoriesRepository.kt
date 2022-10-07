@@ -1,8 +1,7 @@
 package com.example.movies.data.network.repository
 
 import com.example.movies.data.network.MovieApi
-import com.example.movies.data.network.model.ResultsCategoriesDto
-import com.example.movies.data.network.model.categoriesDtoToCategory
+import com.example.movies.data.network.model.categoriesResponseDtoToCategory
 import com.example.movies.domain.model.Category
 import com.example.movies.domain.model.Resource
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +19,7 @@ class CategoriesImpl(
             val response = movieApi.getAllCategories()
             if(response.isSuccessful){
                 Resource.Success(
-                    response.body()!!.data.map { it.categoriesDtoToCategory() }
+                    response.body()!!.data.map { it.categoriesResponseDtoToCategory() }
                 )
             } else{
                 Resource.Fail

@@ -5,8 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movies.data.database.entity.MovieEntity
-import com.example.movies.data.network.model.MovieDto
+import com.example.movies.domain.model.Movie
 import com.example.movies.domain.usecase.local.DeleteMovieCaseUse
 import com.example.movies.domain.usecase.local.InsertMovieUseCase
 import com.example.movies.domain.usecase.local.SelectMovieUseCase
@@ -25,8 +24,8 @@ class LocalViewModel(
     private var mVerificado = MutableLiveData<Boolean>()
     val verificado: LiveData<Boolean> = mVerificado
 
-    private val mListaSalva = MutableLiveData<List<MovieEntity>>()
-    val listaSalva: LiveData<List<MovieEntity>> = mListaSalva
+    private val _savedList = MutableLiveData<List<Movie>>()
+    val savedList: LiveData<List<Movie>> = _savedList
 
 
     fun verificar(id: Int) {
@@ -43,7 +42,7 @@ class LocalViewModel(
         }
     }
 
-    fun insertMovie(movie: MovieDto, data: String) {
+    fun insertMovie(movie: Movie, data: String) {
         viewModelScope.launch {
             try {
                 insertMovieUseCase.invoke(movie, data)
@@ -76,7 +75,7 @@ class LocalViewModel(
                     listOf()
                 }
             }
-            mListaSalva.value = lista
+            _savedList.value = lista
         }
     }
 }

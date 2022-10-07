@@ -11,7 +11,8 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.movies.BuildConfig
 import com.example.movies.databinding.FragmentDetailsBinding
-import com.example.movies.data.network.model.MovieDto
+import com.example.movies.data.network.model.MovieResponseDto
+import com.example.movies.domain.model.Movie
 import com.example.movies.presentation.MainActivity
 import com.example.movies.presentation.fragment.LocalViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -25,7 +26,7 @@ class DetailsFragment : Fragment() {
     private val localViewModel: LocalViewModel by viewModel()
     private val detailsViewModel: DetailsViewModel by viewModel()
 
-    private lateinit var movie: MovieDto
+    private lateinit var movie: Movie
     private var dataString:String? = null
     private var paraDeleta = false
     private var realeseDate = ""

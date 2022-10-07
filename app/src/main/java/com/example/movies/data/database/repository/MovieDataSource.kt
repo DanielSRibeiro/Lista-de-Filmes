@@ -2,31 +2,26 @@ package com.example.movies.data.database.repository
 
 import com.example.movies.data.database.dao.MovieDao
 import com.example.movies.data.database.entity.MovieEntity
-import com.example.movies.data.network.model.MovieDto
+import com.example.movies.data.database.entity.movieEntityToMovie
+import com.example.movies.domain.model.Movie
 import com.example.movies.utilis.JsonService
 
 class MovieDataSource(
     private var movieDao: MovieDao
 ) : MovieLocalRepository {
 
-    override suspend fun insertMovie(movie: MovieDto, data:String): Long {
-        val generos = JsonService.fromJson(movie.genreIds)
+    override suspend fun insertMovie(movie: Movie, data:String): Long {
+        val genreId = JsonService.fromJson(movie.genreIds)
 
         val movieEntity = MovieEntity(
             id = movie.id.toLong(),
-            posterFilme = movie.posterPath,
-            tituloFilme = movie.title,
-            sinopse = movie.overview,
+            posterPath = movie.posterPath,
+            title = movie.title,
+            overview = movie.overview,
             notaMedia = movie.note,
-            dataLancamento = data,
-            adult = movie.adult,
+            releaseData = data,
             backdropPath = movie.backdropPath,
-            originalLanguage = movie.originalLanguage,
-            originalTitle = movie.originalTitle,
-            popularity = movie.popularity,
-            video = movie.video,
-            voteCount = movie.voteCount,
-            generosIds = generos
+            genreIds = genreId
         )
 
         return movieDao.insertMovie(movieEntity)
@@ -40,11 +35,13 @@ class MovieDataSource(
         return movieDao.verificarFilme(id)
     }
 
-    override fun getAllMovie(): List<MovieEntity> {
-        return movieDao.getAllMovie()
+    override fun getAllMovie(): List<Movie> {
+        val entity = movieDao.getAllMovie()
+        return entity.map { it.movieEntityToMovie() }
     }
 
-    override fun getSearchName(titulo: String): List<MovieEntity> {
-        return movieDao.getSearchName(titulo)
+    override fun getSearchName(titulo: String): List<Movie> {
+        val entity =  movieDao.getSearchName(titulo)
+        return entity.map { it.movieEntityToMovie() }
     }
 }

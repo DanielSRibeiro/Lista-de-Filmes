@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import android.widget.SearchView
 import com.example.movies.R
 import com.example.movies.databinding.FragmentPopularAndFavoriteBinding
-import com.example.movies.presentation.fragment.popular_and_favorite.screens.favorite.FavoritoFragment
+import com.example.movies.presentation.fragment.popular_and_favorite.screens.favorite.FavoriteFragment
 import com.example.movies.presentation.fragment.popular_and_favorite.screens.popular.PopularFragment
 import com.example.movies.utilis.IOnAction
 import com.google.android.material.tabs.TabLayoutMediator
@@ -68,7 +68,7 @@ class PopularAndFavoriteFragment : Fragment() {
         binding.apply {
             val fragmentList = listOf(
                 PopularFragment(),
-                FavoritoFragment()
+                FavoriteFragment()
             )
             val pageAdapter = SectionsPagerAdapter(fragmentList, childFragmentManager, lifecycle)
             movieViewPage.adapter = pageAdapter

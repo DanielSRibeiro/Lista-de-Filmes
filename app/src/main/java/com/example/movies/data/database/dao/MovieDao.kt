@@ -20,6 +20,6 @@ interface MovieDao {
     @Query("SELECT * FROM movie")
     fun getAllMovie(): List<MovieEntity>
 
-    @Query("SELECT * FROM movie WHERE tituloFilme LIKE '%' || :titulo || '%'")
+    @Query("SELECT * FROM movie WHERE title LIKE '%' || :titulo || '%'")
     fun getSearchName(titulo: String): List<MovieEntity>
 }

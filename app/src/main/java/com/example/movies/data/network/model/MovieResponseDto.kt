@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class MovieDto(
+data class MovieResponseDto(
     @SerializedName("id") val id: Int,
     @SerializedName("title") val title: String,
     @SerializedName("genre_ids") val genreIds: List<Int>,
@@ -23,7 +23,7 @@ data class MovieDto(
     @SerializedName("vote_count") val voteCount: Int
 ):Parcelable
 
-fun MovieDto.movieDtoToMovie() : Movie {
+fun MovieResponseDto.movieResponseDtoToMovie() : Movie {
     return Movie(
         id = this.id,
         title = this.title,

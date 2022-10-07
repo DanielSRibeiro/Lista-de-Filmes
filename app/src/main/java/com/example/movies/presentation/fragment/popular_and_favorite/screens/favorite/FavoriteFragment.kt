@@ -2,12 +2,11 @@ package com.example.movies.presentation.fragment.popular_and_favorite.screens.fa
 
 import android.os.Bundle
 import android.view.*
-import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.movies.data.database.entity.MovieEntity
-import com.example.movies.databinding.FragmentFavoritoBinding
-import com.example.movies.data.network.model.MovieDto
+import com.example.movies.databinding.FragmentFavoriteBinding
+import com.example.movies.domain.model.Movie
 import com.example.movies.presentation.fragment.LocalViewModel
 import com.example.movies.presentation.fragment.popular_and_favorite.PopularAndFavoriteFragmentDirections
 import com.example.movies.utilis.IOnAction
@@ -16,24 +15,23 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
-class FavoritoFragment : Fragment(), IOnAction{
+class FavoriteFragment : Fragment(), IOnAction {
 
-    private var _binding: FragmentFavoritoBinding? = null
+    private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
 
     private val localViewModel: LocalViewModel by viewModel()
 
-    private lateinit var listMovieSalvo:List<MovieEntity>
-    private lateinit var searchView: SearchView
+    private lateinit var listMovieSalvo: List<Movie>
 
-    lateinit var favoritoAdapter: FavoritoAdapter
+    lateinit var favoriteAdapter: FavoriteAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFavoritoBinding.inflate(inflater, container, false)
+        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -57,42 +55,35 @@ class FavoritoFragment : Fragment(), IOnAction{
 
     private fun getListaFilmes() {
         localViewModel.getSeachMovie(null)
-        localViewModel.listaSalva.observe(requireActivity()){ listaEntity ->
+        localViewModel.savedList.observe(requireActivity()) { listaEntity ->
             listMovieSalvo = listaEntity
             setupAdapter(listMovieSalvo)
 
             binding.txtNoneFavorite.visibility =
-                if(listaEntity.isNotEmpty()) View.GONE
+                if (listaEntity.isNotEmpty()) View.GONE
                 else View.VISIBLE
         }
     }
 
-    private fun setupAdapter(listMovieSalvo : List<MovieEntity>) {
+    private fun setupAdapter(listMovieSalvo: List<Movie>) {
         binding.recyclerViewFavorite.apply {
-            favoritoAdapter = FavoritoAdapter(listMovieSalvo)
-            favoritoAdapter.setOnClick { onClick(it) }
-            favoritoAdapter.setOnClickButton { onClickButton(it) }
-            adapter = favoritoAdapter
+            favoriteAdapter = FavoriteAdapter(listMovieSalvo)
+            favoriteAdapter.setOnClick { onClick(it) }
+            favoriteAdapter.setOnClickButton { onClickButton(it) }
+            adapter = favoriteAdapter
         }
     }
 
     private fun onClick(position: Int) {
-        val entity = listMovieSalvo[position]
-        val generos = JsonService.fromIntArray(entity.generosIds)
-        val movieDto = MovieDto(
-            id = entity.id.toInt(), posterPath = entity.posterFilme, title = entity.tituloFilme,
-            overview = entity.sinopse, note = entity.notaMedia,
-            adult = entity.adult, backdropPath = entity.backdropPath, originalLanguage = entity.originalLanguage,
-            originalTitle = entity.originalTitle, popularity = entity.popularity, video = entity.video ,
-            voteCount = entity.voteCount, genreIds = generos,
-            releaseData = Date().toString()
-        )
+        val movie = listMovieSalvo[position]
 
-        val action = PopularAndFavoriteFragmentDirections.actionViewPageFragmentToDetailsFragment(movieDto, entity.dataLancamento)
+        val action = PopularAndFavoriteFragmentDirections.actionViewPageFragmentToDetailsFragment(
+            movie, movie.releaseData
+        )
         findNavController().navigate(action)
     }
 
-    private fun onClickButton(movie: MovieEntity) {
+    private fun onClickButton(movie: Movie) {
         localViewModel.deleteMovie(movie.id.toInt())
         localViewModel.getSeachMovie(null)
     }

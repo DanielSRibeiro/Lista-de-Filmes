@@ -60,7 +60,7 @@ class PopularFragment : Fragment(), IOnAction {
     private fun initMovieObserve() {
         movieViewModel.list.observe(viewLifecycleOwner) {
             it?.let { result ->
-                myAdapter.submitList(result.data)
+                myAdapter.submitList(result)
                 binding.progressBarPopular.visibility = View.GONE
             }
         }

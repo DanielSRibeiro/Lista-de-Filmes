@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movies.BuildConfig
-import com.example.movies.databinding.PopularItemBinding
-import com.example.movies.data.network.model.MovieDto
+import com.example.movies.databinding.ItemPopularBinding
+import com.example.movies.domain.model.Movie
 
 class PopularViewHolder(
-    popularItemBinding: PopularItemBinding,
-    private val onClick: (movie : MovieDto) -> Unit
+    popularItemBinding: ItemPopularBinding,
+    private val onClick: (movie : Movie) -> Unit
 ) : RecyclerView.ViewHolder(popularItemBinding.root) {
 
     var imgMoviePopular = popularItemBinding.imgMoviePopular
@@ -18,7 +18,7 @@ class PopularViewHolder(
     var txtReleaseDatePopular = popularItemBinding.txtReleaseDatePopular
     var txtMovieDescriptionPopular = popularItemBinding.txtMovieDescriptionPopular
 
-    fun bind(movie: MovieDto) {
+    fun bind(movie: Movie) {
         Glide.with(itemView)
             .load(BuildConfig.BASE_IMAGEM + movie.posterPath)
             .into(imgMoviePopular)
@@ -34,10 +34,10 @@ class PopularViewHolder(
 
     companion object {
         fun create(
-            parent: ViewGroup, onClick: (movie : MovieDto) -> Unit
+            parent: ViewGroup, onClick: (movie : Movie) -> Unit
         ) : PopularViewHolder {
             val inflate = LayoutInflater.from(parent.context)
-            val popularItemBinding = PopularItemBinding.inflate(inflate, parent, false)
+            val popularItemBinding = ItemPopularBinding.inflate(inflate, parent, false)
             return PopularViewHolder(popularItemBinding, onClick)
         }
     }

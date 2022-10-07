@@ -1,7 +1,7 @@
 package com.example.movies.data.network
 
-import com.example.movies.data.network.model.ResultsCategoriesDto
-import com.example.movies.data.network.model.ResultsMoviesDto
+import com.example.movies.data.network.model.ResultsCategoriesResponseDto
+import com.example.movies.data.network.model.ResultsMoviesResponseDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -11,14 +11,14 @@ interface MovieApi {
     @GET("movie/popular")
     suspend fun getAllPopularMovies(
         @Query("page") page:Int = 1,
-    ) : Response<ResultsMoviesDto>
+    ) : Response<ResultsMoviesResponseDto>
 
     @GET("search/movie")
     suspend fun getSearchName(
         @Query("page") page:Int = 1,
         @Query("query") name:String
-    ) : Response<ResultsMoviesDto>
+    ) : Response<ResultsMoviesResponseDto>
 
     @GET("genre/movie/list")
-    suspend fun getAllCategories() : Response<ResultsCategoriesDto>
+    suspend fun getAllCategories() : Response<ResultsCategoriesResponseDto>
 }

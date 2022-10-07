@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movies.data.network.model.MovieDto
+import com.example.movies.data.network.model.MovieResponseDto
 import com.example.movies.domain.model.Category
+import com.example.movies.domain.model.Movie
 import com.example.movies.domain.model.Resource
 import com.example.movies.domain.usecase.remote.CategoriesUseCase
 import kotlinx.coroutines.launch
@@ -18,7 +19,7 @@ class DetailsViewModel(
     private val mCategories = MutableLiveData<String>()
     val categories: LiveData<String> = mCategories
 
-    fun getCategories(movie: MovieDto) {
+    fun getCategories(movie: Movie) {
         viewModelScope.launch {
             val resource = categoriesUseCase.invoke()
 
@@ -31,7 +32,7 @@ class DetailsViewModel(
         }
     }
 
-    private fun verificarCategorias(genresList: List<Category>, movie: MovieDto) {
+    private fun verificarCategorias(genresList: List<Category>, movie: Movie) {
         genresList.forEach { idGenero ->
             movie.genreIds.forEach { idDoFilme ->
                 if (idGenero.id == idDoFilme) {
