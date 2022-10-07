@@ -21,9 +21,5 @@
         <argument
             android:name="movie"
             app:argType="com.example.movies.domain.model.Movie" />
-        <argument
-            android:name="releaseDate"
-            app:argType="string"
-            app:nullable="true" />
     </fragment>
 </navigation>

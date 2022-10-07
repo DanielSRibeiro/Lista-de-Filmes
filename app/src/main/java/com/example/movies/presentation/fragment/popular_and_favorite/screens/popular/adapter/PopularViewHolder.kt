@@ -24,7 +24,7 @@ class PopularViewHolder(
             .into(imgMoviePopular)
 
         txtMovieTitlePopular.text = movie.title
-        txtReleaseDatePopular.text = movie.releaseData
+        txtReleaseDatePopular.text = movie.releaseData.toString()
         txtMovieDescriptionPopular.text = movie.overview
 
         itemView.setOnClickListener {

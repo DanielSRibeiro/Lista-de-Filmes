@@ -4,7 +4,7 @@ import com.example.movies.domain.model.Movie
 
 interface MovieLocalRepository {
 
-    suspend fun insertMovie(Movie: Movie, data:String): Long
+    suspend fun insertMovie(Movie: Movie): Long
 
     suspend fun deleteMovie(id: Long)
 

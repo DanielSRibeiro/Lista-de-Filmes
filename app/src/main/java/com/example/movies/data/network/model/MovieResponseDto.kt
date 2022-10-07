@@ -4,6 +4,7 @@ import android.os.Parcelable
 import com.example.movies.domain.model.Movie
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import java.util.*
 
 @Parcelize
 data class MovieResponseDto(
@@ -13,7 +14,7 @@ data class MovieResponseDto(
     @SerializedName("poster_path") val posterPath: String,
     @SerializedName("overview") val overview: String,
     @SerializedName("vote_average") val note: Double,
-    @SerializedName("release_date") val releaseData: String,
+    @SerializedName("release_date") val releaseData: Date,
     @SerializedName("adult") var adult: Boolean,
     @SerializedName("backdrop_path") val backdropPath: String,
     @SerializedName("original_language") val originalLanguage: String,

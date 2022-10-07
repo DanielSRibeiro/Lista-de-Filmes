@@ -10,7 +10,7 @@ class MovieDataSource(
     private var movieDao: MovieDao
 ) : MovieLocalRepository {
 
-    override suspend fun insertMovie(movie: Movie, data:String): Long {
+    override suspend fun insertMovie(movie: Movie): Long {
         val genreId = JsonService.fromJson(movie.genreIds)
 
         val movieEntity = MovieEntity(
@@ -19,7 +19,7 @@ class MovieDataSource(
             title = movie.title,
             overview = movie.overview,
             notaMedia = movie.note,
-            releaseData = data,
+            releaseData = movie.releaseData,
             backdropPath = movie.backdropPath,
             genreIds = genreId
         )

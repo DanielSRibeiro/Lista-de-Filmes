@@ -13,6 +13,7 @@ import com.example.movies.domain.usecase.local.VerificarMovieUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 
 class LocalViewModel(
     private val insertMovieUseCase: InsertMovieUseCase,
@@ -42,10 +43,10 @@ class LocalViewModel(
         }
     }
 
-    fun insertMovie(movie: Movie, data: String) {
+    fun insertMovie(movie: Movie) {
         viewModelScope.launch {
             try {
-                insertMovieUseCase.invoke(movie, data)
+                insertMovieUseCase.invoke(movie)
                 verificar(movie.id)
             } catch (ex: Exception) {
                 Log.d("TAG", "insertMovie: $ex")

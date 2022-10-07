@@ -69,17 +69,8 @@ class PopularFragment : Fragment(), IOnAction {
     private fun setupAdapter() {
         binding.recyclerViewPopular.apply {
             myAdapter = PopularAdapter { movie ->
-                var output: LocalDate? = null
-                var realeseMovie = ""
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !movie.releaseData.isNullOrBlank()) {
-                    val simpleFormat2 = DateTimeFormatter.ISO_DATE
-                    output = LocalDate.parse(movie!!.releaseData, simpleFormat2)
-                    realeseMovie = "${output.dayOfMonth}/${output.monthValue}/${output.year}"
-                }
-
                 val action = PopularAndFavoriteFragmentDirections.actionViewPageFragmentToDetailsFragment(
-                    movie,
-                    realeseMovie
+                    movie
                 )
                 findNavController().navigate(action)
             }

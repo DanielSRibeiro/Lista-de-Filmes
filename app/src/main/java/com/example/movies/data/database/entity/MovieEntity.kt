@@ -15,7 +15,7 @@ data class MovieEntity(
     @ColumnInfo val title: String,
     @ColumnInfo val overview: String,
     @ColumnInfo val notaMedia: Double,
-    @ColumnInfo val releaseData: String,
+    @ColumnInfo val releaseData: Date,
     @ColumnInfo val backdropPath: String,
 )
 
@@ -28,6 +28,6 @@ fun MovieEntity.movieEntityToMovie() : Movie {
         note = this.notaMedia,
         backdropPath = this.backdropPath,
         genreIds = JsonService.fromIntArray(this.genreIds),
-        releaseData = Date().toString()
+        releaseData = this.releaseData
     )
 }

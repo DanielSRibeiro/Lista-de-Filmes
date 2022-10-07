@@ -78,13 +78,13 @@ class FavoriteFragment : Fragment(), IOnAction {
         val movie = listMovieSalvo[position]
 
         val action = PopularAndFavoriteFragmentDirections.actionViewPageFragmentToDetailsFragment(
-            movie, movie.releaseData
+            movie
         )
         findNavController().navigate(action)
     }
 
     private fun onClickButton(movie: Movie) {
-        localViewModel.deleteMovie(movie.id.toInt())
+        localViewModel.deleteMovie(movie.id)
         localViewModel.getSeachMovie(null)
     }
 

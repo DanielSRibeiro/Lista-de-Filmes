@@ -2,6 +2,7 @@ package com.example.movies.domain.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
+import java.util.*
 
 @Parcelize
 data class Movie (
@@ -10,7 +11,7 @@ data class Movie (
     val posterPath: String,
     val overview: String,
     val note: Double,
-    val releaseData: String,
+    val releaseData: Date,
     val genreIds: List<Int>,
     val backdropPath: String,
 ): Parcelable

@@ -27,9 +27,7 @@ class DetailsFragment : Fragment() {
     private val detailsViewModel: DetailsViewModel by viewModel()
 
     private lateinit var movie: Movie
-    private var dataString:String? = null
     private var paraDeleta = false
-    private var realeseDate = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,7 +58,7 @@ class DetailsFragment : Fragment() {
                 if(paraDeleta)
                     localViewModel.deleteMovie(movie.id)
                 else
-                    localViewModel.insertMovie(movie, dataString.toString())
+                    localViewModel.insertMovie(movie)
             }
 
             backNavigation.setOnClickListener {
@@ -78,7 +76,6 @@ class DetailsFragment : Fragment() {
     private fun setupMovie() {
         binding.apply {
             movie = args.movie
-            dataString = args.releaseDate
 
             localViewModel.verificar(movie.id)
 
@@ -89,11 +86,7 @@ class DetailsFragment : Fragment() {
             txtMovieNoteDetails.text = "${movie.note}/10 \nAvaliação"
             txtMovieTitleDetails.text = movie.title
             txtMovieDescriptionDetails.text = movie.overview
-            txtMovieDateDetails.text =
-                if (dataString == null)
-                    realeseDate
-                else
-                    "Lançamento: $dataString"
+            txtMovieDateDetails.text = movie.releaseData.toString()
         }
     }
 
