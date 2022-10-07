@@ -2,7 +2,7 @@ package com.example.filmes.domain.usecase.remote
 
 import android.util.Log
 import com.example.filmes.utilis.TAG_CATEGORIES
-import com.example.filmes.data.remote.repository.CategoriesRepository
+import com.example.filmes.data.network.repository.CategoriesRepository
 import com.example.filmes.domain.model.ResultsCategoriesDto
 
 class GetCategories(

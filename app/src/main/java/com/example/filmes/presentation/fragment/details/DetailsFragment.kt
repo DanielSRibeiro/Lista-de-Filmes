@@ -82,7 +82,7 @@ class DetailsFragment : Fragment() {
             localViewModel.verificar(movie.id)
 
             Glide.with(binding.root)
-                .load("${BASE_IMAGEM + movie.backdropPath}")
+                .load(BASE_IMAGEM + movie.backdropPath)
                 .into(imgMovieDetails)
 
             txtMovieNoteDetails.text = "${movie.notaMedia}/10 \nAvaliação"

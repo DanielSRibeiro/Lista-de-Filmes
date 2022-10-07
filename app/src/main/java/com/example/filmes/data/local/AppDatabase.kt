@@ -1,13 +1,13 @@
 package com.example.filmes.data.local
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
+import com.example.filmes.data.local.converters.DateConverter
 import com.example.filmes.data.local.dao.MovieDao
 import com.example.filmes.data.local.entity.MovieEntity
 
 @Database(entities = [MovieEntity::class], version = 1)
+@TypeConverters(DateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract val movieDAO: MovieDao

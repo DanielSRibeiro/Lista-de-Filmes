@@ -1,7 +1,7 @@
-package com.example.filmes.data.remote.repository
+package com.example.filmes.data.network.repository
 
 import android.util.Log
-import com.example.filmes.data.remote.ApiService
+import com.example.filmes.data.network.ApiService
 import com.example.filmes.utilis.TAG_MOVIE
 import com.example.filmes.domain.model.ResultsMoviesDto
 import kotlinx.coroutines.Dispatchers

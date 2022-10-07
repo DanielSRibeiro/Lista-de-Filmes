@@ -6,11 +6,12 @@ import com.example.filmes.data.local.AppDatabase
 import com.example.filmes.data.local.dao.MovieDao
 import com.example.filmes.data.local.repository.MovieDataSource
 import com.example.filmes.data.local.repository.MovieLocalRepository
-import com.example.filmes.data.remote.ApiService
-import com.example.filmes.data.remote.repository.CategoriesImpl
-import com.example.filmes.data.remote.repository.CategoriesRepository
-import com.example.filmes.data.remote.repository.MovieImpl
-import com.example.filmes.data.remote.repository.MovieRepository
+import com.example.filmes.data.network.ApiService
+import com.example.filmes.data.network.interceptor.AuthorizationInterceptor
+import com.example.filmes.data.network.repository.CategoriesImpl
+import com.example.filmes.data.network.repository.CategoriesRepository
+import com.example.filmes.data.network.repository.MovieImpl
+import com.example.filmes.data.network.repository.MovieRepository
 import com.example.filmes.domain.usecase.local.*
 import com.example.filmes.domain.usecase.remote.CategoriesUseCase
 import com.example.filmes.domain.usecase.remote.GetCategories
@@ -19,7 +20,7 @@ import com.example.filmes.domain.usecase.remote.MovieUseCase
 import com.example.filmes.presentation.fragment.LocalViewModel
 import com.example.filmes.presentation.fragment.details.DetailsViewModel
 import com.example.filmes.presentation.fragment.popular_and_favorite.screens.popular.MovieViewModel
-import com.example.filmes.utilis.BASE_URL
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -37,22 +38,36 @@ object DependencyModule {
         fun provideMovieDAO(dataBase: AppDatabase): MovieDao {
             return dataBase.movieDAO
         }
-        fun provideRetrofit(): Retrofit {
-            val interceptor = HttpLoggingInterceptor()
-            interceptor.level = if (BuildConfig.DEBUG) {
-                HttpLoggingInterceptor.Level.BODY
-            } else HttpLoggingInterceptor.Level.NONE
+        fun provideLoggingInterceptor() = HttpLoggingInterceptor().apply {
+            setLevel(
+                if (BuildConfig.DEBUG) {
+                    HttpLoggingInterceptor.Level.BODY
+                } else HttpLoggingInterceptor.Level.NONE
+            )
+        }
+        fun provideInterceptor() = AuthorizationInterceptor()
 
-            val client = OkHttpClient.Builder()
+        fun provideOkHttpClient(
+            interceptor: Interceptor,
+            loggingInterceptor: HttpLoggingInterceptor
+        ) : OkHttpClient {
+            return OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
                 .addInterceptor(interceptor)
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .readTimeout(15, TimeUnit.SECONDS)
+                .build()
+        }
 
+        fun provideGsonConverter() = GsonConverterFactory.create()
 
+        fun provideRetrofit(): Retrofit {
             return Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client.build())
+                .baseUrl(BuildConfig.BASE_URL)
+                .addConverterFactory(provideGsonConverter())
+                .client(
+                    provideOkHttpClient(provideInterceptor(), provideLoggingInterceptor())
+                )
                 .build()
         }
         fun provideApiService() = provideRetrofit().create(ApiService::class.java)

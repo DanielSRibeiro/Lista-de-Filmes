@@ -2,7 +2,7 @@ package com.example.filmes.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.filmes.data.remote.ApiService
+import com.example.filmes.data.network.ApiService
 import com.example.filmes.domain.model.MovieDto
 
 class MoviePagingSource(
