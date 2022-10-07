@@ -2,11 +2,11 @@ package com.example.movies.domain.usecase.local
 
 import com.example.movies.data.database.repository.MovieLocalRepository
 
-interface VerificarMovieUseCase {
+interface CheckMovieStateUseCase {
     suspend operator fun invoke(id:Int) :Boolean
 }
-class VerificarMovieImpl(
+class CheckMovieStateImpl(
     private val movieLocalRepository: MovieLocalRepository
-) : VerificarMovieUseCase{
+) : CheckMovieStateUseCase{
     override suspend operator fun invoke(id:Int): Boolean = movieLocalRepository.verificarFilme(id.toLong())
 }

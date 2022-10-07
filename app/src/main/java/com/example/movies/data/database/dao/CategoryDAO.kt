@@ -5,13 +5,12 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.movies.data.database.entity.CategoryEntity
-import com.example.movies.data.database.entity.MovieEntity
 
 @Dao
 interface CategoryDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun save(categoryEntity: CategoryEntity):Long
+    suspend fun save(categoryEntity: CategoryEntity): Long
 
     @Query("SELECT * FROM categoryentity")
     suspend fun getAll(): List<CategoryEntity>

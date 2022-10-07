@@ -1,4 +1,4 @@
-package com.example.movies.presentation.fragment.popular_and_favorite.screens.popular.adapter
+package com.example.movies.presentation.popular_and_favorite.screens.popular.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil

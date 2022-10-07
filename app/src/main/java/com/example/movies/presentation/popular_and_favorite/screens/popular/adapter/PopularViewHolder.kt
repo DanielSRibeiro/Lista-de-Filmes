@@ -1,10 +1,10 @@
-package com.example.movies.presentation.fragment.popular_and_favorite.screens.popular.adapter
+package com.example.movies.presentation.popular_and_favorite.screens.popular.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.movies.BuildConfig
+import com.example.movies.R
 import com.example.movies.databinding.ItemPopularBinding
 import com.example.movies.domain.model.Movie
 import com.example.movies.util.Utils
@@ -19,13 +19,17 @@ class PopularViewHolder(
     var txtReleaseDatePopular = popularItemBinding.txtReleaseDatePopular
     var txtMovieDescriptionPopular = popularItemBinding.txtMovieDescriptionPopular
 
+    private val context = popularItemBinding.root.context
+
     fun bind(movie: Movie) {
         Glide.with(itemView)
             .load(movie.posterUrl)
             .into(imgMoviePopular)
 
         txtMovieTitlePopular.text = movie.title
-        txtReleaseDatePopular.text = "Lançamento ${Utils.showDate(movie.releaseData)}"
+        txtReleaseDatePopular.text =
+            context.getString(R.string.label_realese_data, Utils.showDate(movie.releaseData))
+
         txtMovieDescriptionPopular.text = movie.overview
 
         itemView.setOnClickListener {

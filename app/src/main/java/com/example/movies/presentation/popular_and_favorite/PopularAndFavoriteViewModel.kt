@@ -1,4 +1,4 @@
-package com.example.movies.presentation.fragment.popular_and_favorite
+package com.example.movies.presentation.popular_and_favorite
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -10,25 +10,25 @@ import com.example.movies.domain.usecase.remote.CategoriesUseCase
 import kotlinx.coroutines.launch
 
 class PopularAndFavoriteViewModel(
-    private val useCase: SaveCategoryLocalUseCase,
-    private var categoriesUseCase: CategoriesUseCase
+    private val saveCategory: SaveCategoryLocalUseCase,
+    private var getAllCategories: CategoriesUseCase
 ) : ViewModel() {
 
-    fun getCategories() {
+    fun getAllCategories() {
         viewModelScope.launch {
-            val resource = categoriesUseCase.invoke()
+            val resource = getAllCategories.invoke()
 
             if (resource is Resource.Success) {
-                insertCategory(resource.data)
+                insertCategories(resource.data)
             }
         }
     }
 
-    private fun insertCategory(categories: List<Category>) {
+    private fun insertCategories(categories: List<Category>) {
         viewModelScope.launch {
             categories.forEach {
                 try {
-                    val id = useCase.invoke(it)
+                    val id = saveCategory.invoke(it)
                     Log.d("TAG", "insertMovie: $id")
                 } catch (ex: Exception) {
                     Log.d("TAG", "insertMovie: $ex")

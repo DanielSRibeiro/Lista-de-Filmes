@@ -20,10 +20,10 @@ import com.example.movies.domain.usecase.remote.CategoriesUseCase
 import com.example.movies.domain.usecase.remote.GetCategories
 import com.example.movies.domain.usecase.remote.GetMovie
 import com.example.movies.domain.usecase.remote.MovieUseCase
-import com.example.movies.presentation.fragment.LocalViewModel
-import com.example.movies.presentation.fragment.details.DetailsViewModel
-import com.example.movies.presentation.fragment.popular_and_favorite.PopularAndFavoriteViewModel
-import com.example.movies.presentation.fragment.popular_and_favorite.screens.popular.MovieViewModel
+import com.example.movies.presentation.popular_and_favorite.screens.favorite.FavoriteViewModel
+import com.example.movies.presentation.details.DetailsViewModel
+import com.example.movies.presentation.popular_and_favorite.PopularAndFavoriteViewModel
+import com.example.movies.presentation.popular_and_favorite.screens.popular.MovieViewModel
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -84,9 +84,9 @@ object DependencyModule {
         single<MovieUseCase> { GetMovie(get() as MovieRepository) }
         single<CategoriesRepository> { CategoriesImpl(get()) }
         single<CategoriesUseCase> { GetCategories(get()) }
-        single<VerificarMovieUseCase> { VerificarMovieImpl(get()) }
+        single<CheckMovieStateUseCase> { CheckMovieStateImpl(get()) }
         single<SelectMovieUseCase> { SelectMovieImpl(get()) }
-        single<InsertMovieUseCase> { InsertMovieImpl(get()) }
+        single<InsertMovieUseCase> { saveMovieImpl(get()) }
         single<DeleteMovieCaseUse> { DeleteMovieImpl(get()) }
         single<AppDatabase> { dataBase(androidContext()) }
         single<MovieDAO> { provideMovieDAO(get()) }
@@ -101,8 +101,8 @@ object DependencyModule {
 
 
         viewModel { MovieViewModel(get()) }
-        viewModel { DetailsViewModel(get()) }
-        viewModel { LocalViewModel(get(), get(), get(), get()) }
+        viewModel { DetailsViewModel(get(), get(), get(), get()) }
+        viewModel { FavoriteViewModel(get(), get()) }
         viewModel { PopularAndFavoriteViewModel(get(), get()) }
     }
 }

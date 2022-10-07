@@ -3,11 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/layout-v26/fragment_details.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/layout/fragment_details.xml" value="0.37083333333333335" />
+        <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/layout/fragment_favorite.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/layout/fragment_favorito.xml" value="0.37083333333333335" />
         <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/layout/fragment_popular.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/layout/fragment_popular_and_favorite.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/layout/fragment_view_page.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/layout/item_favorite.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/layout/item_popular.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/layout/popular_item.xml" value="0.37083333333333335" />
         <entry key="..\:/Users/daniel/Documents/Lista-de-Filmes/app/src/main/res/drawable/gradient_imagem.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/daniel/Documents/Lista-de-Filmes/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1" />

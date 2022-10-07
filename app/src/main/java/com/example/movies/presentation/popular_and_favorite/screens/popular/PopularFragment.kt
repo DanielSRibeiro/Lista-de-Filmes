@@ -1,4 +1,4 @@
-package com.example.movies.presentation.fragment.popular_and_favorite.screens.popular
+package com.example.movies.presentation.popular_and_favorite.screens.popular
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,19 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.movies.databinding.FragmentPopularBinding
-import com.example.movies.presentation.fragment.popular_and_favorite.PopularAndFavoriteFragmentDirections
-import com.example.movies.presentation.fragment.popular_and_favorite.screens.popular.adapter.PopularAdapter
+import com.example.movies.presentation.popular_and_favorite.PopularAndFavoriteFragmentDirections
+import com.example.movies.presentation.popular_and_favorite.screens.popular.adapter.PopularAdapter
 import com.example.movies.util.IOnAction
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PopularFragment : Fragment(), IOnAction {
 
-    private val movieViewModel: MovieViewModel by viewModel()
-
     private var _binding: FragmentPopularBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var myAdapter: PopularAdapter
+    private val movieViewModel: MovieViewModel by viewModel()
+    private lateinit var popularAdapter: PopularAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,8 +31,8 @@ class PopularFragment : Fragment(), IOnAction {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupAdapter()
         initView()
+        setupAdapter()
     }
 
     override fun onDestroyView() {
@@ -42,41 +41,40 @@ class PopularFragment : Fragment(), IOnAction {
     }
 
     private fun initView() {
-        binding.apply {
-            progressBarPopular.visibility = View.VISIBLE
+        binding.progressBarPopular.visibility = View.VISIBLE
+        movieViewModel.getAllMovies(null)
+        initMovieObserve()
+        binding.refreshPopular.setOnRefreshListener {
             movieViewModel.getAllMovies(null)
-            initMovieObserve()
-            refreshPopular.setOnRefreshListener {
-                movieViewModel.getAllMovies(null)
-                refreshPopular.isRefreshing = false
-            }
-
+            binding.refreshPopular.isRefreshing = false
         }
     }
+
 
     private fun initMovieObserve() {
         movieViewModel.list.observe(viewLifecycleOwner) {
             it?.let { result ->
-                myAdapter.submitList(result)
-                binding.progressBarPopular.visibility = View.GONE
+                popularAdapter.submitList(result)
             }
+            binding.progressBarPopular.visibility = View.GONE
         }
     }
 
     private fun setupAdapter() {
         binding.recyclerViewPopular.apply {
-            myAdapter = PopularAdapter { movie ->
-                val action = PopularAndFavoriteFragmentDirections.actionViewPageFragmentToDetailsFragment(
-                    movie
-                )
+            popularAdapter = PopularAdapter { movie ->
+                val action =
+                    PopularAndFavoriteFragmentDirections.actionViewPageFragmentToDetailsFragment(
+                        movie
+                    )
                 findNavController().navigate(action)
             }
 
-            adapter = myAdapter
+            adapter = popularAdapter
         }
     }
 
-    override fun executeAction(string: String?) {
-//        movieViewModel.setQuery(it)
+    override fun executeAction(query: String?) {
+//        movieViewModel.setQuery(query)
     }
 }

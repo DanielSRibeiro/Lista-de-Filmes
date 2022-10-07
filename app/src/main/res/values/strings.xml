@@ -4,7 +4,6 @@
     <string name="release_date">Data de Lançamento</string>
     <string name="delete_favorite">Desfavoritar</string>
     <string name="movie_description">Descrição</string>
-    <string name="search">Search</string>
     <string name="movie_note">Nota</string>
     <string name="movie_genre">Gêneros</string>
     <string name="none_movie_saved">Nenhum filme Salvo</string>
@@ -14,6 +13,13 @@
     <string name="movie_delete">Removido</string>
     <string name="error_conection">Sem conexão</string>
     <string name="KEY_PREFERENCES">com.example.filmes</string>
+
+    <string name="title_populars">Populares</string>
+    <string name="title_favorites">Favoritos</string>
+    <string name="label_search">Pesquisar...</string>
+    <string name="label_movie_not_found">Filme não encontrado</string>
+    <string name="label_note">%s/10 \nAvaliação</string>
+    <string name="label_realese_data">Lançamento %s</string>
 
     <string name="KEY_MOVIE">key_movie</string>
 

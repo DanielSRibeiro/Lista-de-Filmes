@@ -1,4 +1,4 @@
-package com.example.movies.presentation.fragment.popular_and_favorite
+package com.example.movies.presentation.popular_and_favorite
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

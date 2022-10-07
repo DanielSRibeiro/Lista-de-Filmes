@@ -1,4 +1,4 @@
-package com.example.movies.presentation.fragment.popular_and_favorite.screens.popular
+package com.example.movies.presentation.popular_and_favorite.screens.popular
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,15 +13,18 @@ class MovieViewModel(
     private var getMovie: MovieUseCase
 ) : ViewModel() {
 
-    var _list = MutableLiveData<List<Movie>?>()
+    private var _list = MutableLiveData<List<Movie>?>()
     val list : LiveData<List<Movie>?> = _list
 
     fun getAllMovies(name: String?) {
         viewModelScope.launch {
-            val resource = getMovie(name)
-            if(resource is Resource.Success){
-                _list.value = resource.data
-
+            try {
+                val resource = getMovie(name)
+                if(resource is Resource.Success){
+                    _list.value = resource.data
+                }
+            }catch (ex : Exception){
+                _list.value = null
             }
         }
     }

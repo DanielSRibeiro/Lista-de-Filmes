@@ -4,7 +4,7 @@ import com.example.movies.data.database.repository.CategoryLocalRepository
 import com.example.movies.domain.model.Category
 
 interface SaveCategoryLocalUseCase {
-    suspend operator fun invoke(category: Category):Long
+    suspend operator fun invoke(category: Category): Long
 }
 
 class SaveCategoryLocal(

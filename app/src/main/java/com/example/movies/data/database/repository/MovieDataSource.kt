@@ -55,8 +55,8 @@ class MovieDataSource(
         return entity.map { it.movieEntityToMovie() }
     }
 
-    override fun getSearchName(titulo: String): List<Movie> {
-        val entity =  movieDao.getSearchName(titulo)
+    override fun getSearchName(title: String): List<Movie> {
+        val entity =  movieDao.getSearchName(title)
         return entity.map { it.movieEntityToMovie() }
     }
 }
