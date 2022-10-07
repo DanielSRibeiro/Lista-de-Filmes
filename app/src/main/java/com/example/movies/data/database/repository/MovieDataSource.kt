@@ -1,6 +1,6 @@
 package com.example.movies.data.database.repository
 
-import com.example.movies.data.database.dao.MovieDao
+import com.example.movies.data.database.dao.MovieDAO
 import com.example.movies.data.database.entity.MovieEntity
 import com.example.movies.data.database.entity.movieEntityToMovie
 import com.example.movies.domain.model.Movie
@@ -20,7 +20,7 @@ interface MovieLocalRepository {
 }
 
 class MovieDataSource(
-    private var movieDao: MovieDao
+    private var movieDao: MovieDAO
 ) : MovieLocalRepository {
 
     override suspend fun insertMovie(movie: Movie): Long {

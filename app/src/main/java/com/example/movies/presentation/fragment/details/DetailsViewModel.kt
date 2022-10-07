@@ -8,11 +8,12 @@ import com.example.movies.data.network.model.MovieResponseDto
 import com.example.movies.domain.model.Category
 import com.example.movies.domain.model.Movie
 import com.example.movies.domain.model.Resource
+import com.example.movies.domain.usecase.local.GetCategoryUseCase
 import com.example.movies.domain.usecase.remote.CategoriesUseCase
 import kotlinx.coroutines.launch
 
 class DetailsViewModel(
-    private var categoriesUseCase: CategoriesUseCase
+    private val getCategoryUseCase: GetCategoryUseCase
 ) : ViewModel() {
     var nomeCategorias = ""
 
@@ -21,24 +22,16 @@ class DetailsViewModel(
 
     fun getCategories(movie: Movie) {
         viewModelScope.launch {
-            val resource = categoriesUseCase.invoke()
+            val categoriesList = getCategoryUseCase.invoke()
 
-            if (resource is Resource.Success) {
-                nomeCategorias = ""
-                val genresList = resource.data
-                verificarCategorias(genresList, movie)
-                mCategories.value = nomeCategorias
-            }
-        }
-    }
-
-    private fun verificarCategorias(genresList: List<Category>, movie: Movie) {
-        genresList.forEach { idGenero ->
-            movie.genreIds.forEach { idDoFilme ->
-                if (idGenero.id == idDoFilme) {
-                    nomeCategorias += idGenero.name + ", "
+            categoriesList.forEach { category ->
+                movie.genreIds.forEach {
+                    if (category.id == it) {
+                        nomeCategorias += category.name + ", "
+                    }
                 }
             }
+            mCategories.value = nomeCategorias
         }
     }
 }

@@ -3,14 +3,22 @@ package com.example.movies.data.database
 import android.content.Context
 import androidx.room.*
 import com.example.movies.data.database.converters.DateConverter
-import com.example.movies.data.database.dao.MovieDao
+import com.example.movies.data.database.dao.CategoryDAO
+import com.example.movies.data.database.dao.MovieDAO
+import com.example.movies.data.database.entity.CategoryEntity
 import com.example.movies.data.database.entity.MovieEntity
 
-@Database(entities = [MovieEntity::class], version = 1)
+const val NAME_DATA_BASE = "app_database"
+
+@Database(
+    entities = [MovieEntity::class, CategoryEntity::class],
+    version = 1
+)
 @TypeConverters(DateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract val movieDAO: MovieDao
+    abstract val movieDAO: MovieDAO
+    abstract val categoryDAO: CategoryDAO
 
     companion object {
         @Volatile
@@ -23,7 +31,7 @@ abstract class AppDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context,
                         AppDatabase::class.java,
-                        "app_database"
+                        NAME_DATA_BASE
                     ).build()
                 }
 

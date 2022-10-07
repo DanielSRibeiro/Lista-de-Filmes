@@ -6,7 +6,7 @@ import androidx.room.Query
 import com.example.movies.data.database.entity.MovieEntity
 
 @Dao
-interface MovieDao {
+interface MovieDAO {
 
     @Insert
     suspend fun insertMovie(movieEntity: MovieEntity):Long

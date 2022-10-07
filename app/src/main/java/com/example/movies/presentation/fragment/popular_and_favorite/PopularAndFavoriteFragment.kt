@@ -10,11 +10,14 @@ import com.example.movies.presentation.fragment.popular_and_favorite.screens.fav
 import com.example.movies.presentation.fragment.popular_and_favorite.screens.popular.PopularFragment
 import com.example.movies.util.IOnAction
 import com.google.android.material.tabs.TabLayoutMediator
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PopularAndFavoriteFragment : Fragment() {
 
     private var _binding: FragmentPopularAndFavoriteBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel : PopularAndFavoriteViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +35,7 @@ class PopularAndFavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getCategories()
         setupTabLayout()
     }
 
