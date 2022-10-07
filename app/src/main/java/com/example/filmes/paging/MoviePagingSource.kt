@@ -2,11 +2,11 @@ package com.example.filmes.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.filmes.data.network.ApiService
-import com.example.filmes.domain.model.MovieDto
+import com.example.filmes.data.network.MovieApi
+import com.example.filmes.data.network.model.MovieDto
 
 class MoviePagingSource(
-    val movieApiService: ApiService,
+    val movieMovieApi: MovieApi,
     val name: String
 ) : PagingSource<Int, MovieDto>() {
 
@@ -21,11 +21,11 @@ class MoviePagingSource(
         return try {
             val nextPage = params.key ?: 1
 
-            val response = movieApiService.getAllPopularMovies(page =  nextPage)
+            val response = movieMovieApi.getAllPopularMovies(page =  nextPage)
 
 //            if(response.isSuccessful){
                 LoadResult.Page(
-                    data = response.body()!!.movieList,
+                    data = response.body()!!.data,
                     prevKey = null,
                     nextKey = nextPage + 1
                 )

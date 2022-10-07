@@ -4,12 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.filmes.domain.model.CategoriesDto
-import com.example.filmes.domain.model.MovieDto
+import com.example.filmes.data.network.model.CategoriesDto
+import com.example.filmes.data.network.model.MovieDto
 import com.example.filmes.domain.usecase.remote.CategoriesUseCase
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class DetailsViewModel(
     private var categoriesUseCase: CategoriesUseCase
@@ -21,12 +19,10 @@ class DetailsViewModel(
 
     fun getCategories(movie: MovieDto) {
         viewModelScope.launch {
-            val resultsCategories = withContext(Dispatchers.Default) {
-                categoriesUseCase.invoke()
-            }
-            if (resultsCategories.generosFilme.isNotEmpty()) {
+            val resultsCategories = categoriesUseCase.invoke()
+            if (resultsCategories.data.isNotEmpty()) {
                 nomeCategorias = ""
-                val genresList = resultsCategories.generosFilme
+                val genresList = resultsCategories.data
                 verificarCategorias(genresList, movie)
                 mCategories.value = nomeCategorias
 
@@ -37,7 +33,7 @@ class DetailsViewModel(
 
     private fun verificarCategorias(genresList: ArrayList<CategoriesDto>, movie: MovieDto) {
         genresList.forEach { idGenero ->
-            movie.generosIds.forEach { idDoFilme ->
+            movie.genreIds.forEach { idDoFilme ->
                 if (idGenero.id == idDoFilme) {
                     nomeCategorias += idGenero.nome + ", "
                 }

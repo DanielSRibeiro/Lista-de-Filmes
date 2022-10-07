@@ -5,11 +5,11 @@ import com.google.gson.reflect.TypeToken
 
 class JsonService {
     companion object{
-        fun fromIntArray(json: String?): IntArray {
-            val turnsType = object : TypeToken<IntArray>() {}.type
+        fun fromIntArray(json: String?): List<Int> {
+            val turnsType = object : TypeToken<List<Int>>() {}.type
             return Gson().fromJson(json, turnsType)
         }
 
-        fun fromJson(listaGeneros: IntArray): String = Gson().toJson(listaGeneros)
+        fun fromJson(listaGeneros: List<Int>): String = Gson().toJson(listaGeneros)
     }
 }

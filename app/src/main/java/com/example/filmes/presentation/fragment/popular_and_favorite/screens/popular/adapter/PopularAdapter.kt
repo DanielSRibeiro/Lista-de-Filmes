@@ -3,7 +3,7 @@ package com.example.filmes.presentation.fragment.popular_and_favorite.screens.po
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.example.filmes.domain.model.MovieDto
+import com.example.filmes.data.network.model.MovieDto
 
 class PopularAdapter(
     private val onClick: (movie : MovieDto) -> Unit

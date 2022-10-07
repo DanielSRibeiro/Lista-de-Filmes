@@ -1,8 +1,8 @@
-package com.example.filmes.data.local.repository
+package com.example.filmes.data.database.repository
 
-import com.example.filmes.data.local.dao.MovieDao
-import com.example.filmes.data.local.entity.MovieEntity
-import com.example.filmes.domain.model.MovieDto
+import com.example.filmes.data.database.dao.MovieDao
+import com.example.filmes.data.database.entity.MovieEntity
+import com.example.filmes.data.network.model.MovieDto
 import com.example.filmes.utilis.JsonService
 
 class MovieDataSource(
@@ -10,14 +10,14 @@ class MovieDataSource(
 ) : MovieLocalRepository {
 
     override suspend fun insertMovie(movie: MovieDto, data:String): Long {
-        val generos = JsonService.fromJson(movie.generosIds)
+        val generos = JsonService.fromJson(movie.genreIds)
 
         val movieEntity = MovieEntity(
             id = movie.id.toLong(),
-            posterFilme = movie.posterFilme,
-            tituloFilme = movie.tituloFilme,
-            sinopse = movie.sinopse,
-            notaMedia = movie.notaMedia,
+            posterFilme = movie.posterPath,
+            tituloFilme = movie.title,
+            sinopse = movie.overview,
+            notaMedia = movie.note,
             dataLancamento = data,
             adult = movie.adult,
             backdropPath = movie.backdropPath,

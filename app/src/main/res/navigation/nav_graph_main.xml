@@ -20,7 +20,7 @@
         tools:layout="@layout/fragment_details">
         <argument
             android:name="movie"
-            app:argType="com.example.filmes.domain.model.MovieDto" />
+            app:argType="com.example.filmes.data.network.model.MovieDto" />
         <argument
             android:name="dataLancamento"
             app:argType="string"

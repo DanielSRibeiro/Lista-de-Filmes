@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.filmes.data.local.entity.MovieEntity
+import com.example.filmes.BuildConfig
+import com.example.filmes.data.database.entity.MovieEntity
 import com.example.filmes.databinding.FavoriteItemBinding
-import com.example.filmes.utilis.BASE_IMAGEM
 
 class FavoritoAdapter(
     var movieList: List<MovieEntity>
@@ -34,7 +34,7 @@ class FavoritoAdapter(
         val movie = movieList[position]
 
         with(binding){
-            val imageUrl = BASE_IMAGEM + movie.posterFilme
+            val imageUrl = BuildConfig.BASE_IMAGEM + movie.posterFilme
             Glide.with(root)
                 .load(imageUrl)
                 .into(imgMovieFavorite)

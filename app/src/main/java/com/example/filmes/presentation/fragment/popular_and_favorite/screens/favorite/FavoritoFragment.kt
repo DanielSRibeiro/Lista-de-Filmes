@@ -5,9 +5,9 @@ import android.view.*
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.filmes.data.local.entity.MovieEntity
+import com.example.filmes.data.database.entity.MovieEntity
 import com.example.filmes.databinding.FragmentFavoritoBinding
-import com.example.filmes.domain.model.MovieDto
+import com.example.filmes.data.network.model.MovieDto
 import com.example.filmes.presentation.fragment.LocalViewModel
 import com.example.filmes.presentation.fragment.popular_and_favorite.PopularAndFavoriteFragmentDirections
 import com.example.filmes.utilis.IOnAction
@@ -80,12 +80,12 @@ class FavoritoFragment : Fragment(), IOnAction{
         val entity = listMovieSalvo[position]
         val generos = JsonService.fromIntArray(entity.generosIds)
         val movieDto = MovieDto(
-            id = entity.id.toInt(), posterFilme = entity.posterFilme, tituloFilme = entity.tituloFilme,
-            sinopse = entity.sinopse, notaMedia = entity.notaMedia,
+            id = entity.id.toInt(), posterPath = entity.posterFilme, title = entity.tituloFilme,
+            overview = entity.sinopse, note = entity.notaMedia,
             adult = entity.adult, backdropPath = entity.backdropPath, originalLanguage = entity.originalLanguage,
             originalTitle = entity.originalTitle, popularity = entity.popularity, video = entity.video ,
-            voteCount = entity.voteCount, generosIds = generos,
-            dataLancamento = Date().toString()
+            voteCount = entity.voteCount, genreIds = generos,
+            releaseData = Date().toString()
         )
 
         val action = PopularAndFavoriteFragmentDirections.actionViewPageFragmentToDetailsFragment(movieDto, entity.dataLancamento)

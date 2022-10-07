@@ -5,17 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.filmes.data.local.entity.MovieEntity
-import com.example.filmes.domain.model.CategoriesDto
-import com.example.filmes.domain.model.MovieDto
+import com.example.filmes.data.database.entity.MovieEntity
+import com.example.filmes.data.network.model.MovieDto
 import com.example.filmes.domain.usecase.local.DeleteMovieCaseUse
 import com.example.filmes.domain.usecase.local.InsertMovieUseCase
 import com.example.filmes.domain.usecase.local.SelectMovieUseCase
 import com.example.filmes.domain.usecase.local.VerificarMovieUseCase
-import com.example.filmes.domain.usecase.remote.CategoriesUseCase
-import com.example.filmes.utilis.TAG_INSERT
-import com.example.filmes.utilis.TAG_SELECT
-import com.example.filmes.utilis.TAG_VERIFY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -40,7 +35,7 @@ class LocalViewModel(
                 try {
                     verificarMovieUseCase.invoke(id)
                 } catch (ex: Exception) {
-                    Log.d(TAG_VERIFY, "addContato: $ex")
+                    Log.d("TAG", "addContato: $ex")
                     false
                 }
             }
@@ -54,7 +49,7 @@ class LocalViewModel(
                 insertMovieUseCase.invoke(movie, data)
                 verificar(movie.id)
             } catch (ex: Exception) {
-                Log.d(TAG_INSERT, "insertMovie: $ex")
+                Log.d("TAG", "insertMovie: $ex")
             }
         }
     }
@@ -65,7 +60,7 @@ class LocalViewModel(
                 deleteMovieUseCase.invoke(id)
                 verificar(id)
             } catch (ex: Exception) {
-                Log.d(TAG_INSERT, "insertMovie: $ex")
+                Log.d("TAG", "insertMovie: $ex")
             }
         }
     }
@@ -77,7 +72,7 @@ class LocalViewModel(
                 try {
                     selectMovieUseCase.invoke(nome)
                 } catch (ex: Exception) {
-                    Log.d(TAG_SELECT, "getSeachMovie: $ex")
+                    Log.d("TAG", "getSeachMovie: $ex")
                     listOf()
                 }
             }

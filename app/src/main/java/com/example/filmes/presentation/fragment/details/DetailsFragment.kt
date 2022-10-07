@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.example.filmes.BuildConfig
 import com.example.filmes.databinding.FragmentDetailsBinding
-import com.example.filmes.domain.model.MovieDto
+import com.example.filmes.data.network.model.MovieDto
 import com.example.filmes.presentation.MainActivity
 import com.example.filmes.presentation.fragment.LocalViewModel
-import com.example.filmes.utilis.BASE_IMAGEM
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailsFragment : Fragment() {
@@ -82,12 +82,12 @@ class DetailsFragment : Fragment() {
             localViewModel.verificar(movie.id)
 
             Glide.with(binding.root)
-                .load(BASE_IMAGEM + movie.backdropPath)
+                .load(BuildConfig.BASE_IMAGEM + movie.backdropPath)
                 .into(imgMovieDetails)
 
-            txtMovieNoteDetails.text = "${movie.notaMedia}/10 \nAvaliação"
-            txtMovieTitleDetails.text = movie.tituloFilme
-            txtMovieDescriptionDetails.text = movie.sinopse
+            txtMovieNoteDetails.text = "${movie.note}/10 \nAvaliação"
+            txtMovieTitleDetails.text = movie.title
+            txtMovieDescriptionDetails.text = movie.overview
             txtMovieDateDetails.text =
                 if (dataString == null)
                     realeseDate

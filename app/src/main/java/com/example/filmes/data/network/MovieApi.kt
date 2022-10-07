@@ -1,12 +1,12 @@
 package com.example.filmes.data.network
 
-import com.example.filmes.domain.model.ResultsCategoriesDto
-import com.example.filmes.domain.model.ResultsMoviesDto
+import com.example.filmes.data.network.model.ResultsCategoriesDto
+import com.example.filmes.data.network.model.ResultsMoviesDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface ApiService {
+interface MovieApi {
 
     @GET("movie/popular")
     suspend fun getAllPopularMovies(

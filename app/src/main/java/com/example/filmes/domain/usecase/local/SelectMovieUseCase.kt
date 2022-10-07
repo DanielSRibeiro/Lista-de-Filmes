@@ -1,7 +1,7 @@
 package com.example.filmes.domain.usecase.local
 
-import com.example.filmes.data.local.entity.MovieEntity
-import com.example.filmes.data.local.repository.MovieLocalRepository
+import com.example.filmes.data.database.entity.MovieEntity
+import com.example.filmes.data.database.repository.MovieLocalRepository
 
 class SelectMovieImpl(
     private val movieLocalRepository: MovieLocalRepository

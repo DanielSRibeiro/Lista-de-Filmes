@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.filmes.BuildConfig
 import com.example.filmes.databinding.PopularItemBinding
-import com.example.filmes.domain.model.MovieDto
-import com.example.filmes.utilis.BASE_IMAGEM
+import com.example.filmes.data.network.model.MovieDto
 
 class PopularViewHolder(
     popularItemBinding: PopularItemBinding,
@@ -20,12 +20,12 @@ class PopularViewHolder(
 
     fun bind(movie: MovieDto) {
         Glide.with(itemView)
-            .load(BASE_IMAGEM + movie.posterFilme)
+            .load(BuildConfig.BASE_IMAGEM + movie.posterPath)
             .into(imgMoviePopular)
 
-        txtMovieTitlePopular.text = movie.tituloFilme
-        txtReleaseDatePopular.text = movie.dataLancamento
-        txtMovieDescriptionPopular.text = movie.sinopse
+        txtMovieTitlePopular.text = movie.title
+        txtReleaseDatePopular.text = movie.releaseData
+        txtMovieDescriptionPopular.text = movie.overview
 
         itemView.setOnClickListener {
             onClick(movie)

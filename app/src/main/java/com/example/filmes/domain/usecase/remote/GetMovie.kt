@@ -1,7 +1,7 @@
 package com.example.filmes.domain.usecase.remote
 
 import com.example.filmes.data.network.repository.MovieRepository
-import com.example.filmes.domain.model.ResultsMoviesDto
+import com.example.filmes.data.network.model.ResultsMoviesDto
 
 class GetMovie(val movieRepository: MovieRepository) :MovieUseCase {
     override suspend operator fun invoke(name:String?): ResultsMoviesDto? =

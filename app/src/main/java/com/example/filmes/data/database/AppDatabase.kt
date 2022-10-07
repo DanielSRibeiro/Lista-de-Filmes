@@ -1,10 +1,10 @@
-package com.example.filmes.data.local
+package com.example.filmes.data.database
 
 import android.content.Context
 import androidx.room.*
-import com.example.filmes.data.local.converters.DateConverter
-import com.example.filmes.data.local.dao.MovieDao
-import com.example.filmes.data.local.entity.MovieEntity
+import com.example.filmes.data.database.converters.DateConverter
+import com.example.filmes.data.database.dao.MovieDao
+import com.example.filmes.data.database.entity.MovieEntity
 
 @Database(entities = [MovieEntity::class], version = 1)
 @TypeConverters(DateConverter::class)

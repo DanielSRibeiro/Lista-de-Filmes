@@ -60,7 +60,7 @@ class PopularFragment : Fragment(), IOnAction {
     private fun initMovieObserve() {
         movieViewModel.list.observe(viewLifecycleOwner) {
             it?.let { result ->
-                myAdapter.submitList(result.movieList)
+                myAdapter.submitList(result.data)
                 binding.progressBarPopular.visibility = View.GONE
             }
         }
@@ -71,9 +71,9 @@ class PopularFragment : Fragment(), IOnAction {
             myAdapter = PopularAdapter { movie ->
                 var output: LocalDate? = null
                 var realeseMovie = ""
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !movie.dataLancamento.isNullOrBlank()) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !movie.releaseData.isNullOrBlank()) {
                     val simpleFormat2 = DateTimeFormatter.ISO_DATE
-                    output = LocalDate.parse(movie!!.dataLancamento, simpleFormat2)
+                    output = LocalDate.parse(movie!!.releaseData, simpleFormat2)
                     realeseMovie = "${output.dayOfMonth}/${output.monthValue}/${output.year}"
                 }
 

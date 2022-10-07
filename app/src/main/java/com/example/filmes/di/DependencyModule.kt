@@ -2,11 +2,11 @@ package com.example.filmes.di
 
 import android.content.Context
 import com.example.filmes.BuildConfig
-import com.example.filmes.data.local.AppDatabase
-import com.example.filmes.data.local.dao.MovieDao
-import com.example.filmes.data.local.repository.MovieDataSource
-import com.example.filmes.data.local.repository.MovieLocalRepository
-import com.example.filmes.data.network.ApiService
+import com.example.filmes.data.database.AppDatabase
+import com.example.filmes.data.database.dao.MovieDao
+import com.example.filmes.data.database.repository.MovieDataSource
+import com.example.filmes.data.database.repository.MovieLocalRepository
+import com.example.filmes.data.network.MovieApi
 import com.example.filmes.data.network.interceptor.AuthorizationInterceptor
 import com.example.filmes.data.network.repository.CategoriesImpl
 import com.example.filmes.data.network.repository.CategoriesRepository
@@ -70,9 +70,9 @@ object DependencyModule {
                 )
                 .build()
         }
-        fun provideApiService() = provideRetrofit().create(ApiService::class.java)
+        fun provideApiService() = provideRetrofit().create(MovieApi::class.java)
 
-        single<ApiService> { provideApiService() }
+        single<MovieApi> { provideApiService() }
         single<MovieRepository> { MovieImpl(get()) }
         single<MovieUseCase> { GetMovie(get() as MovieRepository) }
         single<CategoriesRepository> { CategoriesImpl(get()) }
