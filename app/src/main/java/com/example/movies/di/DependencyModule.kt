@@ -16,14 +16,11 @@ import com.example.movies.data.network.repository.CategoriesRepository
 import com.example.movies.data.network.repository.MovieImpl
 import com.example.movies.data.network.repository.MovieRepository
 import com.example.movies.domain.usecase.local.*
-import com.example.movies.domain.usecase.remote.GetAllCategoriesUseCase
-import com.example.movies.domain.usecase.remote.GetAllGetAllCategories
-import com.example.movies.domain.usecase.remote.GetMovies
-import com.example.movies.domain.usecase.remote.MovieUseCase
+import com.example.movies.domain.usecase.remote.*
 import com.example.movies.presentation.popular_and_favorite.screens.favorite.FavoriteViewModel
 import com.example.movies.presentation.details.DetailsViewModel
 import com.example.movies.presentation.popular_and_favorite.PopularAndFavoriteViewModel
-import com.example.movies.presentation.popular_and_favorite.screens.popular.MovieViewModel
+import com.example.movies.presentation.popular_and_favorite.screens.popular.PopularViewModel
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -81,7 +78,7 @@ object DependencyModule {
 
         single<MovieApi> { provideApiService() }
         single<MovieRepository> { MovieImpl(get()) }
-        single<MovieUseCase> { GetMovies(get() as MovieRepository) }
+        single<SearchMoviesUseCase> { SearchMovies(get() as MovieRepository) }
         single<CategoriesRepository> { CategoriesImpl(get()) }
         single<GetAllCategoriesUseCase> { GetAllGetAllCategories(get()) }
         single<CheckMovieStateUseCase> { CheckMovieStateImpl(get()) }
@@ -97,12 +94,14 @@ object DependencyModule {
         single<CategoryLocalRepository> { CategoryDataSource(get()) }
         single<SaveCategoryUseCase> { SaveCategory(get()) }
 
+        single<GetAllMoviesUseCase> { GetAllMovies(get()) }
+
         single<GetCategoryUseCase> { GetCategory(get()) }
 
         single<GetAllMoviesLocalUseCase> { GetAllMoviesLocal(get()) }
 
 
-        viewModel { MovieViewModel(get()) }
+        viewModel { PopularViewModel(get(), get()) }
         viewModel { DetailsViewModel(get(), get(), get(), get()) }
         viewModel { FavoriteViewModel(get(), get(), get()) }
         viewModel { PopularAndFavoriteViewModel(get(), get()) }

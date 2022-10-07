@@ -17,7 +17,7 @@ class PopularFragment : Fragment(), IOnAction {
     private var _binding: FragmentPopularBinding? = null
     private val binding get() = _binding!!
 
-    private val movieViewModel: MovieViewModel by viewModel()
+    private val popularViewModel: PopularViewModel by viewModel()
     private lateinit var popularAdapter: PopularAdapter
 
     override fun onCreateView(
@@ -29,32 +29,36 @@ class PopularFragment : Fragment(), IOnAction {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initView()
-        setupAdapter()
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    private fun initView() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setListeners()
+        setObservers()
+        setupAdapter()
+        popularViewModel.getAllMovies()
+    }
+
+    override fun executeAction(query: String?) {
+//        popularViewModel.seachMovie(query)
+    }
+
+    private fun setListeners() {
         binding.progressBarPopular.visibility = View.VISIBLE
-        movieViewModel.getAllMovies(null)
-        initMovieObserve()
         binding.refreshPopular.setOnRefreshListener {
-            movieViewModel.getAllMovies(null)
+            popularViewModel.getAllMovies()
             binding.refreshPopular.isRefreshing = false
         }
     }
 
 
-    private fun initMovieObserve() {
-        movieViewModel.list.observe(viewLifecycleOwner) {
-            it?.let { result ->
-                popularAdapter.submitList(result)
+    private fun setObservers() {
+        popularViewModel.list.observe(viewLifecycleOwner) {
+            it?.let { list ->
+                popularAdapter.submitList(list)
             }
             binding.progressBarPopular.visibility = View.GONE
         }
@@ -72,9 +76,5 @@ class PopularFragment : Fragment(), IOnAction {
 
             adapter = popularAdapter
         }
-    }
-
-    override fun executeAction(query: String?) {
-//        movieViewModel.setQuery(query)
     }
 }

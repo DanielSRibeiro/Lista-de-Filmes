@@ -22,32 +22,6 @@ class FavoriteViewModel(
     private val _savedList = MutableLiveData<List<Movie>?>()
     val savedList: LiveData<List<Movie>?> = _savedList
 
-    fun deleteMovie(id: Int) {
-        viewModelScope.launch {
-            try {
-                deleteMovie.invoke(id)
-                getAllMovie()
-            } catch (ex: Exception) {
-                Log.d("TAG", "insertMovie: $ex")
-            }
-        }
-    }
-
-
-    fun getSeachMovie(title: String) {
-        viewModelScope.launch {
-            val resource = withContext(Dispatchers.Default) {
-                try {
-                    searchMovie.invoke(title)
-                } catch (ex: Exception) {
-                    Log.d("TAG", "getSeachMovie: $ex")
-                    listOf()
-                }
-            }
-            _savedList.value = resource
-        }
-    }
-    
     fun getAllMovie() {
         viewModelScope.launch {
             val resource = withContext(Dispatchers.Default) {
@@ -61,5 +35,29 @@ class FavoriteViewModel(
             _savedList.value = resource
         }
     }
-    
+
+    fun seachMovie(title: String) {
+        viewModelScope.launch {
+            val resource = withContext(Dispatchers.Default) {
+                try {
+                    searchMovie.invoke(title)
+                } catch (ex: Exception) {
+                    Log.d("TAG", "getSeachMovie: $ex")
+                    listOf()
+                }
+            }
+            _savedList.value = resource
+        }
+    }
+
+    fun deleteMovie(id: Int) {
+        viewModelScope.launch {
+            try {
+                deleteMovie.invoke(id)
+                getAllMovie()
+            } catch (ex: Exception) {
+                Log.d("TAG", "insertMovie: $ex")
+            }
+        }
+    }
 }
