@@ -6,7 +6,7 @@
     app:startDestination="@id/popularAndFavoriteFragment">
     <fragment
         android:id="@+id/popularAndFavoriteFragment"
-        android:name="com.example.filmes.presentation.fragment.popular_and_favorite.PopularAndFavoriteFragment"
+        android:name="com.example.movies.presentation.fragment.popular_and_favorite.PopularAndFavoriteFragment"
         android:label="Filmes"
         tools:layout="@layout/fragment_popular_and_favorite">
         <action
@@ -15,14 +15,14 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.filmes.presentation.fragment.details.DetailsFragment"
+        android:name="com.example.movies.presentation.fragment.details.DetailsFragment"
         android:label="Detalhes"
         tools:layout="@layout/fragment_details">
         <argument
             android:name="movie"
-            app:argType="com.example.filmes.data.network.model.MovieDto" />
+            app:argType="com.example.movies.data.network.model.MovieDto" />
         <argument
-            android:name="dataLancamento"
+            android:name="releaseDate"
             app:argType="string"
             app:nullable="true" />
     </fragment>

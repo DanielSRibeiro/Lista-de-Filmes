@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Filmes</string>
+    <string name="app_name">Movies</string>
     <string name="movie_title">Título do Filme</string>
     <string name="release_date">Data de Lançamento</string>
     <string name="delete_favorite">Desfavoritar</string>
