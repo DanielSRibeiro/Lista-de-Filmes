@@ -8,7 +8,7 @@ import com.example.movies.domain.model.Resource
 interface MovieUseCase{
     suspend operator fun invoke(name:String?): Resource<List<Movie>>
 }
-class GetMovie(
+class GetMovies(
     val repository: MovieRepository
 ) :MovieUseCase {
     override suspend operator fun invoke(name:String?): Resource<List<Movie>> =

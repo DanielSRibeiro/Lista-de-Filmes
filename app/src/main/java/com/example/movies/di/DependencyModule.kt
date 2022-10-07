@@ -16,9 +16,9 @@ import com.example.movies.data.network.repository.CategoriesRepository
 import com.example.movies.data.network.repository.MovieImpl
 import com.example.movies.data.network.repository.MovieRepository
 import com.example.movies.domain.usecase.local.*
-import com.example.movies.domain.usecase.remote.CategoriesUseCase
-import com.example.movies.domain.usecase.remote.GetCategories
-import com.example.movies.domain.usecase.remote.GetMovie
+import com.example.movies.domain.usecase.remote.GetAllCategoriesUseCase
+import com.example.movies.domain.usecase.remote.GetAllGetAllCategories
+import com.example.movies.domain.usecase.remote.GetMovies
 import com.example.movies.domain.usecase.remote.MovieUseCase
 import com.example.movies.presentation.popular_and_favorite.screens.favorite.FavoriteViewModel
 import com.example.movies.presentation.details.DetailsViewModel
@@ -81,11 +81,11 @@ object DependencyModule {
 
         single<MovieApi> { provideApiService() }
         single<MovieRepository> { MovieImpl(get()) }
-        single<MovieUseCase> { GetMovie(get() as MovieRepository) }
+        single<MovieUseCase> { GetMovies(get() as MovieRepository) }
         single<CategoriesRepository> { CategoriesImpl(get()) }
-        single<CategoriesUseCase> { GetCategories(get()) }
+        single<GetAllCategoriesUseCase> { GetAllGetAllCategories(get()) }
         single<CheckMovieStateUseCase> { CheckMovieStateImpl(get()) }
-        single<SelectMovieUseCase> { SelectMovieImpl(get()) }
+        single<SelectMovieUseCase> { SearchMovieLocal(get()) }
         single<InsertMovieUseCase> { saveMovieImpl(get()) }
         single<DeleteMovieCaseUse> { DeleteMovieImpl(get()) }
         single<AppDatabase> { dataBase(androidContext()) }
@@ -95,14 +95,16 @@ object DependencyModule {
 
         single<CategoryDAO> { provideCategoryDAO(get()) }
         single<CategoryLocalRepository> { CategoryDataSource(get()) }
-        single<SaveCategoryLocalUseCase> { SaveCategoryLocal(get()) }
+        single<SaveCategoryUseCase> { SaveCategory(get()) }
 
         single<GetCategoryUseCase> { GetCategory(get()) }
+
+        single<GetAllMoviesLocalUseCase> { GetAllMoviesLocal(get()) }
 
 
         viewModel { MovieViewModel(get()) }
         viewModel { DetailsViewModel(get(), get(), get(), get()) }
-        viewModel { FavoriteViewModel(get(), get()) }
+        viewModel { FavoriteViewModel(get(), get(), get()) }
         viewModel { PopularAndFavoriteViewModel(get(), get()) }
     }
 }

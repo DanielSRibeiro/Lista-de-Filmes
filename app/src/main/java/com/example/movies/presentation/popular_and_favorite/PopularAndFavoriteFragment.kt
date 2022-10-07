@@ -33,15 +33,15 @@ class PopularAndFavoriteFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.getAllCategories()
-        setupTabLayout()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupTabLayout()
+        viewModel.getAllCategories()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

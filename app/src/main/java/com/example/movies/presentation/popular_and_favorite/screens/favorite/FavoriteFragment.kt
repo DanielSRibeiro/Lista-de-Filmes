@@ -8,6 +8,7 @@ import com.example.movies.R
 import com.example.movies.databinding.FragmentFavoriteBinding
 import com.example.movies.domain.model.Movie
 import com.example.movies.presentation.popular_and_favorite.PopularAndFavoriteFragmentDirections
+import com.example.movies.presentation.popular_and_favorite.screens.favorite.adapter.FavoriteAdapter
 import com.example.movies.util.IOnAction
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -38,21 +39,21 @@ class FavoriteFragment : Fragment(), IOnAction {
         setListeners()
         setObservers()
         setupAdapter()
-        favoriteViewModel.getSeachMovie(null)
+        favoriteViewModel.getAllMovie()
     }
 
     override fun executeAction(name: String?) {
-        if (name.isNullOrBlank())
-            favoriteViewModel.getSeachMovie(name)
-        else
-            favoriteViewModel.getSeachMovie(null)
-
-        binding.txtNoneFavorite.text = getString(R.string.label_movie_not_found)
+//        if (name.isNullOrBlank())
+//            favoriteViewModel.getSeachMovie(name)
+//        else
+//            favoriteViewModel.getAllMovie()
+//
+//        binding.txtNoneFavorite.text = getString(R.string.label_movie_not_found)
     }
 
     private fun setListeners() {
         binding.refreshFavorite.setOnRefreshListener {
-            favoriteViewModel.getSeachMovie(null)
+            favoriteViewModel.getAllMovie()
             binding.refreshFavorite.isRefreshing = false
         }
     }
@@ -60,7 +61,6 @@ class FavoriteFragment : Fragment(), IOnAction {
     private fun setObservers() {
         favoriteViewModel.savedList.observe(requireActivity()) {
             binding.txtNoneFavorite.visibility = View.VISIBLE
-
             it?.let { movieList ->
                 binding.txtNoneFavorite.visibility = View.GONE
                 favoriteAdapter.setOnClick { movie -> onClick(movie) }
@@ -86,6 +86,5 @@ class FavoriteFragment : Fragment(), IOnAction {
 
     private fun onClickButton(movie: Movie) {
         favoriteViewModel.deleteMovie(movie.id)
-        favoriteViewModel.getSeachMovie(null)
     }
 }

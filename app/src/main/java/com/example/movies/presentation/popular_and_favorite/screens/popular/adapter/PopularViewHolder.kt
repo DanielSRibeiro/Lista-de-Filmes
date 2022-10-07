@@ -10,31 +10,21 @@ import com.example.movies.domain.model.Movie
 import com.example.movies.util.Utils
 
 class PopularViewHolder(
-    popularItemBinding: ItemPopularBinding,
+    private val binding: ItemPopularBinding,
     private val onClick: (movie : Movie) -> Unit
-) : RecyclerView.ViewHolder(popularItemBinding.root) {
-
-    var imgMoviePopular = popularItemBinding.imgMoviePopular
-    var txtMovieTitlePopular = popularItemBinding.txtMovieTitlePopular
-    var txtReleaseDatePopular = popularItemBinding.txtReleaseDatePopular
-    var txtMovieDescriptionPopular = popularItemBinding.txtMovieDescriptionPopular
-
-    private val context = popularItemBinding.root.context
+) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(movie: Movie) {
         Glide.with(itemView)
             .load(movie.posterUrl)
-            .into(imgMoviePopular)
+            .into(binding.imgMoviePopular)
 
-        txtMovieTitlePopular.text = movie.title
-        txtReleaseDatePopular.text =
-            context.getString(R.string.label_realese_data, Utils.showDate(movie.releaseData))
+        binding.txtMovieTitlePopular.text = movie.title
+        binding.txtMovieDescriptionPopular.text = movie.overview
+        binding.txtReleaseDatePopular.text = itemView.context
+            .getString(R.string.label_realese_data, Utils.showDate(movie.releaseData))
 
-        txtMovieDescriptionPopular.text = movie.overview
-
-        itemView.setOnClickListener {
-            onClick(movie)
-        }
+        itemView.setOnClickListener { onClick(movie) }
     }
 
     companion object {

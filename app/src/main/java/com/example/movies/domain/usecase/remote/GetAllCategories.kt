@@ -6,12 +6,12 @@ import com.example.movies.domain.model.Category
 import com.example.movies.domain.model.Resource
 
 
-interface CategoriesUseCase{
+interface GetAllCategoriesUseCase{
     suspend operator fun invoke(): Resource<List<Category>>
 }
-class GetCategories(
+class GetAllGetAllCategories(
     private var categoriesRepository: CategoriesRepository
-):CategoriesUseCase {
+):GetAllCategoriesUseCase {
 
     override suspend operator fun invoke(): Resource<List<Category>> = try{
         categoriesRepository.getAllCategorias()

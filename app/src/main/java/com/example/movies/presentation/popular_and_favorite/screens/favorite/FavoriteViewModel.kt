@@ -7,14 +7,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movies.domain.model.Movie
 import com.example.movies.domain.usecase.local.DeleteMovieCaseUse
+import com.example.movies.domain.usecase.local.GetAllMoviesLocalUseCase
 import com.example.movies.domain.usecase.local.SelectMovieUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class FavoriteViewModel(
-    private val deleteMovieUseCase: DeleteMovieCaseUse,
-    private val selectMovieUseCase: SelectMovieUseCase
+    private val deleteMovie: DeleteMovieCaseUse,
+    private val searchMovie: SelectMovieUseCase,
+    private val getAllMovies: GetAllMoviesLocalUseCase,
 ) : ViewModel() {
 
     private val _savedList = MutableLiveData<List<Movie>?>()
@@ -23,8 +25,8 @@ class FavoriteViewModel(
     fun deleteMovie(id: Int) {
         viewModelScope.launch {
             try {
-                deleteMovieUseCase.invoke(id)
-                getSeachMovie(null)
+                deleteMovie.invoke(id)
+                getAllMovie()
             } catch (ex: Exception) {
                 Log.d("TAG", "insertMovie: $ex")
             }
@@ -32,17 +34,32 @@ class FavoriteViewModel(
     }
 
 
-    fun getSeachMovie(title: String?) {
+    fun getSeachMovie(title: String) {
         viewModelScope.launch {
-            val lista = withContext(Dispatchers.Default) {
+            val resource = withContext(Dispatchers.Default) {
                 try {
-                    selectMovieUseCase.invoke(title)
+                    searchMovie.invoke(title)
                 } catch (ex: Exception) {
                     Log.d("TAG", "getSeachMovie: $ex")
                     listOf()
                 }
             }
-            _savedList.value = lista
+            _savedList.value = resource
         }
     }
+    
+    fun getAllMovie() {
+        viewModelScope.launch {
+            val resource = withContext(Dispatchers.Default) {
+                try {
+                    getAllMovies.invoke()
+                } catch (ex: Exception) {
+                    Log.d("TAG", "getSeachMovie: $ex")
+                    listOf()
+                }
+            }
+            _savedList.value = resource
+        }
+    }
+    
 }
