@@ -1,12 +1,11 @@
 package com.example.movies.presentation.popular_and_favorite.screens.popular
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.core.domain.model.Resource
 import com.example.movies.domain.model.Movie
-import com.example.movies.domain.model.Resource
 import com.example.movies.domain.usecase.remote.GetAllMoviesUseCase
 import com.example.movies.domain.usecase.remote.SearchMoviesUseCase
 import kotlinx.coroutines.launch

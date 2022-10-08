@@ -1,6 +1,6 @@
 package com.example.movies.domain.usecase.local
 
-import com.example.movies.data.database.repository.MovieLocalRepository
+import com.example.movies.framework.database.repository.MovieLocalRepository
 
 interface CheckMovieStateUseCase {
     suspend operator fun invoke(id:Int) :Boolean
