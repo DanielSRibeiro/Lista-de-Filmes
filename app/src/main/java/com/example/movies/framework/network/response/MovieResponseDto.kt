@@ -1,8 +1,8 @@
-package com.example.movies.framework.network.model
+package com.example.movies.framework.network.response
 
 import android.os.Parcelable
 import com.example.movies.BuildConfig
-import com.example.movies.domain.model.Movie
+import com.example.core.domain.model.Movie
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import java.util.*

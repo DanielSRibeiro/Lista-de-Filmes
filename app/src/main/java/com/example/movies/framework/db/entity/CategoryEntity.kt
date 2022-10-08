@@ -1,9 +1,8 @@
-package com.example.movies.framework.database.entity
+package com.example.movies.framework.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.movies.framework.network.model.CategoriesResponseDto
-import com.example.movies.domain.model.Category
+import com.example.core.domain.model.Category
 
 @Entity
 data class CategoryEntity(

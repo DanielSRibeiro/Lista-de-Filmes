@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movies.R
 import com.example.movies.databinding.ItemFavoriteBinding
-import com.example.movies.domain.model.Movie
+import com.example.core.domain.model.Movie
 import com.example.movies.util.Utils
 
 class FavoriteViewHolder(

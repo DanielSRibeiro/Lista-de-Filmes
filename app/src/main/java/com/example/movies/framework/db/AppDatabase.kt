@@ -1,12 +1,12 @@
-package com.example.movies.framework.database
+package com.example.movies.framework.db
 
 import android.content.Context
 import androidx.room.*
-import com.example.movies.framework.database.converters.DateConverter
-import com.example.movies.framework.database.dao.CategoryDAO
-import com.example.movies.framework.database.dao.MovieDAO
-import com.example.movies.framework.database.entity.CategoryEntity
-import com.example.movies.framework.database.entity.MovieEntity
+import com.example.movies.framework.db.converters.DateConverter
+import com.example.movies.framework.db.dao.CategoryDAO
+import com.example.movies.framework.db.dao.MovieDAO
+import com.example.movies.framework.db.entity.CategoryEntity
+import com.example.movies.framework.db.entity.MovieEntity
 
 const val NAME_DATA_BASE = "app_database"
 

@@ -1,10 +1,10 @@
-package com.example.movies.framework.database.dao
+package com.example.movies.framework.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.movies.framework.database.entity.CategoryEntity
+import com.example.movies.framework.db.entity.CategoryEntity
 
 @Dao
 interface CategoryDAO {

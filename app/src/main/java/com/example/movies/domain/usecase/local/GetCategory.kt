@@ -1,9 +1,7 @@
 package com.example.movies.domain.usecase.local
 
-import com.example.movies.framework.database.repository.CategoryLocalRepository
-import com.example.movies.framework.database.repository.MovieLocalRepository
-import com.example.movies.domain.model.Category
-import com.example.movies.domain.model.Movie
+import com.example.core.domain.model.Category
+import com.example.movies.framework.db.repository.CategoryLocalRepository
 
 interface GetCategoryUseCase {
     suspend operator fun invoke(): List<Category>

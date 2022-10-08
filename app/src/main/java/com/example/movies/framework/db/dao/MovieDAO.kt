@@ -1,9 +1,9 @@
-package com.example.movies.framework.database.dao
+package com.example.movies.framework.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.movies.framework.database.entity.MovieEntity
+import com.example.movies.framework.db.entity.MovieEntity
 
 @Dao
 interface MovieDAO {

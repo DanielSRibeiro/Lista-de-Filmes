@@ -1,9 +1,9 @@
-package com.example.movies.framework.database.entity
+package com.example.movies.framework.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.movies.domain.model.Movie
+import com.example.core.domain.model.Movie
 import com.example.movies.util.Utils
 import java.util.*
 

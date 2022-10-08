@@ -5,15 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movies.domain.model.Movie
-import com.example.movies.domain.usecase.local.DeleteMovieCaseUse
-import com.example.movies.domain.usecase.local.GetCategoryUseCase
-import com.example.movies.domain.usecase.local.InsertMovieUseCase
-import com.example.movies.domain.usecase.local.CheckMovieStateUseCase
+import com.example.core.domain.model.Movie
+import com.example.movies.domain.usecase.local.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.math.log
 
 class DetailsViewModel(
     private val getCategory: GetCategoryUseCase,

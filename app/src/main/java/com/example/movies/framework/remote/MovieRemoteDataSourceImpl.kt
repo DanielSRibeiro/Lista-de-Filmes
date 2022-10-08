@@ -1,8 +1,8 @@
-package com.example.movies.framework.network.datasource
+package com.example.movies.framework.remote
 
 import com.example.core.data.repository.MovieRemoteDataSource
-import com.example.movies.framework.network.api.MovieApi
-import com.example.movies.framework.network.model.ResultsMoviesResponseDto
+import com.example.movies.framework.network.MovieApi
+import com.example.movies.framework.network.response.ResultsMoviesResponseDto
 import com.example.core.domain.model.Resource
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException

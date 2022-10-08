@@ -2,10 +2,10 @@ package com.example.movies.framework.network.repository
 
 import com.example.core.data.repository.MovieRemoteDataSource
 import com.example.core.data.repository.MovieRepository
-import com.example.movies.framework.network.model.movieResponseDtoToMovie
-import com.example.movies.domain.model.Movie
+import com.example.movies.framework.network.response.movieResponseDtoToMovie
+import com.example.core.domain.model.Movie
 import com.example.core.domain.model.Resource
-import com.example.movies.framework.network.model.ResultsMoviesResponseDto
+import com.example.movies.framework.network.response.ResultsMoviesResponseDto
 
 class MovieRepositoryImpl(
     private val dataSource: MovieRemoteDataSource<ResultsMoviesResponseDto>

@@ -1,9 +1,9 @@
-package com.example.movies.framework.database.repository
+package com.example.movies.framework.db.repository
 
-import com.example.movies.framework.database.dao.MovieDAO
-import com.example.movies.framework.database.entity.MovieEntity
-import com.example.movies.framework.database.entity.movieEntityToMovie
-import com.example.movies.domain.model.Movie
+import com.example.movies.framework.db.dao.MovieDAO
+import com.example.movies.framework.db.entity.MovieEntity
+import com.example.movies.framework.db.entity.movieEntityToMovie
+import com.example.core.domain.model.Movie
 import com.example.movies.util.Utils
 
 interface MovieLocalRepository {

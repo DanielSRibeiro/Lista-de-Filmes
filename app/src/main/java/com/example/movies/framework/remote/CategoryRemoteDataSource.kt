@@ -1,8 +1,8 @@
-package com.example.movies.framework.network.datasource
+package com.example.movies.framework.remote
 
 import com.example.core.data.repository.CategoryRemoteDataSource
-import com.example.movies.framework.network.api.MovieApi
-import com.example.movies.framework.network.model.ResultsCategoriesResponseDto
+import com.example.movies.framework.network.MovieApi
+import com.example.movies.framework.network.response.ResultsCategoriesResponseDto
 import com.example.core.domain.model.Resource
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -15,9 +15,9 @@ class CategoryRemoteDataSourceImpl(
         return try {
             val response = movieApi.getAllCategories()
 
-            if(response.isSuccessful && response.body() != null){
+            if (response.isSuccessful && response.body() != null) {
                 Resource.Success(response.body()!!)
-            }else {
+            } else {
                 Resource.Fail
             }
         } catch (e: UnknownHostException) {

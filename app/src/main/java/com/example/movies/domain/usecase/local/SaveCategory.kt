@@ -1,7 +1,7 @@
 package com.example.movies.domain.usecase.local
 
-import com.example.movies.framework.database.repository.CategoryLocalRepository
-import com.example.movies.domain.model.Category
+import com.example.core.domain.model.Category
+import com.example.movies.framework.db.repository.CategoryLocalRepository
 
 interface SaveCategoryUseCase {
     suspend operator fun invoke(category: Category): Long

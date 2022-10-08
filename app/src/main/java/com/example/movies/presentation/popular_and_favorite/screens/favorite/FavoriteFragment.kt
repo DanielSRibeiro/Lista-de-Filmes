@@ -6,7 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.movies.R
 import com.example.movies.databinding.FragmentFavoriteBinding
-import com.example.movies.domain.model.Movie
+import com.example.core.domain.model.Movie
+import com.example.movies.presentation.details.MovieArgs
 import com.example.movies.presentation.popular_and_favorite.PopularAndFavoriteFragmentDirections
 import com.example.movies.presentation.popular_and_favorite.screens.favorite.adapter.FavoriteAdapter
 import com.example.movies.util.IOnAction
@@ -82,7 +83,18 @@ class FavoriteFragment : Fragment(), IOnAction {
 
     private fun onClick(movie: Movie) {
         val action = PopularAndFavoriteFragmentDirections.actionViewPageFragmentToDetailsFragment(
-            movie
+            MovieArgs(
+                id = movie.id,
+                title = movie.title,
+                posterPath = movie.posterPath,
+                overview = movie.overview,
+                note = movie.note,
+                releaseData = movie.releaseData,
+                genreIds = movie.genreIds,
+                backdropPath = movie.backdropPath,
+                posterUrl = movie.posterUrl,
+                backdropUrl = movie.backdropUrl
+            )
         )
         findNavController().navigate(action)
     }

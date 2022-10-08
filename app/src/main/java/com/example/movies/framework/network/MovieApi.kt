@@ -1,7 +1,7 @@
-package com.example.movies.framework.network.api
+package com.example.movies.framework.network
 
-import com.example.movies.framework.network.model.ResultsCategoriesResponseDto
-import com.example.movies.framework.network.model.ResultsMoviesResponseDto
+import com.example.movies.framework.network.response.ResultsCategoriesResponseDto
+import com.example.movies.framework.network.response.ResultsMoviesResponseDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

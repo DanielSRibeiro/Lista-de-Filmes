@@ -1,7 +1,7 @@
 package com.example.movies.domain.usecase.remote
 
 import com.example.core.data.repository.CategoriesRepository
-import com.example.movies.domain.model.Category
+import com.example.core.domain.model.Category
 import com.example.core.domain.model.Resource
 
 interface GetAllCategoriesUseCase{

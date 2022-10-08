@@ -10,7 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.movies.R
 import com.example.movies.databinding.FragmentDetailsBinding
-import com.example.movies.domain.model.Movie
+import com.example.core.domain.model.Movie
 import com.example.movies.util.Utils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -26,7 +26,7 @@ class DetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        currentMovie = args.movie
+        currentMovie = args.movie.movieArgsToMovie()
     }
 
     override fun onCreateView(

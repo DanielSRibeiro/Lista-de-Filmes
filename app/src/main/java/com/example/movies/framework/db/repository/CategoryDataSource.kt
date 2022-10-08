@@ -1,11 +1,9 @@
-package com.example.movies.framework.database.repository
+package com.example.movies.framework.db.repository
 
-import com.example.movies.framework.database.dao.CategoryDAO
-import com.example.movies.framework.database.dao.MovieDAO
-import com.example.movies.framework.database.entity.CategoryEntity
-import com.example.movies.framework.database.entity.MovieEntity
-import com.example.movies.framework.database.entity.categoryEntityToCategory
-import com.example.movies.domain.model.Category
+import com.example.movies.framework.db.dao.CategoryDAO
+import com.example.movies.framework.db.entity.CategoryEntity
+import com.example.movies.framework.db.entity.categoryEntityToCategory
+import com.example.core.domain.model.Category
 
 interface CategoryLocalRepository {
     suspend fun save(category: Category):Long

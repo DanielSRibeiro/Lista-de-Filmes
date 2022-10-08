@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.movies.databinding.FragmentPopularBinding
+import com.example.movies.presentation.details.MovieArgs
 import com.example.movies.presentation.popular_and_favorite.PopularAndFavoriteFragmentDirections
 import com.example.movies.presentation.popular_and_favorite.screens.popular.adapter.PopularAdapter
 import com.example.movies.util.IOnAction
@@ -42,12 +43,12 @@ class PopularFragment : Fragment(), IOnAction {
         popularViewModel.getAllMovies()
     }
 
-    override fun executeAction(query: String) {
-        popularViewModel.seachMovie(query)
+    override fun executeAction(name: String) {
+        popularViewModel.seachMovie(name)
     }
 
     override fun executeAction() {
-
+        popularViewModel.getAllMovies()
     }
 
     private fun setListeners() {
@@ -73,7 +74,18 @@ class PopularFragment : Fragment(), IOnAction {
             popularAdapter = PopularAdapter { movie ->
                 val action =
                     PopularAndFavoriteFragmentDirections.actionViewPageFragmentToDetailsFragment(
-                        movie
+                        MovieArgs(
+                            id = movie.id,
+                            title = movie.title,
+                            posterPath = movie.posterPath,
+                            overview = movie.overview,
+                            note = movie.note,
+                            releaseData = movie.releaseData,
+                            genreIds = movie.genreIds,
+                            backdropPath = movie.backdropPath,
+                            posterUrl = movie.posterPath,
+                            backdropUrl = movie.backdropUrl
+                        )
                     )
                 findNavController().navigate(action)
             }

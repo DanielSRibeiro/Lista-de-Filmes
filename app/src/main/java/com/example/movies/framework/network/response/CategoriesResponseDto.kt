@@ -1,6 +1,6 @@
-package com.example.movies.framework.network.model
+package com.example.movies.framework.network.response
 
-import com.example.movies.domain.model.Category
+import com.example.core.domain.model.Category
 import com.google.gson.annotations.SerializedName
 
 data class CategoriesResponseDto (

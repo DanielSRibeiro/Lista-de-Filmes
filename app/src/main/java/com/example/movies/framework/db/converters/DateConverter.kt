@@ -1,4 +1,4 @@
-package com.example.movies.framework.database.converters
+package com.example.movies.framework.db.converters
 
 import androidx.room.TypeConverter
 import java.text.ParseException

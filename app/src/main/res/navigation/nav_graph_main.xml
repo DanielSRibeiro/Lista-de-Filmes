@@ -20,6 +20,6 @@
         tools:layout="@layout/fragment_details">
         <argument
             android:name="movie"
-            app:argType="com.example.movies.domain.model.Movie" />
+            app:argType="com.example.movies.presentation.details.MovieArgs" />
     </fragment>
 </navigation>

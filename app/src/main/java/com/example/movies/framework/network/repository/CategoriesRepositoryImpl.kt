@@ -2,10 +2,10 @@ package com.example.movies.framework.network.repository
 
 import com.example.core.data.repository.CategoriesRepository
 import com.example.core.data.repository.CategoryRemoteDataSource
-import com.example.movies.framework.network.model.categoriesResponseDtoToCategory
-import com.example.movies.domain.model.Category
+import com.example.movies.framework.network.response.categoriesResponseDtoToCategory
+import com.example.core.domain.model.Category
 import com.example.core.domain.model.Resource
-import com.example.movies.framework.network.model.ResultsCategoriesResponseDto
+import com.example.movies.framework.network.response.ResultsCategoriesResponseDto
 
 class CategoriesRepositoryImpl(
     private val dataSource: CategoryRemoteDataSource<ResultsCategoriesResponseDto>

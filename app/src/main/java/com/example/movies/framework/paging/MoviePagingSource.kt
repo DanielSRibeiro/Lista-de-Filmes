@@ -2,8 +2,8 @@ package com.example.movies.framework.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.movies.framework.network.api.MovieApi
-import com.example.movies.framework.network.model.MovieResponseDto
+import com.example.movies.framework.network.MovieApi
+import com.example.movies.framework.network.response.MovieResponseDto
 
 class MoviePagingSource(
     val movieMovieApi: MovieApi,

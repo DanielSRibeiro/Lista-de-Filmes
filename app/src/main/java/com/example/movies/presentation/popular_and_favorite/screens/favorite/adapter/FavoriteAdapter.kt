@@ -2,8 +2,7 @@ package com.example.movies.presentation.popular_and_favorite.screens.favorite.ad
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.movies.domain.model.Movie
-import com.example.movies.presentation.popular_and_favorite.screens.favorite.adapter.FavoriteViewHolder
+import com.example.core.domain.model.Movie
 
 class FavoriteAdapter(
     var movieList: List<Movie>

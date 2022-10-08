@@ -1,4 +1,4 @@
-package com.example.movies.domain.model
+package com.example.core.domain.model
 
 class Category (
     val id:Int,
