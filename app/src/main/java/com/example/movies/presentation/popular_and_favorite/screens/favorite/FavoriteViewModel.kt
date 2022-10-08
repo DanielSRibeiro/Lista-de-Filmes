@@ -25,17 +25,14 @@ class FavoriteViewModel(
     fun getAllMovie() {
         viewModelScope.launch {
             val resource = getAllMovies.invoke()
-            _savedList.value = resource
+            _savedList.value = resource.ifEmpty { null }
         }
     }
 
     fun seachMovie(title: String) {
         viewModelScope.launch {
             val resource = searchMovie.invoke(title)
-            if(resource.isEmpty())
-                _savedList.value = null
-            else
-                _savedList.value = resource
+            _savedList.value = resource.ifEmpty { null }
         }
     }
 

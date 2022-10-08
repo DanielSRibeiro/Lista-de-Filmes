@@ -1,6 +1,6 @@
 package com.example.movies.data.network.datasource
 
-import com.example.movies.data.network.MovieApi
+import com.example.movies.data.network.api.MovieApi
 import com.example.movies.data.network.model.ResultsMoviesResponseDto
 import com.example.movies.domain.model.Resource
 import java.net.SocketTimeoutException

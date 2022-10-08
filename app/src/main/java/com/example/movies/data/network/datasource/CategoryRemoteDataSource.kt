@@ -1,8 +1,7 @@
 package com.example.movies.data.network.datasource
 
-import com.example.movies.data.network.MovieApi
+import com.example.movies.data.network.api.MovieApi
 import com.example.movies.data.network.model.ResultsCategoriesResponseDto
-import com.example.movies.domain.model.Category
 import com.example.movies.domain.model.Resource
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException

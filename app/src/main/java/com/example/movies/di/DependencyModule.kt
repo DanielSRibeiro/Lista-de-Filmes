@@ -9,7 +9,7 @@ import com.example.movies.data.database.repository.CategoryDataSource
 import com.example.movies.data.database.repository.CategoryLocalRepository
 import com.example.movies.data.database.repository.MovieDataSource
 import com.example.movies.data.database.repository.MovieLocalRepository
-import com.example.movies.data.network.MovieApi
+import com.example.movies.data.network.api.MovieApi
 import com.example.movies.data.network.interceptor.AuthorizationInterceptor
 import com.example.movies.data.network.repository.CategoriesImpl
 import com.example.movies.data.network.repository.CategoriesRepository
@@ -69,44 +69,49 @@ object DependencyModule {
 
         fun provideGsonConverter() = GsonConverterFactory.create()
 
-        fun provideRetrofit(): Retrofit {
+        fun provideRetrofit(
+            client: OkHttpClient
+        ): Retrofit {
             return Retrofit.Builder()
                 .baseUrl(BuildConfig.BASE_URL)
                 .addConverterFactory(provideGsonConverter())
-                .client(
-                    provideOkHttpClient(provideInterceptor(), provideLoggingInterceptor())
-                )
+                .client(client)
                 .build()
         }
-        fun provideApiService() = provideRetrofit().create(MovieApi::class.java)
+        fun provideApiService(client: OkHttpClient) =
+            provideRetrofit(client).create(MovieApi::class.java)
 
-        single<MovieApi> { provideApiService() }
+        single<MovieApi> {
+            provideApiService(
+                provideOkHttpClient(
+                    provideInterceptor(),
+                    provideLoggingInterceptor()
+                )
+            )
+        }
+
+        single<AppDatabase> { dataBase(androidContext()) }
+        single<MovieDAO> { provideMovieDAO(get()) }
+        single<CategoryDAO> { provideCategoryDAO(get()) }
+
+        single<MovieRemoteDataSource> { MovieRemoteDataSourceImpl(get()) }
+        single<CategoryRemoteDataSource> { CategoryRemoteDataSourceImpl(get()) }
+
         single<MovieRepository> { MovieRepositoryImpl(get()) }
-        single<SearchMoviesUseCase> { SearchMovies(get() as MovieRepository) }
         single<CategoriesRepository> { CategoriesImpl(get()) }
+        single<MovieLocalRepository> { MovieDataSource(get()) }
+        single<CategoryLocalRepository> { CategoryDataSource(get()) }
+
+        single<SearchMoviesUseCase> { SearchMovies(get()) }
         single<GetAllCategoriesUseCase> { GetAllCategories(get()) }
         single<CheckMovieStateUseCase> { CheckMovieStateImpl(get()) }
         single<SelectMovieUseCase> { SearchMovieLocal(get()) }
         single<InsertMovieUseCase> { InsertMovieImpl(get()) }
         single<DeleteMovieCaseUse> { DeleteMovieImpl(get()) }
-        single<AppDatabase> { dataBase(androidContext()) }
-        single<MovieDAO> { provideMovieDAO(get()) }
-        single<MovieLocalRepository> { MovieDataSource(get()) }
-
-        single<CategoryDAO> { provideCategoryDAO(get()) }
-        single<CategoryLocalRepository> { CategoryDataSource(get()) }
         single<SaveCategoryUseCase> { SaveCategory(get()) }
-
         single<GetAllMoviesUseCase> { GetAllMovies(get()) }
-
-        single<MovieRemoteDataSource> { MovieRemoteDataSourceImpl(get()) }
-
-        single<CategoryRemoteDataSource> { CategoryRemoteDataSourceImpl(get()) }
-
         single<GetCategoryUseCase> { GetCategory(get()) }
-
         single<GetAllMoviesLocalUseCase> { GetAllMoviesLocal(get()) }
-
 
         viewModel { PopularViewModel(get(), get()) }
         viewModel { DetailsViewModel(get(), get(), get(), get()) }
