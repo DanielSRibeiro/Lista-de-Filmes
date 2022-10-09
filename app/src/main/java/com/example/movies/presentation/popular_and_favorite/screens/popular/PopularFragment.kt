@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.movies.R
 import com.example.movies.databinding.FragmentPopularBinding
 import com.example.movies.presentation.details.MovieArgs
 import com.example.movies.presentation.popular_and_favorite.PopularAndFavoriteFragmentDirections
 import com.example.movies.presentation.popular_and_favorite.screens.popular.adapter.PopularAdapter
 import com.example.movies.util.IOnAction
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PopularFragment : Fragment(), IOnAction {
@@ -61,11 +63,28 @@ class PopularFragment : Fragment(), IOnAction {
 
 
     private fun setObservers() {
+        popularViewModel.progressBar.observe(viewLifecycleOwner) {
+            it?.let {
+                binding.progressBarPopular.visibility = if (it) View.VISIBLE else View.GONE
+                binding.recyclerViewPopular.visibility = if (!it) View.VISIBLE else View.GONE
+
+            }
+        }
+        popularViewModel.errorNetwork.observe(viewLifecycleOwner) {
+            it?.let {
+                if(it){
+                    Snackbar.make(
+                        requireActivity().findViewById(android.R.id.content),
+                        getString(R.string.label_without_internet),
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
         popularViewModel.list.observe(viewLifecycleOwner) {
             it?.let { list ->
                 popularAdapter.submitList(list)
             }
-            binding.progressBarPopular.visibility = View.GONE
         }
     }
 

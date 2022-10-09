@@ -114,7 +114,7 @@ object DependencyModule {
         single<DeleteMovieLocalCaseUse> { DeleteMovieLocalCaseUseImpl(get()) }
         single<SaveCategoryLocalUseCase> { SaveCategoryLocalUseCaseImpl(get()) }
         single<GetAllMoviesUseCase> { GetAllMoviesUseCaseImpl(get()) }
-        single<GetCategoryUseCase> { GetCategoryLocalCaseUseImpl(get()) }
+        single<GetCategoryLocalUseCase> { GetCategoryLocalUseCaseImpl(get()) }
         single<GetAllMoviesLocalUseCase> { GetAllMoviesLocalCaseUseImpl(get()) }
 
         viewModel { PopularViewModel(get(), get()) }

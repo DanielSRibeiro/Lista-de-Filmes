@@ -17,6 +17,7 @@ class PopularViewHolder(
     fun bind(movie: Movie) {
         Glide.with(itemView)
             .load(movie.posterUrl)
+            .fallback(R.drawable.ic_img_loading_error)
             .into(binding.imgMoviePopular)
 
         binding.txtMovieTitlePopular.text = movie.title

@@ -8,14 +8,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.core.domain.model.Movie
 import com.example.core.usecase.local.CheckStateLocalUseCase
 import com.example.core.usecase.local.DeleteMovieLocalCaseUse
-import com.example.core.usecase.local.GetCategoryUseCase
+import com.example.core.usecase.local.GetCategoryLocalUseCase
 import com.example.core.usecase.local.InsertMovieLocalUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class DetailsViewModel(
-    private val getCategory: GetCategoryUseCase,
+    private val getCategory: GetCategoryLocalUseCase,
     private val insertMovie: InsertMovieLocalUseCase,
     private val checkMovieState: CheckStateLocalUseCase,
     private val deleteMovie: DeleteMovieLocalCaseUse,

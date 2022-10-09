@@ -21,6 +21,8 @@
     <string name="label_note">%s/10 \nAvaliação</string>
     <string name="label_realese_data">Lançamento %s</string>
 
+    <string name="label_without_internet">Sem acesso a Internet</string>
+
     <string name="KEY_MOVIE">key_movie</string>
 
 </resources>

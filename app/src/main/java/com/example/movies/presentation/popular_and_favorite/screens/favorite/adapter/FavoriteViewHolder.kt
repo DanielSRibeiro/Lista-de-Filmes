@@ -18,6 +18,7 @@ class FavoriteViewHolder(
     fun bind(movie: Movie) {
         Glide.with(itemView)
             .load(movie.posterUrl)
+            .fallback(R.drawable.ic_img_loading_error)
             .into(binding.imgMovieFavorite)
 
         binding.txtMovieTitleFavorite.text = movie.title

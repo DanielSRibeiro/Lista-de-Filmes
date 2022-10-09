@@ -41,7 +41,7 @@
         android:layout_toEndOf="@+id/cardView_popular"
         android:singleLine="true"
         android:text="@string/release_date"
-        android:textColor="@color/colorGray"
+        android:textColor="@color/color_gray"
         android:textSize="12sp" />
 
     <TextView
@@ -53,7 +53,7 @@
         android:layout_toEndOf="@+id/cardView_popular"
         android:maxLines="3"
         android:text="@string/movie_description"
-        android:textColor="@color/colorGray"
+        android:textColor="@color/color_gray"
         android:textSize="14sp" />
 
 </RelativeLayout>

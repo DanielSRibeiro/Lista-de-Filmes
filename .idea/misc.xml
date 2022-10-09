@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/drawable-v24/ic_img_loading_error.xml" value="0.22" />
+        <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/drawable/favorito.xml" value="0.139" />
         <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/layout-v26/fragment_details.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Daniel/Documents/Projetos/Lista-de-Filmes/app/src/main/res/layout/fragment_details.xml" value="0.37083333333333335" />

@@ -46,7 +46,11 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Glide.with(binding.root).load(currentMovie.backdropUrl).into(binding.imgMovieDetails)
+        Glide.with(binding.root)
+            .load(currentMovie.backdropUrl)
+            .fallback(R.drawable.ic_img_loading_error)
+            .into(binding.imgMovieDetails)
+
         binding.txtMovieNoteDetails.text = getString(R.string.label_note, currentMovie.note.toString())
         binding.txtMovieTitleDetails.text = currentMovie.title
         binding.txtMovieDescriptionDetails.text = currentMovie.overview
