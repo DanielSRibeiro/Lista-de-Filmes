@@ -1,14 +1,14 @@
-package com.example.movies.domain.usecase.local
+package com.example.core.usecase.local
 
+import com.example.core.data.datasource.CategoryLocalRepository
 import com.example.core.domain.model.Category
-import com.example.movies.framework.db.repository.CategoryLocalRepository
 
-interface SaveCategoryUseCase {
+interface SaveCategoryLocalUseCase {
     suspend operator fun invoke(category: Category): Long
 }
 
-class SaveCategory(
+class SaveCategoryLocalUseCaseImpl(
     private val repository: CategoryLocalRepository
-) : SaveCategoryUseCase {
+) : SaveCategoryLocalUseCase {
     override suspend fun invoke(category: Category): Long = repository.save(category)
 }

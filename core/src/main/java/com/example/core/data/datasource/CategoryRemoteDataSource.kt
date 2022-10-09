@@ -1,4 +1,4 @@
-package com.example.core.data.repository
+package com.example.core.data.datasource
 
 import com.example.core.domain.model.Resource
 

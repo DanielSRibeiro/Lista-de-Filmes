@@ -1,6 +1,6 @@
 package com.example.movies.framework.network.repository
 
-import com.example.core.data.repository.MovieRemoteDataSource
+import com.example.core.data.datasource.MovieRemoteDataSource
 import com.example.core.data.repository.MovieRepository
 import com.example.movies.framework.network.response.movieResponseDtoToMovie
 import com.example.core.domain.model.Movie

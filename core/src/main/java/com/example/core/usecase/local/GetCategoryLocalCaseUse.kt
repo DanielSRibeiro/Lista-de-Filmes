@@ -1,13 +1,13 @@
-package com.example.movies.domain.usecase.local
+package com.example.core.usecase.local
 
+import com.example.core.data.datasource.CategoryLocalRepository
 import com.example.core.domain.model.Category
-import com.example.movies.framework.db.repository.CategoryLocalRepository
 
 interface GetCategoryUseCase {
     suspend operator fun invoke(): List<Category>
 }
-class GetCategory(
+class GetCategoryLocalCaseUseImpl(
     private val categoryLocalRepository: CategoryLocalRepository
-) : GetCategoryUseCase{
+) : GetCategoryUseCase {
     override suspend fun invoke(): List<Category> = categoryLocalRepository.getAll()
 }

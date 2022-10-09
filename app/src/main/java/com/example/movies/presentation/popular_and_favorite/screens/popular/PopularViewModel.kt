@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.domain.model.Resource
 import com.example.core.domain.model.Movie
-import com.example.movies.domain.usecase.remote.GetAllMoviesUseCase
-import com.example.movies.domain.usecase.remote.SearchMoviesUseCase
+import com.example.core.usecase.remote.GetAllMoviesUseCase
+import com.example.core.usecase.remote.SearchMoviesUseCase
 import kotlinx.coroutines.launch
 
 class PopularViewModel(

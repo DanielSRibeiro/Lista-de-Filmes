@@ -1,13 +1,13 @@
-package com.example.movies.domain.usecase.local
+package com.example.core.usecase.local
 
+import com.example.core.data.datasource.MovieLocalRepository
 import com.example.core.domain.model.Movie
-import com.example.movies.framework.db.repository.MovieLocalRepository
 
-interface InsertMovieUseCase{
+interface InsertMovieLocalUseCase{
     suspend operator fun invoke(movie: Movie) : Long
 }
-class InsertMovieImpl(
+class InsertMovieLocalUseCaseImpl(
     private val movieLocalRepository: MovieLocalRepository
-) : InsertMovieUseCase{
+) : InsertMovieLocalUseCase {
     override suspend operator fun invoke(movie: Movie) = movieLocalRepository.insertMovie(movie)
 }

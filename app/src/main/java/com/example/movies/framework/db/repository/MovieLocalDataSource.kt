@@ -1,25 +1,13 @@
 package com.example.movies.framework.db.repository
 
+import com.example.core.data.datasource.MovieLocalRepository
 import com.example.movies.framework.db.dao.MovieDAO
 import com.example.movies.framework.db.entity.MovieEntity
 import com.example.movies.framework.db.entity.movieEntityToMovie
 import com.example.core.domain.model.Movie
 import com.example.movies.util.Utils
 
-interface MovieLocalRepository {
-
-    suspend fun insertMovie(Movie: Movie): Long
-
-    suspend fun deleteMovie(id: Long)
-
-    fun checkMovieState(id: Long): Boolean
-
-    suspend fun getAllMovie(): List<Movie>
-
-    suspend fun getSearchName(titulo: String): List<Movie>
-}
-
-class MovieDataSource(
+class MovieLocalDataSource(
     private var movieDao: MovieDAO
 ) : MovieLocalRepository {
 

@@ -6,16 +6,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.domain.model.Movie
-import com.example.movies.domain.usecase.local.*
+import com.example.core.usecase.local.CheckStateLocalUseCase
+import com.example.core.usecase.local.DeleteMovieLocalCaseUse
+import com.example.core.usecase.local.GetCategoryUseCase
+import com.example.core.usecase.local.InsertMovieLocalUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class DetailsViewModel(
     private val getCategory: GetCategoryUseCase,
-    private val insertMovie: InsertMovieUseCase,
-    private val checkMovieState: CheckMovieStateUseCase,
-    private val deleteMovie: DeleteMovieCaseUse,
+    private val insertMovie: InsertMovieLocalUseCase,
+    private val checkMovieState: CheckStateLocalUseCase,
+    private val deleteMovie: DeleteMovieLocalCaseUse,
 ) : ViewModel() {
 
     private val _categoriesNames = MutableLiveData<String>()

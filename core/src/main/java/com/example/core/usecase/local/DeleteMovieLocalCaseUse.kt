@@ -1,12 +1,12 @@
-package com.example.movies.domain.usecase.local
+package com.example.core.usecase.local
 
-import com.example.movies.framework.db.repository.MovieLocalRepository
+import com.example.core.data.datasource.MovieLocalRepository
 
-interface DeleteMovieCaseUse {
+interface DeleteMovieLocalCaseUse {
     suspend operator fun invoke(id:Int)
 }
-class DeleteMovieImpl(
+class DeleteMovieLocalCaseUseImpl(
     private val movieLocalRepository: MovieLocalRepository
-) : DeleteMovieCaseUse{
+) : DeleteMovieLocalCaseUse {
     override suspend operator fun invoke(id:Int) = movieLocalRepository.deleteMovie(id.toLong())
 }

@@ -1,25 +1,25 @@
 package com.example.movies.framework.di
 
 import android.content.Context
+import com.example.core.data.datasource.CategoryLocalRepository
 import com.example.core.data.repository.CategoriesRepository
-import com.example.core.data.repository.CategoryRemoteDataSource
-import com.example.core.data.repository.MovieRemoteDataSource
+import com.example.core.data.datasource.CategoryRemoteDataSource
+import com.example.core.data.datasource.MovieLocalRepository
+import com.example.core.data.datasource.MovieRemoteDataSource
 import com.example.core.data.repository.MovieRepository
 import com.example.core.domain.model.Category
 import com.example.core.domain.model.Movie
+import com.example.core.usecase.local.*
+import com.example.core.usecase.remote.*
 import com.example.movies.BuildConfig
 import com.example.movies.framework.network.interceptor.AuthorizationInterceptor
 import com.example.movies.framework.network.repository.CategoriesRepositoryImpl
 import com.example.movies.framework.network.repository.MovieRepositoryImpl
-import com.example.movies.domain.usecase.local.*
-import com.example.movies.domain.usecase.remote.*
 import com.example.movies.framework.db.AppDatabase
 import com.example.movies.framework.db.dao.CategoryDAO
 import com.example.movies.framework.db.dao.MovieDAO
-import com.example.movies.framework.db.repository.CategoryDataSource
-import com.example.movies.framework.db.repository.CategoryLocalRepository
-import com.example.movies.framework.db.repository.MovieDataSource
-import com.example.movies.framework.db.repository.MovieLocalRepository
+import com.example.movies.framework.db.repository.CategoryLocalDataSource
+import com.example.movies.framework.db.repository.MovieLocalDataSource
 import com.example.movies.framework.network.MovieApi
 import com.example.movies.framework.network.response.ResultsCategoriesResponseDto
 import com.example.movies.framework.network.response.ResultsMoviesResponseDto
@@ -103,19 +103,19 @@ object DependencyModule {
         single<CategoryRemoteDataSource<ResultsCategoriesResponseDto>> { CategoryRemoteDataSourceImpl(get()) }
         single<CategoriesRepository<Category>> { CategoriesRepositoryImpl(get()) }
 
-        single<MovieLocalRepository> { MovieDataSource(get()) }
-        single<CategoryLocalRepository> { CategoryDataSource(get()) }
+        single<MovieLocalRepository> { MovieLocalDataSource(get()) }
+        single<CategoryLocalRepository> { CategoryLocalDataSource(get()) }
 
-        single<SearchMoviesUseCase> { SearchMovies(get()) }
-        single<GetAllCategoriesUseCase> { GetAllCategories(get()) }
-        single<CheckMovieStateUseCase> { CheckMovieStateImpl(get()) }
-        single<SelectMovieUseCase> { SearchMovieLocal(get()) }
-        single<InsertMovieUseCase> { InsertMovieImpl(get()) }
-        single<DeleteMovieCaseUse> { DeleteMovieImpl(get()) }
-        single<SaveCategoryUseCase> { SaveCategory(get()) }
-        single<GetAllMoviesUseCase> { GetAllMovies(get()) }
-        single<GetCategoryUseCase> { GetCategory(get()) }
-        single<GetAllMoviesLocalUseCase> { GetAllMoviesLocal(get()) }
+        single<SearchMoviesUseCase> { SearchMoviesUseCaseImp(get()) }
+        single<GetAllCategoriesUseCase> { GetAllCategoriesUseCaseImpl(get()) }
+        single<CheckStateLocalUseCase> { CheckStateLocalUseCaseImpl(get()) }
+        single<SearchMovieLocalUseCase> { SearchMovieLocalLocalImpl(get()) }
+        single<InsertMovieLocalUseCase> { InsertMovieLocalUseCaseImpl(get()) }
+        single<DeleteMovieLocalCaseUse> { DeleteMovieLocalCaseUseImpl(get()) }
+        single<SaveCategoryLocalUseCase> { SaveCategoryLocalUseCaseImpl(get()) }
+        single<GetAllMoviesUseCase> { GetAllMoviesUseCaseImpl(get()) }
+        single<GetCategoryUseCase> { GetCategoryLocalCaseUseImpl(get()) }
+        single<GetAllMoviesLocalUseCase> { GetAllMoviesLocalCaseUseImpl(get()) }
 
         viewModel { PopularViewModel(get(), get()) }
         viewModel { DetailsViewModel(get(), get(), get(), get()) }

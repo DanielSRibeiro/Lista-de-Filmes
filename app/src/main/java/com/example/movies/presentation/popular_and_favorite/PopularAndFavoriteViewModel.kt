@@ -5,12 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.domain.model.Category
 import com.example.core.domain.model.Resource
-import com.example.movies.domain.usecase.local.SaveCategoryUseCase
-import com.example.movies.domain.usecase.remote.GetAllCategoriesUseCase
+import com.example.core.usecase.local.SaveCategoryLocalUseCase
+import com.example.core.usecase.remote.GetAllCategoriesUseCase
 import kotlinx.coroutines.launch
 
 class PopularAndFavoriteViewModel(
-    private val saveCategory: SaveCategoryUseCase,
+    private val saveCategory: SaveCategoryLocalUseCase,
     private var getAllCategories: GetAllCategoriesUseCase
 ) : ViewModel() {
 

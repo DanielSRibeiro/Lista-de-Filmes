@@ -1,6 +1,6 @@
 package com.example.movies.framework.remote
 
-import com.example.core.data.repository.CategoryRemoteDataSource
+import com.example.core.data.datasource.CategoryRemoteDataSource
 import com.example.movies.framework.network.MovieApi
 import com.example.movies.framework.network.response.ResultsCategoriesResponseDto
 import com.example.core.domain.model.Resource

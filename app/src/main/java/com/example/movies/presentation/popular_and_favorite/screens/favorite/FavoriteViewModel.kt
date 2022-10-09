@@ -6,14 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.domain.model.Movie
-import com.example.movies.domain.usecase.local.DeleteMovieCaseUse
-import com.example.movies.domain.usecase.local.GetAllMoviesLocalUseCase
-import com.example.movies.domain.usecase.local.SelectMovieUseCase
+import com.example.core.usecase.local.DeleteMovieLocalCaseUse
+import com.example.core.usecase.local.GetAllMoviesLocalUseCase
+import com.example.core.usecase.local.SearchMovieLocalUseCase
 import kotlinx.coroutines.launch
 
 class FavoriteViewModel(
-    private val deleteMovie: DeleteMovieCaseUse,
-    private val searchMovie: SelectMovieUseCase,
+    private val deleteMovie: DeleteMovieLocalCaseUse,
+    private val searchMovie: SearchMovieLocalUseCase,
     private val getAllMovies: GetAllMoviesLocalUseCase,
 ) : ViewModel() {
 
