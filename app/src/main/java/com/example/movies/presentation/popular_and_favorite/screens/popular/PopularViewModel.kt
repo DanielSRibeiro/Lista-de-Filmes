@@ -1,14 +1,14 @@
 package com.example.movies.presentation.popular_and_favorite.screens.popular
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import androidx.paging.*
 import com.example.core.ErrorStates
 import com.example.core.domain.model.Resource
 import com.example.core.domain.model.Movie
 import com.example.core.usecase.remote.GetAllMoviesUseCase
 import com.example.core.usecase.remote.SearchMoviesUseCase
+import com.example.movies.framework.paging.MoviePagingSource
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 class PopularViewModel(
@@ -44,7 +44,7 @@ class PopularViewModel(
         }
     }
 
-    fun seachMovie(query: String) {
+    fun searchMovie(query: String) {
         viewModelScope.launch {
             _progressBar.value = true
             val resource = searchMovies.invoke(query)
@@ -61,8 +61,6 @@ class PopularViewModel(
 
                 }
             }
-
-
         }
     }
 }

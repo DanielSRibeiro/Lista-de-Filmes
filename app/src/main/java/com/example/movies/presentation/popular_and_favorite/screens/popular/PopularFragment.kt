@@ -46,7 +46,7 @@ class PopularFragment : Fragment(), IOnAction {
     }
 
     override fun executeAction(name: String) {
-        popularViewModel.seachMovie(name)
+        popularViewModel.searchMovie(name)
     }
 
     override fun executeAction() {
