@@ -1,4 +1,4 @@
-package com.example.core.data.datasource
+package com.example.core.data.repository
 
 import com.example.core.domain.model.Category
 

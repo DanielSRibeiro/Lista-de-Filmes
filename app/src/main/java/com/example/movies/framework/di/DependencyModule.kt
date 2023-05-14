@@ -1,10 +1,10 @@
 package com.example.movies.framework.di
 
 import android.content.Context
-import com.example.core.data.datasource.CategoryLocalRepository
+import com.example.core.data.repository.CategoryLocalRepository
 import com.example.core.data.repository.CategoriesRepository
 import com.example.core.data.datasource.CategoryRemoteDataSource
-import com.example.core.data.datasource.MovieLocalRepository
+import com.example.core.data.repository.MovieLocalRepository
 import com.example.core.data.datasource.MovieRemoteDataSource
 import com.example.core.data.repository.MovieRepository
 import com.example.core.domain.model.Category

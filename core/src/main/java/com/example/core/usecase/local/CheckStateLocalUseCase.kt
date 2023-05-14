@@ -1,6 +1,6 @@
 package com.example.core.usecase.local
 
-import com.example.core.data.datasource.MovieLocalRepository
+import com.example.core.data.repository.MovieLocalRepository
 
 interface CheckStateLocalUseCase {
     suspend operator fun invoke(id:Int) :Boolean

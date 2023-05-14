@@ -1,10 +1,10 @@
-package com.example.core.data.datasource
+package com.example.core.data.repository
 
 import com.example.core.domain.model.Movie
 
 interface MovieLocalRepository {
 
-    suspend fun insertMovie(Movie: Movie): Long
+    suspend fun insertMovie(movie: Movie): Long
 
     suspend fun deleteMovie(id: Long)
 
@@ -12,5 +12,5 @@ interface MovieLocalRepository {
 
     suspend fun getAllMovie(): List<Movie>
 
-    suspend fun getSearchName(titulo: String): List<Movie>
+    suspend fun getSearchName(title: String): List<Movie>
 }

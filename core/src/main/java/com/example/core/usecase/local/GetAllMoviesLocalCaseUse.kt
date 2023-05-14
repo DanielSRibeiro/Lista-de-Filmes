@@ -1,6 +1,6 @@
 package com.example.core.usecase.local
 
-import com.example.core.data.datasource.MovieLocalRepository
+import com.example.core.data.repository.MovieLocalRepository
 import com.example.core.domain.model.Movie
 
 interface GetAllMoviesLocalUseCase {

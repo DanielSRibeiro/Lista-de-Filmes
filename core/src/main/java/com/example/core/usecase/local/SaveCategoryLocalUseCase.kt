@@ -1,6 +1,6 @@
 package com.example.core.usecase.local
 
-import com.example.core.data.datasource.CategoryLocalRepository
+import com.example.core.data.repository.CategoryLocalRepository
 import com.example.core.domain.model.Category
 
 interface SaveCategoryLocalUseCase {

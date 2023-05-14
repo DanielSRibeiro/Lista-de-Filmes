@@ -1,14 +1,11 @@
 package com.example.movies.presentation.popular_and_favorite.screens.popular
 
 import androidx.lifecycle.*
-import androidx.paging.*
 import com.example.core.ErrorStates
 import com.example.core.domain.model.Resource
 import com.example.core.domain.model.Movie
 import com.example.core.usecase.remote.GetAllMoviesUseCase
 import com.example.core.usecase.remote.SearchMoviesUseCase
-import com.example.movies.framework.paging.MoviePagingSource
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 class PopularViewModel(
@@ -36,7 +33,6 @@ class PopularViewModel(
                     _errorNetwork.value = false
                 }
                 is Resource.Fail -> {
-                    _list.value = null
                     if(resource.status == ErrorStates.NoInternet)
                         _errorNetwork.value = true
                 }
@@ -55,10 +51,9 @@ class PopularViewModel(
                     _errorNetwork.value = false
                 }
                 is Resource.Fail -> {
-                    _list.value = null
                     if(resource.status == ErrorStates.NoInternet)
                         _errorNetwork.value = true
-
+                    else _list.value = null
                 }
             }
         }

@@ -1,6 +1,6 @@
 package com.example.movies.framework.db.repository
 
-import com.example.core.data.datasource.MovieLocalRepository
+import com.example.core.data.repository.MovieLocalRepository
 import com.example.movies.framework.db.dao.MovieDAO
 import com.example.movies.framework.db.entity.MovieEntity
 import com.example.movies.framework.db.entity.movieEntityToMovie
